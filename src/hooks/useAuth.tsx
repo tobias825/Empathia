@@ -6,20 +6,21 @@ import { useState, useEffect, useCallback }
 from 'react';
 import { useRouter } from 'next/navigation';
 
-const AUTH_KEY = 'empathia_auth_token'; // Updated key name for clarity
+const AUTH_KEY = 'empathia_auth_token';
 
 interface User {
   name: string;
   email: string;
+  password?: string; // Added mock password field
 }
 
 interface AuthState {
   isAuthenticated: boolean;
   isLoading: boolean;
   user: User | null;
-  login: (email?: string, redirectTo?: string) => void;
+  login: (email?: string, password?: string, redirectTo?: string) => void;
   logout: () => void;
-  register: (name?: string, email?: string, redirectTo?: string) => void;
+  register: (name?: string, email?: string, password?: string, redirectTo?: string) => void;
 }
 
 export function useAuth(): AuthState {
@@ -36,17 +37,17 @@ export function useAuth(): AuthState {
       if (storedUser) {
         setUser(JSON.parse(storedUser));
       } else {
-        // Fallback if user data isn't in local storage but token exists
-        setUser({ name: 'Empathia User', email: 'user@empathia.app' });
+        setUser({ name: 'Empathia User', email: 'user@empathia.app', password: 'mockPassword123' });
       }
     }
     setIsLoading(false);
   }, []);
 
-  const login = useCallback((email?: string, redirectTo: string = '/app/chat') => {
+  const login = useCallback((email?: string, password?: string, redirectTo: string = '/app/chat') => {
     const mockUser: User = {
-      name: 'Usuario Empathia',
-      email: email || 'usuario@empathia.app', // Use provided email or a default
+      name: 'Usuario Empathia', // This could be fetched or set based on actual logic
+      email: email || 'usuario@empathia.app',
+      password: password || 'mockPassword123', // Simulate password
     };
     localStorage.setItem(AUTH_KEY, 'mock_token');
     localStorage.setItem(`${AUTH_KEY}_user`, JSON.stringify(mockUser));
@@ -63,12 +64,12 @@ export function useAuth(): AuthState {
     router.push('/login');
   }, [router]);
 
-  const register = useCallback((name?: string, email?: string, redirectTo: string = '/app/chat') => {
+  const register = useCallback((name?: string, email?: string, password?: string, redirectTo: string = '/app/chat') => {
     const mockUser: User = {
       name: name || 'Nuevo Usuario',
       email: email || 'nuevo@empathia.app',
+      password: password || 'mockPassword123', // Simulate password
     };
-    // In a real app, this would involve an API call
     localStorage.setItem(AUTH_KEY, 'mock_token_registered');
     localStorage.setItem(`${AUTH_KEY}_user`, JSON.stringify(mockUser));
     setIsAuthenticated(true);

@@ -3,6 +3,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import React, { useState } from 'react'; // Added useState
 import {
   Sidebar,
   SidebarHeader,
@@ -19,13 +20,14 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import Logo from '@/components/Logo';
 import { useAuth } from '@/hooks/useAuth.tsx';
-import { MessageSquare, BarChart3, LifeBuoy, LogOut, Settings, UserCircle, Globe, Moon, Sun } from 'lucide-react';
+import { MessageSquare, BarChart3, LifeBuoy, LogOut, Settings, UserCircle, Globe, Moon, Sun, Mail, KeyRound, Eye, EyeOff } from 'lucide-react'; // Added Mail, KeyRound, Eye, EyeOff
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useTheme } from '@/contexts/ThemeContext';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuLabel, // Added DropdownMenuLabel
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
@@ -37,6 +39,7 @@ export function AppSidebar() {
   const { state } = useSidebar();
   const { language, setLanguage, t } = useLanguage();
   const { theme, toggleTheme } = useTheme(); 
+  const [showPassword, setShowPassword] = useState(false); // State for password visibility
 
   const navItems = [
     { href: '/app/chat', translations: { es: 'Chat', en: 'Chat' }, icon: MessageSquare },
@@ -45,7 +48,7 @@ export function AppSidebar() {
   ];
 
   const commonLabels = {
-    profile: { es: 'Perfil (Próximamente)', en: 'Profile (Coming Soon)' },
+    profile: { es: 'Perfil', en: 'Profile' },
     settings: { es: 'Configuración (Próximamente)', en: 'Settings (Coming Soon)' },
     logout: { es: 'Cerrar Sesión', en: 'Log Out' },
     switchToEnglish: { es: 'Cambiar a Inglés', en: 'Switch to English' },
@@ -57,8 +60,14 @@ export function AppSidebar() {
     darkMode: { es: 'Modo Oscuro', en: 'Dark Mode' },
     lightMode: { es: 'Modo Claro', en: 'Light Mode' },
     userNamePlaceholder: { es: 'Usuario Empathia', en: 'Empathia User' },
-    userEmailPlaceholder: { es: 'usuario@empathia.app', en: 'user@empathia.app' },
+    emailLabel: { es: 'Correo Electrónico', en: 'Email' },
+    passwordLabel: { es: 'Contraseña', en: 'Password' },
     navigationHeader: { es: 'Navegación', en: 'Navigation'}
+  };
+
+  const handlePasswordToggle = (e: React.MouseEvent) => {
+    e.stopPropagation(); // Prevent dropdown from closing
+    setShowPassword(!showPassword);
   };
 
   return (
@@ -68,10 +77,10 @@ export function AppSidebar() {
           {state === 'expanded' && <Logo iconSize={24} textSize="text-xl" />}
         </div>
       </SidebarHeader>
-      <SidebarContent className="p-2 flex flex-col"> {/* Ensures flex column layout and padding for children */}
+      <SidebarContent className="p-2 flex flex-col">
         
-        <ScrollArea className="flex-1 min-h-0"> {/* Scrollable area takes available space and can shrink */}
-          <SidebarMenu className="py-2"> {/* Padding for the menu list itself */}
+        <ScrollArea className="flex-1 min-h-0">
+          <SidebarMenu className="py-2">
             {navItems.map((item) => (
               <SidebarMenuItem key={item.href}>
                 <SidebarMenuButton
@@ -89,8 +98,6 @@ export function AppSidebar() {
           </SidebarMenu>
         </ScrollArea>
       
-        {/* Fixed sections below scroll area, with their own spacing */}
-        {/* Added mt-4 for spacing from scroll area, and gap-4 for internal spacing of fixed items */}
         <div className="mt-4 flex flex-col gap-4"> 
           <div className="group-data-[collapsible=icon]:p-0 group-data-[collapsible=icon]:flex group-data-[collapsible=icon]:justify-center">
             {state === 'expanded' ? (
@@ -170,11 +177,11 @@ export function AppSidebar() {
       </SidebarContent>
       
       <SidebarSeparator />
-      <SidebarFooter className="p-2 mt-auto"> {/* mt-auto pushes this to the bottom of Sidebar's flex container */}
-        {state === 'expanded' ? (
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <div className="p-2 flex items-center gap-3 hover:bg-sidebar-accent rounded-md cursor-pointer transition-colors"> {/* Removed mt-4, border-t, pt-4 to simplify, relying on SidebarSeparator and parent flex for positioning */}
+      <SidebarFooter className="p-2 mt-auto">
+        <DropdownMenu onOpenChange={(open) => { if (!open) setShowPassword(false); }}>
+          <DropdownMenuTrigger asChild>
+            {state === 'expanded' ? (
+              <div className="p-2 flex items-center gap-3 hover:bg-sidebar-accent rounded-md cursor-pointer transition-colors">
                 <Avatar>
                   <AvatarImage src="https://placehold.co/40x40.png" alt={user?.name || t(commonLabels.userNamePlaceholder)} data-ai-hint="profile avatar" />
                   <AvatarFallback>{user?.name?.charAt(0).toUpperCase() || 'U'}</AvatarFallback>
@@ -183,54 +190,57 @@ export function AppSidebar() {
                   <p className="text-sm font-medium text-sidebar-foreground truncate" title={user?.name || t(commonLabels.userNamePlaceholder)}>
                     {user?.name || t(commonLabels.userNamePlaceholder)}
                   </p>
-                  <p className="text-xs text-sidebar-foreground/70 truncate" title={user?.email || t(commonLabels.userEmailPlaceholder)}>
-                    {user?.email || t(commonLabels.userEmailPlaceholder)}
-                  </p>
+                  {/* Email removed from direct display here */}
                 </div>
               </div>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent side="top" align="start" className="w-56">
-              <DropdownMenuItem disabled>
-                <UserCircle className="mr-2 h-4 w-4" />
-                <span>{t(commonLabels.profile)}</span>
-              </DropdownMenuItem>
-              <DropdownMenuItem disabled>
-                <Settings className="mr-2 h-4 w-4" />
-                <span>{t(commonLabels.settings)}</span>
-              </DropdownMenuItem>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem onClick={logout}>
-                <LogOut className="mr-2 h-4 w-4" />
-                <span>{t(commonLabels.logout)}</span>
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-        ) : (
-          <div className="flex justify-center items-center py-2">
-             <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                    <Button variant="ghost" size="icon" className="w-full" aria-label={t(commonLabels.settings)}>
-                        <UserCircle />
-                    </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent side="right" align="center" className="w-56">
-                    <DropdownMenuItem disabled>
-                        <UserCircle className="mr-2 h-4 w-4" />
-                        <span>{t(commonLabels.profile)}</span>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem disabled>
-                        <Settings className="mr-2 h-4 w-4" />
-                        <span>{t(commonLabels.settings)}</span>
-                    </DropdownMenuItem>
-                    <DropdownMenuSeparator />
-                    <DropdownMenuItem onClick={logout}>
-                        <LogOut className="mr-2 h-4 w-4" />
-                        <span>{t(commonLabels.logout)}</span>
-                    </DropdownMenuItem>
-                </DropdownMenuContent>
-            </DropdownMenu>
-          </div>
-        )}
+            ) : (
+              <Button variant="ghost" size="icon" className="w-full" aria-label={t(commonLabels.profile)}>
+                  <UserCircle />
+              </Button>
+            )}
+          </DropdownMenuTrigger>
+          <DropdownMenuContent 
+            side={state === 'expanded' ? "top" : "right"} 
+            align={state === 'expanded' ? "start" : "center"} 
+            className="w-64" // Increased width for better layout
+          >
+            <DropdownMenuLabel>{t(commonLabels.profile)}</DropdownMenuLabel>
+            <DropdownMenuItem onSelect={(e) => e.preventDefault()} className="focus:bg-transparent pointer-events-none">
+              <Mail className="mr-2 h-4 w-4 text-muted-foreground" />
+              <span className="text-sm text-muted-foreground">{t(commonLabels.emailLabel)}: </span>
+              <span className="ml-1 text-sm">{user?.email || 'N/A'}</span>
+            </DropdownMenuItem>
+            
+            <DropdownMenuItem onSelect={(e) => e.preventDefault()} className="focus:bg-transparent flex items-center justify-between">
+              <div className="flex items-center">
+                <KeyRound className="mr-2 h-4 w-4 text-muted-foreground" />
+                <span className="text-sm text-muted-foreground">{t(commonLabels.passwordLabel)}: </span>
+                <span className="ml-1 text-sm flex-1">
+                  {showPassword ? (user?.password || 'N/A') : '••••••••'}
+                </span>
+              </div>
+              <Button
+                variant="ghost"
+                size="icon"
+                className="h-6 w-6 p-0 ml-2 shrink-0"
+                onClick={handlePasswordToggle}
+                aria-label={showPassword ? "Ocultar contraseña" : "Mostrar contraseña"}
+              >
+                {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+              </Button>
+            </DropdownMenuItem>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem disabled>
+              <Settings className="mr-2 h-4 w-4" />
+              <span>{t(commonLabels.settings)}</span>
+            </DropdownMenuItem>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem onClick={logout}>
+              <LogOut className="mr-2 h-4 w-4" />
+              <span>{t(commonLabels.logout)}</span>
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
       </SidebarFooter>
     </Sidebar>
   );
