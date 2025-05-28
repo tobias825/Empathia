@@ -114,7 +114,7 @@ export function ChatInterface() {
     if (animatingMessageId) {
       const timer = setTimeout(() => {
         setAnimatingMessageId(null);
-      }, 500); // A bit longer than the animation duration (0.3s)
+      }, 700); // Adjusted from 500ms to 700ms
       return () => clearTimeout(timer);
     }
   }, [animatingMessageId]);

@@ -7,7 +7,7 @@
   @keyframes message-appear {
     from {
       opacity: 0;
-      transform: translateY(10px);
+      transform: translateY(15px); /* Aumentado de 10px a 15px */
     }
     to {
       opacity: 1;
@@ -18,7 +18,7 @@
 
 @layer utilities {
   .animate-message-appear {
-    animation: message-appear 0.3s ease-out forwards;
+    animation: message-appear 0.5s ease-out forwards; /* Aumentado de 0.3s a 0.5s */
   }
 }
 
