@@ -1,20 +1,23 @@
+
 import type { ChatMessage as ChatMessageType } from '@/types';
 import { cn } from '@/lib/utils';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Bot, User } from 'lucide-react';
 
 interface ChatMessageProps {
   message: ChatMessageType;
+  isAnimating?: boolean;
 }
 
-export function ChatMessage({ message }: ChatMessageProps) {
+export function ChatMessage({ message, isAnimating }: ChatMessageProps) {
   const isUser = message.role === 'user';
 
   return (
     <div
       className={cn(
         'flex items-start gap-3 py-3',
-        isUser ? 'justify-end' : 'justify-start'
+        isUser ? 'justify-end' : 'justify-start',
+        isAnimating && 'animate-message-appear'
       )}
     >
       {!isUser && (

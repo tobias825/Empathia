@@ -12,7 +12,7 @@ import { useToast } from '@/hooks/use-toast';
 import { useLanguage } from '@/contexts/LanguageContext';
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 
-const CHAT_HISTORY_KEY = 'sereno_ai_chat_history';
+const CHAT_HISTORY_KEY = 'empathia_ai_chat_history';
 
 declare global {
   interface Window {
@@ -33,7 +33,6 @@ export function ChatInterface() {
   const [speechApiSupported, setSpeechApiSupported] = useState(false);
   const recognitionRef = useRef<SpeechRecognition | null>(null);
 
-  // Refs for audio visualizer
   const audioContextRef = useRef<AudioContext | null>(null);
   const analyserRef = useRef<AnalyserNode | null>(null);
   const sourceRef = useRef<MediaStreamAudioSourceNode | null>(null);
@@ -41,6 +40,8 @@ export function ChatInterface() {
   const animationFrameIdRef = useRef<number | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const mediaStreamRef = useRef<MediaStream | null>(null);
+
+  const [animatingMessageId, setAnimatingMessageId] = useState<string | null>(null);
 
 
   const translations = {
@@ -83,16 +84,19 @@ export function ChatInterface() {
     if (storedHistory) {
       setMessages(JSON.parse(storedHistory));
     } else {
+      const welcomeMsgId = 'ai-welcome';
       setMessages([
         {
-          id: 'ai-welcome',
+          id: welcomeMsgId,
           role: 'assistant',
           content: t(translations.welcomeMessage),
           timestamp: new Date(),
         },
       ]);
+      // Optionally animate the welcome message too, though user asked for AI "responses"
+      // setAnimatingMessageId(welcomeMsgId); 
     }
-  }, [t]);
+  }, [t]); // Ensure t is a dependency if translations change with language
 
   useEffect(() => {
     if (messages.length > 0) {
@@ -105,6 +109,15 @@ export function ChatInterface() {
       }
     }
   }, [messages]);
+
+  useEffect(() => {
+    if (animatingMessageId) {
+      const timer = setTimeout(() => {
+        setAnimatingMessageId(null);
+      }, 500); // A bit longer than the animation duration (0.3s)
+      return () => clearTimeout(timer);
+    }
+  }, [animatingMessageId]);
 
   const handleSendMessage = async () => {
     if (input.trim() === '' || isLoading) return;
@@ -140,6 +153,7 @@ export function ChatInterface() {
         timestamp: new Date(),
       };
       setMessages((prevMessages) => [...prevMessages, newAiMessage]);
+      setAnimatingMessageId(newAiMessage.id); // Trigger animation for this new AI message
     } catch (error) {
       console.error('Error al obtener respuesta de IA:', error);
       toast({
@@ -154,6 +168,7 @@ export function ChatInterface() {
         timestamp: new Date(),
       };
       setMessages((prevMessages) => [...prevMessages, errorAiMessage]);
+      setAnimatingMessageId(errorAiMessage.id); // Also animate error messages from AI
     } finally {
       setIsLoading(false);
     }
@@ -172,11 +187,11 @@ export function ChatInterface() {
 
     analyserRef.current.getByteTimeDomainData(dataArrayRef.current);
 
-    let bgColor = 'hsl(30 80% 97%)'; // Default light card
-    let lineColor = 'hsl(20 85% 75%)'; // Default light primary
+    let bgColor = 'hsl(30 80% 97%)'; 
+    let lineColor = 'hsl(20 85% 75%)'; 
     if (document.documentElement.classList.contains('dark')) {
-        bgColor = 'hsl(25 15% 12%)'; // Default dark card
-        lineColor = 'hsl(20 70% 60%)'; // Default dark primary
+        bgColor = 'hsl(25 15% 12%)'; 
+        lineColor = 'hsl(20 70% 60%)'; 
     }
     
     canvasCtx.fillStyle = bgColor;
@@ -249,17 +264,16 @@ export function ChatInterface() {
     }
 
     if (isRecording && recognitionRef.current) {
-      recognitionRef.current.stop(); // This will trigger onend where cleanup happens
+      recognitionRef.current.stop(); 
       return;
     }
 
     try {
-      // Ensure existing stream/context are cleaned up if any remained unexpectedly
       mediaStreamRef.current?.getTracks().forEach(track => track.stop());
       if (audioContextRef.current && audioContextRef.current.state !== 'closed') {
           await audioContextRef.current.close().catch(e => console.warn("Pre-close audio context error:", e));
       }
-      audioContextRef.current = null; // Reset for new setup
+      audioContextRef.current = null; 
 
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
       mediaStreamRef.current = stream;
@@ -296,7 +310,7 @@ export function ChatInterface() {
             interimTranscript += event.results[i][0].transcript;
           }
         }
-        finalTranscriptAccumulator = currentFinal; // Persist final part
+        finalTranscriptAccumulator = currentFinal; 
         setInput(finalTranscriptAccumulator.trimStart() + interimTranscript);
       };
 
@@ -314,7 +328,6 @@ export function ChatInterface() {
         setIsRecording(false); 
         sourceRef.current?.disconnect();
         sourceRef.current = null;
-        // analyserRef.current does not need disconnect if source is gone
         
         if (audioContextRef.current && audioContextRef.current.state !== 'closed') {
             audioContextRef.current.close().catch(e => console.error("Error closing audio context:", e));
@@ -340,7 +353,7 @@ export function ChatInterface() {
       mediaStreamRef.current = null;
       audioContextRef.current = null;
     }
-  }, [isRecording, speechApiSupported, language, t, toast, input, drawVisualizer]);
+  }, [isRecording, speechApiSupported, language, t, toast, input]);
 
 
   return (
@@ -348,7 +361,11 @@ export function ChatInterface() {
       <ScrollArea className="flex-1 p-4" ref={scrollAreaRef}>
         <div className="space-y-4">
           {messages.map((msg) => (
-            <ChatMessage key={msg.id} message={msg} />
+            <ChatMessage 
+              key={msg.id} 
+              message={msg} 
+              isAnimating={msg.id === animatingMessageId && msg.role === 'assistant'}
+            />
           ))}
         </div>
       </ScrollArea>
@@ -395,4 +412,3 @@ export function ChatInterface() {
     </div>
   );
 }
-
