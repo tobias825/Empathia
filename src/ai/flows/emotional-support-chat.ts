@@ -1,3 +1,4 @@
+
 'use server';
 /**
  * @fileOverview A emotional support AI agent.
@@ -10,12 +11,15 @@
 import {ai} from '@/ai/genkit';
 import {z} from 'genkit';
 
+const ChatMessageSchema = z.object({
+  role: z.enum(['user', 'assistant']),
+  content: z.string(),
+  isUser: z.boolean().optional(), // Added for easier template logic
+});
+
 const EmotionalSupportChatInputSchema = z.object({
   message: z.string().describe('The message from the user.'),
-  chatHistory: z.array(z.object({
-    role: z.enum(['user', 'assistant']),
-    content: z.string(),
-  })).optional().describe('The chat history between the user and the AI.'),
+  chatHistory: z.array(ChatMessageSchema).optional().describe('The chat history between the user and the AI.'),
 });
 export type EmotionalSupportChatInput = z.infer<typeof EmotionalSupportChatInputSchema>;
 
@@ -38,7 +42,7 @@ const prompt = ai.definePrompt({
   
   Here's the chat history so far:
   {{#each chatHistory}}
-  {{#if (eq role \"user\")}}User: {{content}}
+  {{#if isUser}}User: {{content}}
   {{else}}AI: {{content}}{{/if}}
   {{/each}}
   
@@ -53,8 +57,16 @@ const emotionalSupportChatFlow = ai.defineFlow(
     inputSchema: EmotionalSupportChatInputSchema,
     outputSchema: EmotionalSupportChatOutputSchema,
   },
-  async input => {
-    const {output} = await prompt(input);
+  async (input) => {
+    const processedChatHistory = input.chatHistory?.map(msg => ({
+      ...msg,
+      isUser: msg.role === 'user',
+    }));
+
+    const {output} = await prompt({
+      message: input.message,
+      chatHistory: processedChatHistory,
+    });
     return output!;
   }
 );
