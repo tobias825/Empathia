@@ -16,8 +16,9 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
-import { useAuth } from "@/hooks/useAuth";
+import { useAuth } from "@/hooks/useAuth.tsx"; // Ensure .tsx extension
 import { User, KeyRound, Mail } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const formSchema = z.object({
   name: z.string().min(2, { message: "El nombre debe tener al menos 2 caracteres." }),
@@ -28,6 +29,21 @@ const formSchema = z.object({
 export function RegisterForm() {
   const { toast } = useToast();
   const { register } = useAuth();
+  const { t } = useLanguage();
+
+  const translations = {
+    nameLabel: { es: "Nombre Completo", en: "Full Name" },
+    namePlaceholder: { es: "Tu Nombre", en: "Your Name" },
+    emailLabel: { es: "Correo Electrónico", en: "Email" },
+    emailPlaceholder: { es: "tu@email.com", en: "you@email.com" },
+    passwordLabel: { es: "Contraseña", en: "Password" },
+    passwordPlaceholder: { es: "••••••••", en: "••••••••" },
+    registerButton: { es: "Crear Cuenta", en: "Create Account" },
+    hasAccount: { es: "¿Ya tienes una cuenta?", en: "Already have an account?" },
+    loginLink: { es: "Inicia sesión aquí", en: "Login here" },
+    registerSuccessTitle: { es: "Registro Exitoso", en: "Registration Successful" },
+    welcomeMessage: { es: "¡Bienvenido/a a Empathia! Por favor, inicia sesión.", en: "Welcome to Empathia! Please log in." }
+  };
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -39,13 +55,12 @@ export function RegisterForm() {
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    // Simulate API call
     console.log("Intento de registro:", values);
     toast({
-      title: "Registro Exitoso",
-      description: "¡Bienvenido/a a Empathia! Por favor, inicia sesión.",
+      title: t(translations.registerSuccessTitle),
+      description: t(translations.welcomeMessage),
     });
-    register(); // Navigate to app dashboard after mock registration
+    register(values.name, values.email); // Pass name and email to register
   }
 
   return (
@@ -56,11 +71,11 @@ export function RegisterForm() {
           name="name"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Nombre Completo</FormLabel>
+              <FormLabel>{t(translations.nameLabel)}</FormLabel>
               <div className="relative">
                 <User className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
                 <FormControl>
-                  <Input placeholder="Tu Nombre" {...field} className="pl-10" />
+                  <Input placeholder={t(translations.namePlaceholder)} {...field} className="pl-10" />
                 </FormControl>
               </div>
               <FormMessage />
@@ -72,11 +87,11 @@ export function RegisterForm() {
           name="email"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Correo Electrónico</FormLabel>
+              <FormLabel>{t(translations.emailLabel)}</FormLabel>
               <div className="relative">
                 <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
                 <FormControl>
-                  <Input placeholder="tu@email.com" {...field} className="pl-10" />
+                  <Input placeholder={t(translations.emailPlaceholder)} {...field} className="pl-10" />
                 </FormControl>
               </div>
               <FormMessage />
@@ -88,11 +103,11 @@ export function RegisterForm() {
           name="password"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Contraseña</FormLabel>
+              <FormLabel>{t(translations.passwordLabel)}</FormLabel>
               <div className="relative">
                 <KeyRound className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
                 <FormControl>
-                  <Input type="password" placeholder="••••••••" {...field} className="pl-10" />
+                  <Input type="password" placeholder={t(translations.passwordPlaceholder)} {...field} className="pl-10" />
                 </FormControl>
               </div>
               <FormMessage />
@@ -100,13 +115,13 @@ export function RegisterForm() {
           )}
         />
         <Button type="submit" className="w-full">
-          Crear Cuenta
+          {t(translations.registerButton)}
         </Button>
         <p className="text-center text-sm text-muted-foreground">
-          ¿Ya tienes una cuenta?{" "}
+          {t(translations.hasAccount)}{" "}
           <Button variant="link" asChild className="p-0 h-auto">
             <Link href="/login">
-              Inicia sesión aquí
+              {t(translations.loginLink)}
             </Link>
           </Button>
         </p>

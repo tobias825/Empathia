@@ -18,13 +18,13 @@ import { Tooltip, TooltipTrigger, TooltipContent } from '@/components/ui/tooltip
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import Logo from '@/components/Logo';
-import { useAuth } from '@/hooks/useAuth';
+import { useAuth } from '@/hooks/useAuth.tsx'; // Ensure .tsx extension
 import { MessageSquare, BarChart3, LifeBuoy, LogOut, Settings, UserCircle, Globe } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 
 export function AppSidebar() {
   const pathname = usePathname();
-  const { logout } = useAuth();
+  const { user, logout } = useAuth();
   const { state } = useSidebar();
   const { language, setLanguage, t } = useLanguage();
 
@@ -41,8 +41,9 @@ export function AppSidebar() {
     switchToEnglish: { es: 'Cambiar a Inglés', en: 'Switch to English' },
     switchToSpanish: { es: 'Switch to Spanish', en: 'Cambiar a Español' },
     language: { es: 'Idioma', en: 'Language' },
-    user: { es: 'Nombre de Usuario', en: 'User Name' },
-    email: { es: 'usuario@ejemplo.com', en: 'user@example.com'}
+    // User name and email will come from auth state, placeholders for fallback
+    userNamePlaceholder: { es: 'Usuario', en: 'User' },
+    userEmailPlaceholder: { es: 'email@example.com', en: 'email@example.com' }
   };
 
   return (
@@ -137,12 +138,16 @@ export function AppSidebar() {
         {state === 'expanded' && (
           <div className="mt-4 p-2 flex items-center gap-3 border-t border-sidebar-border pt-4">
             <Avatar>
-              <AvatarImage src="https://placehold.co/40x40.png" alt="Usuario" data-ai-hint="profile avatar" />
-              <AvatarFallback>U</AvatarFallback>
+              <AvatarImage src="https://placehold.co/40x40.png" alt={user?.name || t(commonLabels.userNamePlaceholder)} data-ai-hint="profile avatar" />
+              <AvatarFallback>{user?.name?.charAt(0).toUpperCase() || 'U'}</AvatarFallback>
             </Avatar>
             <div>
-              <p className="text-sm font-medium text-sidebar-foreground">{t(commonLabels.user)}</p>
-              <p className="text-xs text-sidebar-foreground/70">{t(commonLabels.email)}</p>
+              <p className="text-sm font-medium text-sidebar-foreground truncate" title={user?.name || t(commonLabels.userNamePlaceholder)}>
+                {user?.name || t(commonLabels.userNamePlaceholder)}
+              </p>
+              <p className="text-xs text-sidebar-foreground/70 truncate" title={user?.email || t(commonLabels.userEmailPlaceholder)}>
+                {user?.email || t(commonLabels.userEmailPlaceholder)}
+              </p>
             </div>
           </div>
         )}
