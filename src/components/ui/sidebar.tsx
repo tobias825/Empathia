@@ -10,11 +10,11 @@ import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Separator } from "@/components/ui/separator"
-import { Sheet, SheetContent } from "@/components/ui/sheet"
+import { Sheet, SheetContent as SheetContentPrimitive } from "@/components/ui/sheet" // Renamed to avoid conflict
 import { Skeleton } from "@/components/ui/skeleton"
 import {
   Tooltip,
-  TooltipContent,
+  TooltipContent as TooltipContentPrimitive, // Renamed to avoid conflict
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip"
@@ -195,7 +195,7 @@ const Sidebar = React.forwardRef<
     if (isMobile) {
       return (
         <Sheet open={openMobile} onOpenChange={setOpenMobile} {...props}>
-          <SheetContent
+          <SheetContentPrimitive
             data-sidebar="sidebar"
             data-mobile="true"
             className="w-[--sidebar-width] bg-sidebar p-0 text-sidebar-foreground [&>button]:hidden"
@@ -207,7 +207,7 @@ const Sidebar = React.forwardRef<
             side={side}
           >
             <div className="flex h-full w-full flex-col">{children}</div>
-          </SheetContent>
+          </SheetContentPrimitive>
         </Sheet>
       )
     }
@@ -404,7 +404,7 @@ const SidebarContent = React.forwardRef<
       ref={ref}
       data-sidebar="content"
       className={cn(
-        "flex min-h-0 flex-1 flex-col gap-2 overflow-auto group-data-[collapsible=icon]:overflow-hidden",
+        "flex min-h-0 flex-1 flex-col gap-2 group-data-[collapsible=icon]:overflow-hidden", // Removed overflow-auto
         className
       )}
       {...props}
@@ -538,7 +538,7 @@ const SidebarMenuButton = React.forwardRef<
   React.ComponentProps<"button"> & {
     asChild?: boolean
     isActive?: boolean
-    tooltip?: string | React.ComponentProps<typeof TooltipContent>
+    tooltip?: string | React.ComponentProps<typeof TooltipContentPrimitive>
   } & VariantProps<typeof sidebarMenuButtonVariants>
 >(
   (
@@ -580,7 +580,7 @@ const SidebarMenuButton = React.forwardRef<
     return (
       <Tooltip>
         <TooltipTrigger asChild>{button}</TooltipTrigger>
-        <TooltipContent
+        <TooltipContentPrimitive
           side="right"
           align="center"
           hidden={state !== "collapsed" || isMobile}
@@ -761,3 +761,5 @@ export {
   SidebarTrigger,
   useSidebar,
 }
+
+    
