@@ -3,7 +3,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import React, { useState } from 'react'; // Added useState
+import React from 'react'; // Removed useState as it's no longer needed here
 import {
   Sidebar,
   SidebarHeader,
@@ -20,14 +20,14 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import Logo from '@/components/Logo';
 import { useAuth } from '@/hooks/useAuth.tsx';
-import { MessageSquare, BarChart3, LifeBuoy, LogOut, Settings, UserCircle, Globe, Moon, Sun, Mail, KeyRound, Eye, EyeOff } from 'lucide-react'; // Added Mail, KeyRound, Eye, EyeOff
+import { MessageSquare, BarChart3, LifeBuoy, LogOut, Settings, UserCircle, Globe, Moon, Sun, User as UserProfileIcon } from 'lucide-react'; // Added UserProfileIcon
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useTheme } from '@/contexts/ThemeContext';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel, // Added DropdownMenuLabel
+  // DropdownMenuLabel, // No longer explicitly used for 'Perfil'
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
@@ -39,7 +39,7 @@ export function AppSidebar() {
   const { state } = useSidebar();
   const { language, setLanguage, t } = useLanguage();
   const { theme, toggleTheme } = useTheme(); 
-  const [showPassword, setShowPassword] = useState(false); // State for password visibility
+  // Removed: const [showPassword, setShowPassword] = useState(false);
 
   const navItems = [
     { href: '/app/chat', translations: { es: 'Chat', en: 'Chat' }, icon: MessageSquare },
@@ -48,7 +48,7 @@ export function AppSidebar() {
   ];
 
   const commonLabels = {
-    profile: { es: 'Perfil', en: 'Profile' },
+    profile: { es: 'Mi Perfil', en: 'My Profile' }, // Changed from "Perfil" to "Mi Perfil"
     settings: { es: 'Configuración (Próximamente)', en: 'Settings (Coming Soon)' },
     logout: { es: 'Cerrar Sesión', en: 'Log Out' },
     switchToEnglish: { es: 'Cambiar a Inglés', en: 'Switch to English' },
@@ -60,15 +60,12 @@ export function AppSidebar() {
     darkMode: { es: 'Modo Oscuro', en: 'Dark Mode' },
     lightMode: { es: 'Modo Claro', en: 'Light Mode' },
     userNamePlaceholder: { es: 'Usuario Empathia', en: 'Empathia User' },
-    emailLabel: { es: 'Correo Electrónico', en: 'Email' },
-    passwordLabel: { es: 'Contraseña', en: 'Password' },
+    // emailLabel: { es: 'Correo Electrónico', en: 'Email' }, // No longer needed here
+    // passwordLabel: { es: 'Contraseña', en: 'Password' }, // No longer needed here
     navigationHeader: { es: 'Navegación', en: 'Navigation'}
   };
 
-  const handlePasswordToggle = (e: React.MouseEvent) => {
-    e.stopPropagation(); // Prevent dropdown from closing
-    setShowPassword(!showPassword);
-  };
+  // Removed: handlePasswordToggle function
 
   return (
     <Sidebar collapsible="icon" side="left">
@@ -148,7 +145,7 @@ export function AppSidebar() {
                   variant="ghost"
                   size="sm"
                   className="w-full justify-start gap-2"
-                  onClick={toggleTheme}
+                  onClick={(e) => toggleTheme(e)}
                 >
                   {theme === 'light' ? <Moon className="h-4 w-4" /> : <Sun className="h-4 w-4" />}
                   <span>{theme === 'light' ? t(commonLabels.darkMode) : t(commonLabels.lightMode)}</span>
@@ -161,7 +158,7 @@ export function AppSidebar() {
                     variant="ghost"
                     size="icon"
                     className="w-full"
-                    onClick={toggleTheme}
+                    onClick={(e) => toggleTheme(e)}
                     aria-label={theme === 'light' ? t(commonLabels.activateDarkMode) : t(commonLabels.activateLightMode)}
                   >
                     {theme === 'light' ? <Moon /> : <Sun />}
@@ -178,7 +175,7 @@ export function AppSidebar() {
       
       <SidebarSeparator />
       <SidebarFooter className="p-2 mt-auto">
-        <DropdownMenu onOpenChange={(open) => { if (!open) setShowPassword(false); }}>
+        <DropdownMenu>
           <DropdownMenuTrigger asChild>
             {state === 'expanded' ? (
               <div className="p-2 flex items-center gap-3 hover:bg-sidebar-accent rounded-md cursor-pointer transition-colors">
@@ -190,7 +187,6 @@ export function AppSidebar() {
                   <p className="text-sm font-medium text-sidebar-foreground truncate" title={user?.name || t(commonLabels.userNamePlaceholder)}>
                     {user?.name || t(commonLabels.userNamePlaceholder)}
                   </p>
-                  {/* Email removed from direct display here */}
                 </div>
               </div>
             ) : (
@@ -202,32 +198,13 @@ export function AppSidebar() {
           <DropdownMenuContent 
             side={state === 'expanded' ? "top" : "right"} 
             align={state === 'expanded' ? "start" : "center"} 
-            className="w-64" // Increased width for better layout
+            className="w-56" 
           >
-            <DropdownMenuLabel>{t(commonLabels.profile)}</DropdownMenuLabel>
-            <DropdownMenuItem onSelect={(e) => e.preventDefault()} className="focus:bg-transparent pointer-events-none">
-              <Mail className="mr-2 h-4 w-4 text-muted-foreground" />
-              <span className="text-sm text-muted-foreground">{t(commonLabels.emailLabel)}: </span>
-              <span className="ml-1 text-sm">{user?.email || 'N/A'}</span>
-            </DropdownMenuItem>
-            
-            <DropdownMenuItem onSelect={(e) => e.preventDefault()} className="focus:bg-transparent flex items-center justify-between">
-              <div className="flex items-center">
-                <KeyRound className="mr-2 h-4 w-4 text-muted-foreground" />
-                <span className="text-sm text-muted-foreground">{t(commonLabels.passwordLabel)}: </span>
-                <span className="ml-1 text-sm flex-1">
-                  {showPassword ? (user?.password || 'N/A') : '••••••••'}
-                </span>
-              </div>
-              <Button
-                variant="ghost"
-                size="icon"
-                className="h-6 w-6 p-0 ml-2 shrink-0"
-                onClick={handlePasswordToggle}
-                aria-label={showPassword ? "Ocultar contraseña" : "Mostrar contraseña"}
-              >
-                {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
-              </Button>
+            <DropdownMenuItem asChild>
+              <Link href="/app/profile">
+                <UserProfileIcon className="mr-2 h-4 w-4" />
+                <span>{t(commonLabels.profile)}</span>
+              </Link>
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem disabled>
