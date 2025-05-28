@@ -24,8 +24,8 @@ export function ChatInterface() {
 
   const translations = {
     welcomeMessage: {
-      es: "¡Hola! Soy Sereno, tu compañero IA. ¿Cómo te sientes hoy? Siéntete libre de compartir cualquier cosa que tengas en mente.",
-      en: "Hello! I'm Sereno, your AI companion. How are you feeling today? Feel free to share anything on your mind."
+      es: "¡Hola! Soy Empathia, tu compañero IA. ¿Cómo te sientes hoy? Siéntete libre de compartir cualquier cosa que tengas en mente.",
+      en: "Hello! I'm Empathia, your AI companion. How are you feeling today? Feel free to share anything on your mind."
     },
     errorTitle: { es: 'Error', en: 'Error' },
     errorMessageAI: {
@@ -83,8 +83,13 @@ export function ChatInterface() {
 
     try {
       const chatHistoryForAI: EmotionalSupportChatInput['chatHistory'] = messages
-        .slice(-10)
-        .map((msg) => ({ role: msg.role, content: msg.content }));
+        .slice(-10) // Use last 10 messages for context
+        .map((msg) => ({ 
+          role: msg.role, 
+          content: msg.content,
+          isUser: msg.role === 'user' // Ensure isUser is populated for the AI flow
+        }));
+
 
       const aiResponse = await emotionalSupportChat({
         message: newUserMessage.content,
@@ -94,7 +99,7 @@ export function ChatInterface() {
       const newAiMessage: ChatMessageType = {
         id: `ai-${Date.now()}`,
         role: 'assistant',
-        content: aiResponse.response, // AI responses are expected to be in the user's current language context (implicitly)
+        content: aiResponse.response, 
         timestamp: new Date(),
       };
       setMessages((prevMessages) => [...prevMessages, newAiMessage]);

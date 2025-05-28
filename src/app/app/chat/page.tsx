@@ -8,12 +8,12 @@ export default function ChatPage() {
 
   const pageText = {
     title: {
-      es: "Chatea con Sereno AI",
-      en: "Chat with Sereno AI"
+      es: "Chatea con Empathia",
+      en: "Chat with Empathia"
     },
     description: {
-      es: "Comparte tus pensamientos y sentimientos. Sereno está aquí para escucharte y apoyarte.",
-      en: "Share your thoughts and feelings. Sereno is here to listen and support you."
+      es: "Comparte tus pensamientos y sentimientos. Empathia está aquí para escucharte y apoyarte.",
+      en: "Share your thoughts and feelings. Empathia is here to listen and support you."
     }
   };
 

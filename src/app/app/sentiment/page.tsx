@@ -12,8 +12,8 @@ export default function SentimentPage() {
       en: "Understand Your Emotions"
     },
     description: {
-      es: "Sereno AI puede ayudarte a obtener información sobre tus sentimientos analizando tus conversaciones de chat. Esta es una herramienta privada para tu reflexión.",
-      en: "Sereno AI can help you gain insights into your feelings by analyzing your chat conversations. This is a private tool for your reflection."
+      es: "Empathia puede ayudarte a obtener información sobre tus sentimientos analizando tus conversaciones de chat. Esta es una herramienta privada para tu reflexión.",
+      en: "Empathia can help you gain insights into your feelings by analyzing your chat conversations. This is a private tool for your reflection."
     }
   };
 

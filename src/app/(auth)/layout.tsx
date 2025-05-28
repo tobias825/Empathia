@@ -1,3 +1,4 @@
+
 import Logo from '@/components/Logo';
 
 export default function AuthLayout({
@@ -14,7 +15,7 @@ export default function AuthLayout({
         {children}
       </div>
        <p className="mt-8 text-center text-sm text-muted-foreground">
-        Sereno AI &copy; {new Date().getFullYear()} - Your space for peace.
+        Empathia &copy; {new Date().getFullYear()} - Your space for peace.
       </p>
     </div>
   );

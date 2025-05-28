@@ -18,7 +18,7 @@ const geistMono = Geist_Mono({
 
 // Metadata will be static, but titles within pages can be dynamic
 export const metadata: Metadata = {
-  title: 'Sereno AI',
+  title: 'Empathia',
   description: 'Tu compañero IA empático para apoyo emocional. Your empathetic AI companion for emotional support.',
 };
 

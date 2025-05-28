@@ -22,8 +22,8 @@ import {
 } from "@/components/ui/alert-dialog";
 import { useLanguage } from '@/contexts/LanguageContext';
 
-const CHAT_HISTORY_KEY = 'sereno_ai_chat_history';
-const SENTIMENT_HISTORY_KEY = 'sereno_ai_sentiment_history';
+const CHAT_HISTORY_KEY = 'sereno_ai_chat_history'; // Keeping key for compatibility if users have old data
+const SENTIMENT_HISTORY_KEY = 'empathia_ai_sentiment_history'; // New key for new name
 
 export function SentimentAnalyzer() {
   const [analysisResult, setAnalysisResult] = useState<SentimentResult | null>(null);
@@ -35,9 +35,9 @@ export function SentimentAnalyzer() {
 
   const translations = {
     noChatHistoryTitle: { es: 'No Hay Historial de Chat', en: 'No Chat History' },
-    noChatHistoryDesc: { es: 'Por favor, chatea con Sereno AI primero para analizar el sentimiento.', en: 'Please chat with Sereno AI first to analyze sentiment.' },
+    noChatHistoryDesc: { es: 'Por favor, chatea con Empathia primero para analizar el sentimiento.', en: 'Please chat with Empathia first to analyze sentiment.' },
     emptyChatHistoryTitle: { es: 'Historial de Chat Vacío', en: 'Empty Chat History' },
-    emptyChatHistoryDesc: { es: 'Tu historial de chat está vacío. Por favor, chatea con Sereno AI primero.', en: 'Your chat history is empty. Please chat with Sereno AI first.' },
+    emptyChatHistoryDesc: { es: 'Tu historial de chat está vacío. Por favor, chatea con Empathia primero.', en: 'Your chat history is empty. Please chat with Empathia first.' },
     analysisCompleteTitle: { es: 'Sentimiento Analizado', en: 'Sentiment Analyzed' },
     analysisCompleteDesc: { es: 'Se analizó con éxito el sentimiento del chat.', en: 'Chat sentiment analyzed successfully.' },
     analysisErrorTitle: { es: 'Error de Análisis', en: 'Analysis Error' },
@@ -45,7 +45,7 @@ export function SentimentAnalyzer() {
     historyClearedTitle: { es: 'Historial Borrado', en: 'History Cleared' },
     historyClearedDesc: { es: 'Tu historial de análisis de sentimiento ha sido borrado.', en: 'Your sentiment analysis history has been cleared.' },
     currentAnalysisTitle: { es: 'Análisis de Sentimiento Actual', en: 'Current Sentiment Analysis' },
-    currentAnalysisDesc: { es: 'Analiza el sentimiento de tu conversación reciente con Sereno AI. Presiona el botón de abajo para comenzar.', en: 'Analyze the sentiment of your recent conversation with Sereno AI. Press the button below to begin.' },
+    currentAnalysisDesc: { es: 'Analiza el sentimiento de tu conversación reciente con Empathia. Presiona el botón de abajo para comenzar.', en: 'Analyze the sentiment of your recent conversation with Empathia. Press the button below to begin.' },
     analyzing: { es: 'Analizando...', en: 'Analyzing...' },
     analysisOfChat: { es: 'Análisis de chat', en: 'Analysis of chat' },
     overallSentiment: { es: 'Sentimiento General', en: 'Overall Sentiment' },

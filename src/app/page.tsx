@@ -65,7 +65,7 @@ export default function HomePage() {
     headerLogin: { es: "Iniciar Sesión", en: "Login" },
     headerRegister: { es: "Registrarse", en: "Sign Up" },
     mainHeading1: { es: "Encuentra tu Calma con ", en: "Find Your Calm with " },
-    mainHeading2: { es: "Sereno AI", en: "Sereno AI" },
+    mainHeading2: { es: "Empathia", en: "Empathia" },
     subheading: { 
       es: "Un compañero IA empático diseñado para proporcionar apoyo emocional, comprender tus sentimientos y guiarte hacia la paz.",
       en: "An empathetic AI companion designed to provide emotional support, understand your feelings, and guide you towards peace."
@@ -91,8 +91,8 @@ export default function HomePage() {
     comfortSectionHeading1: { es: "Un Espacio para el ", en: "A Space for " },
     comfortSectionHeading2: { es: "Confort y la Conexión", en: "Comfort and Connection" },
     comfortSectionDesc: {
-      es: "Sereno es más que una aplicación; es un recordatorio amable de que no estás solo/a. Aquí hay algunos símbolos de apoyo y calma.",
-      en: "Sereno is more than an app; it's a gentle reminder that you are not alone. Here are some symbols of support and calm."
+      es: "Empathia es más que una aplicación; es un recordatorio amable de que no estás solo/a. Aquí hay algunos símbolos de apoyo y calma.",
+      en: "Empathia is more than an app; it's a gentle reminder that you are not alone. Here are some symbols of support and calm."
     },
     communitySupport: { es: "Apoyo Comunitario", en: "Community Support" },
     peacefulFlow: { es: "Flujo Pacífico", en: "Peaceful Flow" },
@@ -105,7 +105,7 @@ export default function HomePage() {
       es: "Construido con cuidado. Tu bienestar emocional es nuestra prioridad.",
       en: "Built with care. Your emotional well-being is our priority."
     },
-    footerCopyright: { es: "© {year} Sereno AI", en: "© {year} Sereno AI" }
+    footerCopyright: { es: "© {year} Empathia", en: "© {year} Empathia" }
   };
 
   return (

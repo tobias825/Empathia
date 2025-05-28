@@ -1,3 +1,4 @@
+
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -42,7 +43,7 @@ export function RegisterForm() {
     console.log("Intento de registro:", values);
     toast({
       title: "Registro Exitoso",
-      description: "¡Bienvenido/a a Sereno AI! Por favor, inicia sesión.",
+      description: "¡Bienvenido/a a Empathia! Por favor, inicia sesión.",
     });
     register(); // Navigate to app dashboard after mock registration
   }
