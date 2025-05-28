@@ -50,7 +50,7 @@ export function AppSidebar() {
     lightMode: { es: 'Modo Claro', en: 'Light Mode' },
     userNamePlaceholder: { es: 'Usuario', en: 'User' },
     userEmailPlaceholder: { es: 'email@example.com', en: 'email@example.com' },
-    navigationHeader: { es: 'Navegación', en: 'Navigation'}
+    navigationHeader: { es: 'Navegación', en: 'Navigation'} // This label might not be used anymore
   };
 
   return (
@@ -60,43 +60,23 @@ export function AppSidebar() {
           {state === 'expanded' && <Logo iconSize={24} textSize="text-xl" />}
         </div>
       </SidebarHeader>
-      <SidebarContent className="p-2 flex flex-col gap-4">
-        {state === 'expanded' ? (
-          <div className="flex flex-col gap-1">
-            <p className="px-2 py-1.5 text-xs font-medium text-sidebar-foreground/70">{t(commonLabels.navigationHeader)}</p>
-            {navItems.map((item) => (
-              <Button
-                key={item.href}
-                variant={pathname === item.href ? 'secondary' : 'ghost'}
-                size="sm"
-                className="w-full justify-start gap-2"
+      <SidebarContent className="p-2 flex flex-col gap-4"> {/* gap-4 will space the main sections */}
+        <SidebarMenu>
+          {navItems.map((item) => (
+            <SidebarMenuItem key={item.href}>
+              <SidebarMenuButton
                 asChild
+                isActive={pathname === item.href}
+                tooltip={t(item.translations)}
               >
                 <Link href={item.href}>
-                  <item.icon className="h-4 w-4" />
+                  <item.icon />
                   <span>{t(item.translations)}</span>
                 </Link>
-              </Button>
-            ))}
-          </div>
-        ) : (
-          <SidebarMenu>
-            {navItems.map((item) => (
-              <SidebarMenuItem key={item.href}>
-                <SidebarMenuButton
-                  asChild
-                  isActive={pathname === item.href}
-                  tooltip={t(item.translations)}
-                >
-                  <Link href={item.href}>
-                    <item.icon />
-                    <span>{t(item.translations)}</span>
-                  </Link>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
-            ))}
-          </SidebarMenu>
-        )}
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+          ))}
+        </SidebarMenu>
       
         {/* Language Switcher Section */}
         <div className="group-data-[collapsible=icon]:p-0 group-data-[collapsible=icon]:flex group-data-[collapsible=icon]:justify-center">
@@ -177,7 +157,7 @@ export function AppSidebar() {
       </SidebarContent>
       
       <SidebarSeparator />
-      <SidebarFooter className="p-2 mt-auto"> {/* Added mt-auto to push footer down */}
+      <SidebarFooter className="p-2 mt-auto">
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton tooltip={t(commonLabels.profile)} disabled>
