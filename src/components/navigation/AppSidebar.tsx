@@ -22,6 +22,13 @@ import { useAuth } from '@/hooks/useAuth.tsx';
 import { MessageSquare, BarChart3, LifeBuoy, LogOut, Settings, UserCircle, Globe, Moon, Sun } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useTheme } from '@/contexts/ThemeContext';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 export function AppSidebar() {
   const pathname = usePathname();
@@ -48,9 +55,9 @@ export function AppSidebar() {
     activateLightMode: { es: 'Activar Modo Claro', en: 'Activate Light Mode' },
     darkMode: { es: 'Modo Oscuro', en: 'Dark Mode' },
     lightMode: { es: 'Modo Claro', en: 'Light Mode' },
-    userNamePlaceholder: { es: 'Usuario', en: 'User' },
-    userEmailPlaceholder: { es: 'email@example.com', en: 'email@example.com' },
-    navigationHeader: { es: 'Navegación', en: 'Navigation'} // This label might not be used anymore
+    userNamePlaceholder: { es: 'Usuario Empathia', en: 'Empathia User' },
+    userEmailPlaceholder: { es: 'usuario@empathia.app', en: 'user@empathia.app' },
+    navigationHeader: { es: 'Navegación', en: 'Navigation'}
   };
 
   return (
@@ -60,7 +67,7 @@ export function AppSidebar() {
           {state === 'expanded' && <Logo iconSize={24} textSize="text-xl" />}
         </div>
       </SidebarHeader>
-      <SidebarContent className="p-2 flex flex-col gap-4"> {/* gap-4 will space the main sections */}
+      <SidebarContent className="p-2 flex flex-col gap-4">
         <SidebarMenu>
           {navItems.map((item) => (
             <SidebarMenuItem key={item.href}>
@@ -78,7 +85,6 @@ export function AppSidebar() {
           ))}
         </SidebarMenu>
       
-        {/* Language Switcher Section */}
         <div className="group-data-[collapsible=icon]:p-0 group-data-[collapsible=icon]:flex group-data-[collapsible=icon]:justify-center">
           {state === 'expanded' ? (
             <div className="flex flex-col gap-1">
@@ -120,7 +126,6 @@ export function AppSidebar() {
           )}
         </div>
 
-        {/* Theme Toggle Section */}
         <div className="group-data-[collapsible=icon]:p-0 group-data-[collapsible=icon]:flex group-data-[collapsible=icon]:justify-center">
           {state === 'expanded' ? (
             <div className="flex flex-col gap-1 w-full">
@@ -158,40 +163,67 @@ export function AppSidebar() {
       
       <SidebarSeparator />
       <SidebarFooter className="p-2 mt-auto">
-        <SidebarMenu>
-          <SidebarMenuItem>
-            <SidebarMenuButton tooltip={t(commonLabels.profile)} disabled>
-              <UserCircle />
-              <span>{t(commonLabels.profile)}</span>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
-           <SidebarMenuItem>
-            <SidebarMenuButton tooltip={t(commonLabels.settings)} disabled>
-              <Settings />
-              <span>{t(commonLabels.settings)}</span>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
-          <SidebarMenuItem>
-            <SidebarMenuButton onClick={logout} tooltip={t(commonLabels.logout)}>
-              <LogOut />
-              <span>{t(commonLabels.logout)}</span>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
-        </SidebarMenu>
-        {state === 'expanded' && (
-          <div className="mt-4 p-2 flex items-center gap-3 border-t border-sidebar-border pt-4">
-            <Avatar>
-              <AvatarImage src="https://placehold.co/40x40.png" alt={user?.name || t(commonLabels.userNamePlaceholder)} data-ai-hint="profile avatar" />
-              <AvatarFallback>{user?.name?.charAt(0).toUpperCase() || 'U'}</AvatarFallback>
-            </Avatar>
-            <div>
-              <p className="text-sm font-medium text-sidebar-foreground truncate" title={user?.name || t(commonLabels.userNamePlaceholder)}>
-                {user?.name || t(commonLabels.userNamePlaceholder)}
-              </p>
-              <p className="text-xs text-sidebar-foreground/70 truncate" title={user?.email || t(commonLabels.userEmailPlaceholder)}>
-                {user?.email || t(commonLabels.userEmailPlaceholder)}
-              </p>
-            </div>
+        {state === 'expanded' ? (
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <div className="mt-4 p-2 flex items-center gap-3 border-t border-sidebar-border pt-4 hover:bg-sidebar-accent rounded-md cursor-pointer transition-colors">
+                <Avatar>
+                  <AvatarImage src="https://placehold.co/40x40.png" alt={user?.name || t(commonLabels.userNamePlaceholder)} data-ai-hint="profile avatar" />
+                  <AvatarFallback>{user?.name?.charAt(0).toUpperCase() || 'U'}</AvatarFallback>
+                </Avatar>
+                <div>
+                  <p className="text-sm font-medium text-sidebar-foreground truncate" title={user?.name || t(commonLabels.userNamePlaceholder)}>
+                    {user?.name || t(commonLabels.userNamePlaceholder)}
+                  </p>
+                  <p className="text-xs text-sidebar-foreground/70 truncate" title={user?.email || t(commonLabels.userEmailPlaceholder)}>
+                    {user?.email || t(commonLabels.userEmailPlaceholder)}
+                  </p>
+                </div>
+              </div>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent side="top" align="start" className="w-56">
+              <DropdownMenuItem disabled>
+                <UserCircle className="mr-2 h-4 w-4" />
+                <span>{t(commonLabels.profile)}</span>
+              </DropdownMenuItem>
+              <DropdownMenuItem disabled>
+                <Settings className="mr-2 h-4 w-4" />
+                <span>{t(commonLabels.settings)}</span>
+              </DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem onClick={logout}>
+                <LogOut className="mr-2 h-4 w-4" />
+                <span>{t(commonLabels.logout)}</span>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        ) : (
+          // When collapsed, we might want a different trigger, e.g., a single settings icon
+          // For now, this keeps the footer simpler when collapsed. 
+          // If a dropdown is needed here, a dedicated trigger icon would be added.
+          <div className="flex justify-center items-center py-2">
+             <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                    <Button variant="ghost" size="icon" className="w-full" aria-label={t(commonLabels.settings)}>
+                        <UserCircle />
+                    </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent side="right" align="center" className="w-56">
+                    <DropdownMenuItem disabled>
+                        <UserCircle className="mr-2 h-4 w-4" />
+                        <span>{t(commonLabels.profile)}</span>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem disabled>
+                        <Settings className="mr-2 h-4 w-4" />
+                        <span>{t(commonLabels.settings)}</span>
+                    </DropdownMenuItem>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem onClick={logout}>
+                        <LogOut className="mr-2 h-4 w-4" />
+                        <span>{t(commonLabels.logout)}</span>
+                    </DropdownMenuItem>
+                </DropdownMenuContent>
+            </DropdownMenu>
           </div>
         )}
       </SidebarFooter>
