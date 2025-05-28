@@ -9,98 +9,100 @@ body {
 
 @layer base {
   :root {
-    --background: 0 0% 94%; /* Light Gray (#F0F0F0) */
-    --foreground: 0 0% 20%; /* Dark Gray */
+    /* Warm Palette: Soft Apricot, Coral, Sunny Yellow-Orange, Warm Browns */
+    --background: 30 70% 92%; /* Soft Apricot White */
+    --foreground: 25 30% 25%; /* Dark Umber */
 
-    --muted: 0 0% 88%; /* Slightly darker gray */
-    --muted-foreground: 0 0% 40%; /* Medium gray */
+    --muted: 30 60% 88%; /* Lighter Apricot */
+    --muted-foreground: 25 30% 50%; /* Medium Warm Brown */
 
-    --popover: 0 0% 100%; /* White */
-    --popover-foreground: 0 0% 20%;
+    --popover: 30 80% 97%; /* Very Light Apricot for Popovers */
+    --popover-foreground: 25 30% 25%;
 
-    --card: 0 0% 100%; /* White */
-    --card-foreground: 0 0% 20%;
+    --card: 30 80% 97%; /* Very Light Apricot for Cards */
+    --card-foreground: 25 30% 25%;
 
-    --border: 0 0% 85%; /* Gray border */
-    --input: 0 0% 89%; /* Light gray input bg */
+    --border: 30 50% 85%; /* Apricot Border */
+    --input: 30 60% 94%; /* Light Apricot Input Bg */
 
-    --primary: 240 67% 94%; /* Soft lavender (#E6E6FA) */
-    --primary-foreground: 240 30% 25%; /* Darker lavender/blue for text on primary */
+    --primary: 20 85% 75%; /* Warm Coral Peach */
+    --primary-foreground: 20 30% 20%; /* Dark Brown for text on primary */
 
-    --secondary: 90 60% 92%; /* Slightly desaturated Pale Green (original, good for variation) */
-    --secondary-foreground: 90 30% 25%; /* Darker green for text on secondary */
+    --secondary: 40 80% 88%; /* Light Sunny Yellow */
+    --secondary-foreground: 40 30% 25%; /* Dark Brown for text on secondary */
 
-    --accent: 100 60% 85%; /* Pale green (#D0F0C0) */
-    --accent-foreground: 100 30% 25%; /* Darker green for text on accent */
+    --accent: 40 90% 70%; /* Sunny Yellow-Orange */
+    --accent-foreground: 40 30% 20%; /* Dark Brown for text on accent */
 
-    --destructive: 0 72% 51%; /* Default destructive red */
+    --destructive: 0 72% 51%; /* Default destructive red - unchanged for clarity */
     --destructive-foreground: 0 0% 98%;
 
-    --ring: 240 60% 85%; /* Lavender for focus rings */
+    --ring: 20 85% 70%; /* Coral Peach for focus rings */
     --radius: 0.5rem;
 
-    --chart-1: 240 60% 70%;
-    --chart-2: 100 50% 65%; /* Adjusted to new accent hue */
-    --chart-3: 30 80% 55%;
-    --chart-4: 180 65% 60%;
-    --chart-5: 300 75% 55%;
+    --chart-1: 20 85% 75%; /* Primary - Warm Coral Peach */
+    --chart-2: 40 90% 70%; /* Accent - Sunny Yellow-Orange */
+    --chart-3: 20 70% 65%; /* Muted Primary */
+    --chart-4: 40 80% 60%; /* Muted Accent */
+    --chart-5: 30 80% 70%; /* Soft Orange */
     
-    /* Sidebar specific */
-    --sidebar-background: 240 50% 97%; /* Very light lavender, almost white */
-    --sidebar-foreground: 0 0% 25%;
-    --sidebar-border: 240 30% 88%;
-    --sidebar-primary: 240 67% 88%; /* Lavender for active sidebar items */
-    --sidebar-primary-foreground: 240 30% 20%;
-    --sidebar-accent: 100 55% 90%; /* Pale green for sidebar hover/accent (adjusted hue) */
-    --sidebar-accent-foreground: 100 30% 20%; /* (adjusted hue) */
-    --sidebar-ring: 240 60% 85%;
+    /* Sidebar specific - Warm Theme */
+    --sidebar-background: 30 60% 95%; /* Very Light Apricot, almost white */
+    --sidebar-foreground: 25 30% 30%;
+    --sidebar-border: 30 40% 88%;
+    --sidebar-primary: 20 85% 80%; /* Lighter Coral Peach for active sidebar items */
+    --sidebar-primary-foreground: 20 30% 15%;
+    --sidebar-accent: 40 85% 85%; /* Lighter Sunny Yellow for sidebar hover/accent */
+    --sidebar-accent-foreground: 40 30% 15%;
+    --sidebar-ring: 20 85% 70%;
   }
 
   .dark {
-    --background: 240 10% 10%; /* Dark blue-gray */
-    --foreground: 0 0% 95%; /* Light gray text */
+    /* Warm Dark Palette: Deep Warm Browns, Pale Apricot, Muted Corals/Oranges */
+    --background: 25 20% 15%; /* Deep Warm Brown */
+    --foreground: 30 50% 85%; /* Pale Apricot Text */
 
-    --muted: 240 10% 15%;
-    --muted-foreground: 0 0% 60%;
+    --muted: 25 20% 20%; /* Darker Warm Brown Muted */
+    --muted-foreground: 30 40% 65%; /* Medium Light Apricot */
 
-    --popover: 240 10% 8%;
-    --popover-foreground: 0 0% 95%;
+    --popover: 25 15% 12%; /* Very Dark Warm Brown for Popovers */
+    --popover-foreground: 30 50% 85%;
 
-    --card: 240 10% 8%;
-    --card-foreground: 0 0% 95%;
+    --card: 25 15% 12%; /* Very Dark Warm Brown for Cards */
+    --card-foreground: 30 50% 85%;
 
-    --border: 240 10% 20%;
-    --input: 240 10% 18%;
+    --border: 25 20% 28%; /* Dark Warm Brown Border */
+    --input: 25 20% 22%; /* Dark Warm Brown Input Bg */
 
-    --primary: 240 60% 70%; /* Lighter Lavender for dark mode */
-    --primary-foreground: 240 20% 10%; /* Dark text on primary */
+    --primary: 20 70% 60%; /* Muted Coral Peach for dark mode */
+    --primary-foreground: 20 30% 90%; /* Light peach for text on dark primary */
 
-    --secondary: 90 50% 65%; /* Lighter Pale Green for dark mode (original, good for variation) */
-    --secondary-foreground: 90 20% 10%;
+    --secondary: 40 70% 50%; /* Muted Sunny Yellow for dark mode */
+    --secondary-foreground: 40 30% 90%; /* Light yellow for text on dark secondary */
 
-    --accent: 100 50% 60%; /* Lighter Pale Green for dark mode accent (adjusted hue) */
-    --accent-foreground: 100 20% 15%; /* (adjusted hue and for contrast) */
+    --accent: 40 75% 55%; /* Muted Sunny Yellow-Orange for dark mode accent */
+    --accent-foreground: 40 25% 90%; /* Light peach for text on dark accent */
 
-    --destructive: 0 60% 50%;
+    --destructive: 0 60% 50%; /* Unchanged */
     --destructive-foreground: 0 0% 98%;
 
-    --ring: 240 60% 75%;
+    --ring: 20 70% 55%; /* Muted Coral Peach for dark focus rings */
 
-    --chart-1: 240 50% 60%;
-    --chart-2: 100 40% 55%; /* Adjusted to new accent hue */
-    --chart-3: 20 70% 45%;
-    --chart-4: 170 55% 50%;
-    --chart-5: 290 65% 45%;
+    --chart-1: 20 70% 60%; /* Primary Dark - Muted Coral Peach */
+    --chart-2: 40 75% 55%; /* Accent Dark - Muted Sunny Yellow-Orange */
+    --chart-3: 20 60% 50%; /* Darker Muted Primary */
+    --chart-4: 40 65% 45%; /* Darker Muted Accent */
+    --chart-5: 30 65% 50%; /* Dark Soft Orange */
 
-    /* Sidebar specific dark */
-    --sidebar-background: 240 10% 12%;
-    --sidebar-foreground: 0 0% 90%;
-    --sidebar-border: 240 10% 22%;
-    --sidebar-primary: 240 60% 65%;
-    --sidebar-primary-foreground: 240 15% 5%;
-    --sidebar-accent: 100 50% 60%; /* (adjusted hue) */
-    --sidebar-accent-foreground: 100 15% 10%; /* (adjusted hue and for contrast) */
-    --sidebar-ring: 240 60% 75%;
+    /* Sidebar specific dark - Warm Theme */
+    --sidebar-background: 25 18% 14%; /* Darkest Warm Brown for Sidebar */
+    --sidebar-foreground: 30 40% 80%;
+    --sidebar-border: 25 15% 25%;
+    --sidebar-primary: 20 70% 55%; /* Muted Coral for active sidebar */
+    --sidebar-primary-foreground: 20 20% 92%;
+    --sidebar-accent: 40 70% 50%; /* Muted Yellow for sidebar hover */
+    --sidebar-accent-foreground: 40 20% 92%;
+    --sidebar-ring: 20 70% 55%;
   }
 }
 
