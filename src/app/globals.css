@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -8,7 +9,7 @@ body {
 
 @layer base {
   :root {
-    --background: 0 0% 94%; /* Light Gray */
+    --background: 0 0% 94%; /* Light Gray (#F0F0F0) */
     --foreground: 0 0% 20%; /* Dark Gray */
 
     --muted: 0 0% 88%; /* Slightly darker gray */
@@ -23,14 +24,14 @@ body {
     --border: 0 0% 85%; /* Gray border */
     --input: 0 0% 89%; /* Light gray input bg */
 
-    --primary: 240 67% 94%; /* Soft lavender */
+    --primary: 240 67% 94%; /* Soft lavender (#E6E6FA) */
     --primary-foreground: 240 30% 25%; /* Darker lavender/blue for text on primary */
 
-    --secondary: 90 60% 92%; /* Slightly desaturated Pale Green */
+    --secondary: 90 60% 92%; /* Slightly desaturated Pale Green (original, good for variation) */
     --secondary-foreground: 90 30% 25%; /* Darker green for text on secondary */
 
-    --accent: 90 60% 88%; /* Pale green */
-    --accent-foreground: 90 30% 25%; /* Darker green for text on accent */
+    --accent: 100 60% 85%; /* Pale green (#D0F0C0) */
+    --accent-foreground: 100 30% 25%; /* Darker green for text on accent */
 
     --destructive: 0 72% 51%; /* Default destructive red */
     --destructive-foreground: 0 0% 98%;
@@ -39,7 +40,7 @@ body {
     --radius: 0.5rem;
 
     --chart-1: 240 60% 70%;
-    --chart-2: 90 50% 65%;
+    --chart-2: 100 50% 65%; /* Adjusted to new accent hue */
     --chart-3: 30 80% 55%;
     --chart-4: 180 65% 60%;
     --chart-5: 300 75% 55%;
@@ -50,8 +51,8 @@ body {
     --sidebar-border: 240 30% 88%;
     --sidebar-primary: 240 67% 88%; /* Lavender for active sidebar items */
     --sidebar-primary-foreground: 240 30% 20%;
-    --sidebar-accent: 90 55% 90%; /* Pale green for sidebar hover/accent */
-    --sidebar-accent-foreground: 90 30% 20%;
+    --sidebar-accent: 100 55% 90%; /* Pale green for sidebar hover/accent (adjusted hue) */
+    --sidebar-accent-foreground: 100 30% 20%; /* (adjusted hue) */
     --sidebar-ring: 240 60% 85%;
   }
 
@@ -74,11 +75,11 @@ body {
     --primary: 240 60% 70%; /* Lighter Lavender for dark mode */
     --primary-foreground: 240 20% 10%; /* Dark text on primary */
 
-    --secondary: 90 50% 65%; /* Lighter Pale Green for dark mode */
+    --secondary: 90 50% 65%; /* Lighter Pale Green for dark mode (original, good for variation) */
     --secondary-foreground: 90 20% 10%;
 
-    --accent: 90 50% 60%; /* Lighter Pale Green for dark mode accent */
-    --accent-foreground: 90 20% 10%;
+    --accent: 100 50% 60%; /* Lighter Pale Green for dark mode accent (adjusted hue) */
+    --accent-foreground: 100 20% 15%; /* (adjusted hue and for contrast) */
 
     --destructive: 0 60% 50%;
     --destructive-foreground: 0 0% 98%;
@@ -86,7 +87,7 @@ body {
     --ring: 240 60% 75%;
 
     --chart-1: 240 50% 60%;
-    --chart-2: 90 40% 55%;
+    --chart-2: 100 40% 55%; /* Adjusted to new accent hue */
     --chart-3: 20 70% 45%;
     --chart-4: 170 55% 50%;
     --chart-5: 290 65% 45%;
@@ -97,8 +98,8 @@ body {
     --sidebar-border: 240 10% 22%;
     --sidebar-primary: 240 60% 65%;
     --sidebar-primary-foreground: 240 15% 5%;
-    --sidebar-accent: 90 50% 60%;
-    --sidebar-accent-foreground: 90 15% 5%;
+    --sidebar-accent: 100 50% 60%; /* (adjusted hue) */
+    --sidebar-accent-foreground: 100 15% 10%; /* (adjusted hue and for contrast) */
     --sidebar-ring: 240 60% 75%;
   }
 }

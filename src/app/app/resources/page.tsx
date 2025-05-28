@@ -1,6 +1,7 @@
+
 import { ResourceCard } from '@/components/resources/ResourceCard';
 import type { ResourceItem } from '@/types';
-import { LifeBuoy, BookOpenText, Users, PhoneCall, MessageSquareHeart } from 'lucide-react';
+import { LifeBuoy, BookOpenText, Users, PhoneCall, MessageSquareHeart, HeartHandshake } from 'lucide-react';
 
 const resources: ResourceItem[] = [
   {
@@ -46,7 +47,7 @@ const resources: ResourceItem[] = [
     description: 'The leading national organization providing crisis intervention and suicide prevention services to lesbian, gay, bisexual, transgender, queer & questioning (LGBTQ) young people under 25.',
     phone: '1-866-488-7386',
     link: 'https://www.thetrevorproject.org/',
-    icon: HeartHandshake, // Using an available icon, placeholder for better fit
+    icon: HeartHandshake,
   }
 ];
 
@@ -70,6 +71,3 @@ export default function ResourcesPage() {
     </div>
   );
 }
-
-// Added HeartHandshake as a Lucide icon
-import { HeartHandshake } from 'lucide-react';
