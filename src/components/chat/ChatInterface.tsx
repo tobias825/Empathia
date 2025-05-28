@@ -187,11 +187,12 @@ export function ChatInterface() {
 
     analyserRef.current.getByteTimeDomainData(dataArrayRef.current);
 
-    let bgColor = 'hsl(30 80% 97%)'; 
-    let lineColor = 'hsl(20 85% 75%)'; 
+    let bgColor = 'hsl(30 80% 97%)'; // Light mode card background
+    let lineColor = 'hsl(20 85% 75%)'; // Light mode primary color
+    
     if (document.documentElement.classList.contains('dark')) {
-        bgColor = 'hsl(25 15% 12%)'; 
-        lineColor = 'hsl(20 70% 60%)'; 
+        bgColor = 'hsl(220 30% 18%)'; // Dark mode card background
+        lineColor = 'hsl(200 80% 65%)'; // Dark mode primary color
     }
     
     canvasCtx.fillStyle = bgColor;
@@ -234,15 +235,16 @@ export function ChatInterface() {
       if (canvas) {
           const canvasCtx = canvas.getContext('2d');
           if (canvasCtx) {
-            let bgColor = 'hsl(30 80% 97%)';
+            let bgColor = 'hsl(30 80% 97%)'; // Light mode card background
             if (document.documentElement.classList.contains('dark')) {
-                bgColor = 'hsl(25 15% 12%)';
+                bgColor = 'hsl(220 30% 18%)'; // Dark mode card background
             }
             canvasCtx.fillStyle = bgColor;
             canvasCtx.fillRect(0, 0, canvas.width, canvas.height);
           }
       }
     }
+    // Cleanup function for audio context and media stream
     return () => {
         if (animationFrameIdRef.current) cancelAnimationFrame(animationFrameIdRef.current);
         mediaStreamRef.current?.getTracks().forEach(track => track.stop());
@@ -265,15 +267,17 @@ export function ChatInterface() {
 
     if (isRecording && recognitionRef.current) {
       recognitionRef.current.stop(); 
+      // Visualizer and audio context cleanup is handled by the useEffect [isRecording]
       return;
     }
 
     try {
-      mediaStreamRef.current?.getTracks().forEach(track => track.stop());
+      // Ensure previous audio context is closed before creating a new one
       if (audioContextRef.current && audioContextRef.current.state !== 'closed') {
           await audioContextRef.current.close().catch(e => console.warn("Pre-close audio context error:", e));
       }
-      audioContextRef.current = null; 
+      audioContextRef.current = null;
+      mediaStreamRef.current?.getTracks().forEach(track => track.stop()); // Stop previous tracks
 
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
       mediaStreamRef.current = stream;
@@ -321,22 +325,14 @@ export function ChatInterface() {
         else if (event.error === 'audio-capture') errorMsg = t(translations.audioCaptureError);
         else if (event.error === 'not-allowed') errorMsg = t(translations.micPermissionDenied);
         toast({ title: t(translations.errorTitle), description: errorMsg, variant: 'destructive' });
-        setIsRecording(false); 
+        // setIsRecording(false) is handled by onend
       };
 
       recognitionRef.current.onend = () => {
-        setIsRecording(false); 
-        sourceRef.current?.disconnect();
-        sourceRef.current = null;
-        
-        if (audioContextRef.current && audioContextRef.current.state !== 'closed') {
-            audioContextRef.current.close().catch(e => console.error("Error closing audio context:", e));
-        }
-        audioContextRef.current = null;
-        
-        mediaStreamRef.current?.getTracks().forEach(track => track.stop());
-        mediaStreamRef.current = null;
-
+        setIsRecording(false); // This will trigger the useEffect for cleanup
+        // sourceRef.current?.disconnect(); // Disconnected in useEffect
+        // audioContextRef.current?.close(); // Closed in useEffect
+        // mediaStreamRef.current?.getTracks().forEach(track => track.stop()); // Stopped in useEffect
         setInput(prev => finalTranscriptAccumulator.trim() || prev.trim());
       };
       
@@ -345,7 +341,8 @@ export function ChatInterface() {
     } catch (err) {
       console.error('Error requesting microphone permission or starting recognition:', err);
       toast({ title: t(translations.errorTitle), description: t(translations.micPermissionDenied), variant: 'destructive' });
-      setIsRecording(false);
+      setIsRecording(false); // Ensure state is reset on error
+      // Ensure cleanup on error as well
       mediaStreamRef.current?.getTracks().forEach(track => track.stop());
       if (audioContextRef.current && audioContextRef.current.state !== 'closed') {
         audioContextRef.current.close().catch(e => console.error("Error closing audio context on error:", e));

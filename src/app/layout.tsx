@@ -5,6 +5,7 @@ import './globals.css';
 import { Toaster } from '@/components/ui/toaster';
 import { SidebarProvider } from '@/components/ui/sidebar';
 import { LanguageProvider } from '@/contexts/LanguageContext';
+import { ThemeProvider } from '@/contexts/ThemeContext'; // Import ThemeProvider
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -29,13 +30,16 @@ export default function RootLayout({
 }>) {
   return (
     // lang attribute will be updated by LanguageProvider effect
-    <html lang="es"> 
+    // Defaulting to 'light' class to prevent FOUC if JS is slow or disabled, ThemeProvider will adjust
+    <html lang="es" className="light"> 
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <LanguageProvider>
-          <SidebarProvider>
-            {children}
-          </SidebarProvider>
-        </LanguageProvider>
+        <ThemeProvider> {/* Wrap with ThemeProvider */}
+          <LanguageProvider>
+            <SidebarProvider>
+              {children}
+            </SidebarProvider>
+          </LanguageProvider>
+        </ThemeProvider>
         <Toaster />
       </body>
     </html>

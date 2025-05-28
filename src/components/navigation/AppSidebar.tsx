@@ -18,15 +18,17 @@ import { Tooltip, TooltipTrigger, TooltipContent } from '@/components/ui/tooltip
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import Logo from '@/components/Logo';
-import { useAuth } from '@/hooks/useAuth.tsx'; // Ensure .tsx extension
-import { MessageSquare, BarChart3, LifeBuoy, LogOut, Settings, UserCircle, Globe } from 'lucide-react';
+import { useAuth } from '@/hooks/useAuth.tsx';
+import { MessageSquare, BarChart3, LifeBuoy, LogOut, Settings, UserCircle, Globe, Moon, Sun } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { useTheme } from '@/contexts/ThemeContext';
 
 export function AppSidebar() {
   const pathname = usePathname();
   const { user, logout } = useAuth();
   const { state } = useSidebar();
   const { language, setLanguage, t } = useLanguage();
+  const { theme, toggleTheme } = useTheme();
 
   const navItems = [
     { href: '/app/chat', translations: { es: 'Chat', en: 'Chat' }, icon: MessageSquare },
@@ -41,7 +43,11 @@ export function AppSidebar() {
     switchToEnglish: { es: 'Cambiar a Inglés', en: 'Switch to English' },
     switchToSpanish: { es: 'Switch to Spanish', en: 'Cambiar a Español' },
     language: { es: 'Idioma', en: 'Language' },
-    // User name and email will come from auth state, placeholders for fallback
+    themeToggle: { es: 'Tema', en: 'Theme' },
+    activateDarkMode: { es: 'Activar Modo Oscuro', en: 'Activate Dark Mode' },
+    activateLightMode: { es: 'Activar Modo Claro', en: 'Activate Light Mode' },
+    darkMode: { es: 'Modo Oscuro', en: 'Dark Mode' },
+    lightMode: { es: 'Modo Claro', en: 'Light Mode' },
     userNamePlaceholder: { es: 'Usuario', en: 'User' },
     userEmailPlaceholder: { es: 'email@example.com', en: 'email@example.com' }
   };
@@ -72,6 +78,7 @@ export function AppSidebar() {
         </SidebarMenu>
       </SidebarContent>
       <SidebarSeparator />
+      
       {/* Language Switcher Section */}
       <div className="p-2 group-data-[collapsible=icon]:p-0 group-data-[collapsible=icon]:flex group-data-[collapsible=icon]:justify-center">
         {state === 'expanded' ? (
@@ -113,6 +120,42 @@ export function AppSidebar() {
           </Tooltip>
         )}
       </div>
+
+      {/* Theme Toggle Section */}
+      <div className="p-2 group-data-[collapsible=icon]:p-0 group-data-[collapsible=icon]:flex group-data-[collapsible=icon]:justify-center">
+        {state === 'expanded' ? (
+          <div className="flex flex-col gap-1 w-full">
+            <p className="px-2 py-1.5 text-xs font-medium text-sidebar-foreground/70">{t(commonLabels.themeToggle)}</p>
+            <Button
+              variant="ghost"
+              size="sm"
+              className="w-full justify-start gap-2"
+              onClick={toggleTheme}
+            >
+              {theme === 'light' ? <Moon /> : <Sun />}
+              <span>{theme === 'light' ? t(commonLabels.darkMode) : t(commonLabels.lightMode)}</span>
+            </Button>
+          </div>
+        ) : (
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button
+                variant="ghost"
+                size="icon"
+                className="w-full"
+                onClick={toggleTheme}
+                aria-label={theme === 'light' ? t(commonLabels.activateDarkMode) : t(commonLabels.activateLightMode)}
+              >
+                {theme === 'light' ? <Moon /> : <Sun />}
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent side="right" align="center">
+              {theme === 'light' ? t(commonLabels.activateDarkMode) : t(commonLabels.activateLightMode)}
+            </TooltipContent>
+          </Tooltip>
+        )}
+      </div>
+
       <SidebarSeparator />
       <SidebarFooter className="p-2">
         <SidebarMenu>

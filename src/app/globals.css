@@ -77,51 +77,51 @@ body {
   }
 
   .dark {
-    /* Warm Dark Palette: Deep Warm Browns, Pale Apricot, Muted Corals/Oranges */
-    --background: 25 20% 15%; /* Deep Warm Brown */
-    --foreground: 30 50% 85%; /* Pale Apricot Text */
+    /* Dark Blue/Celeste Palette for Empathy & Tranquility */
+    --background: 220 30% 12%; /* Deep Calming Blue */
+    --foreground: 210 40% 88%; /* Soft Light Blue-Gray Text */
 
-    --muted: 25 20% 20%; /* Darker Warm Brown Muted */
-    --muted-foreground: 30 40% 65%; /* Medium Light Apricot */
+    --muted: 220 25% 25%; /* Darker Muted Blue */
+    --muted-foreground: 210 30% 65%; /* Medium Light Blue-Gray */
 
-    --popover: 25 15% 12%; /* Very Dark Warm Brown for Popovers */
-    --popover-foreground: 30 50% 85%;
+    --popover: 220 30% 18%; /* Slightly Lighter Deep Blue for Popovers */
+    --popover-foreground: 210 40% 88%;
 
-    --card: 25 15% 12%; /* Very Dark Warm Brown for Cards */
-    --card-foreground: 30 50% 85%;
+    --card: 220 30% 18%; /* Slightly Lighter Deep Blue for Cards */
+    --card-foreground: 210 40% 88%;
 
-    --border: 25 20% 28%; /* Dark Warm Brown Border */
-    --input: 25 20% 22%; /* Dark Warm Brown Input Bg */
+    --border: 220 25% 28%; /* Dark Blue Border */
+    --input: 220 25% 22%; /* Dark Blue Input Bg */
 
-    --primary: 20 70% 60%; /* Muted Coral Peach for dark mode */
-    --primary-foreground: 20 30% 90%; /* Light peach for text on dark primary */
+    --primary: 200 80% 65%; /* Brighter, Empathic Blue */
+    --primary-foreground: 200 25% 95%; /* Light text for dark primary */
 
-    --secondary: 40 70% 50%; /* Muted Sunny Yellow for dark mode */
-    --secondary-foreground: 40 30% 90%; /* Light yellow for text on dark secondary */
+    --secondary: 190 70% 50%; /* Muted Teal/Celeste */
+    --secondary-foreground: 190 25% 90%; /* Light text for dark secondary */
 
-    --accent: 40 75% 55%; /* Muted Sunny Yellow-Orange for dark mode accent */
-    --accent-foreground: 40 25% 90%; /* Light peach for text on dark accent */
+    --accent: 180 75% 60%; /* Calming Teal/Light Blue for accents */
+    --accent-foreground: 180 25% 95%; /* Light text for dark accent */
 
-    --destructive: 0 60% 50%; /* Unchanged */
+    --destructive: 0 60% 50%; /* Standard destructive red */
     --destructive-foreground: 0 0% 98%;
 
-    --ring: 20 70% 55%; /* Muted Coral Peach for dark focus rings */
+    --ring: 200 80% 60%; /* Primary blue for focus rings */
 
-    --chart-1: 20 70% 60%; /* Primary Dark - Muted Coral Peach */
-    --chart-2: 40 75% 55%; /* Accent Dark - Muted Sunny Yellow-Orange */
-    --chart-3: 20 60% 50%; /* Darker Muted Primary */
-    --chart-4: 40 65% 45%; /* Darker Muted Accent */
-    --chart-5: 30 65% 50%; /* Dark Soft Orange */
-
-    /* Sidebar specific dark - Warm Theme */
-    --sidebar-background: 25 18% 14%; /* Darkest Warm Brown for Sidebar */
-    --sidebar-foreground: 30 40% 80%;
-    --sidebar-border: 25 15% 25%;
-    --sidebar-primary: 20 70% 55%; /* Muted Coral for active sidebar */
-    --sidebar-primary-foreground: 20 20% 92%;
-    --sidebar-accent: 40 70% 50%; /* Muted Yellow for sidebar hover */
-    --sidebar-accent-foreground: 40 20% 92%;
-    --sidebar-ring: 20 70% 55%;
+    --chart-1: 200 80% 65%; /* Primary Blue */
+    --chart-2: 180 75% 60%; /* Accent Teal */
+    --chart-3: 200 70% 55%; /* Muted Primary Blue */
+    --chart-4: 180 65% 50%; /* Muted Accent Teal */
+    --chart-5: 210 70% 60%; /* Another shade of blue */
+    
+    /* Sidebar specific - Dark Blue/Celeste Theme */
+    --sidebar-background: 220 28% 15%; /* Dark blue for sidebar */
+    --sidebar-foreground: 210 35% 80%;
+    --sidebar-border: 220 20% 25%;
+    --sidebar-primary: 200 75% 60%; /* Active sidebar item */
+    --sidebar-primary-foreground: 200 20% 92%; /* Light text for active sidebar */
+    --sidebar-accent: 180 70% 55%; /* Hover sidebar item */
+    --sidebar-accent-foreground: 180 20% 92%; /* Light text for hover sidebar */
+    --sidebar-ring: 200 75% 60%;
   }
 }
 
