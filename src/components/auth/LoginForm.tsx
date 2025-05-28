@@ -19,8 +19,8 @@ import { useAuth } from "@/hooks/useAuth";
 import { KeyRound, Mail } from "lucide-react";
 
 const formSchema = z.object({
-  email: z.string().email({ message: "Invalid email address." }),
-  password: z.string().min(6, { message: "Password must be at least 6 characters." }),
+  email: z.string().email({ message: "Dirección de correo electrónico inválida." }),
+  password: z.string().min(6, { message: "La contraseña debe tener al menos 6 caracteres." }),
 });
 
 export function LoginForm() {
@@ -37,10 +37,10 @@ export function LoginForm() {
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     // Simulate API call
-    console.log("Login attempt:", values);
+    console.log("Intento de inicio de sesión:", values);
     toast({
-      title: "Login Successful",
-      description: "Welcome back!",
+      title: "Inicio de Sesión Exitoso",
+      description: "¡Bienvenido/a de nuevo!",
     });
     login(); // Navigate to app dashboard after mock login
   }
@@ -53,11 +53,11 @@ export function LoginForm() {
           name="email"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Email</FormLabel>
+              <FormLabel>Correo Electrónico</FormLabel>
               <div className="relative">
                 <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
                 <FormControl>
-                  <Input placeholder="your@email.com" {...field} className="pl-10"/>
+                  <Input placeholder="tu@email.com" {...field} className="pl-10"/>
                 </FormControl>
               </div>
               <FormMessage />
@@ -69,7 +69,7 @@ export function LoginForm() {
           name="password"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Password</FormLabel>
+              <FormLabel>Contraseña</FormLabel>
                <div className="relative">
                 <KeyRound className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
                 <FormControl>
@@ -81,13 +81,13 @@ export function LoginForm() {
           )}
         />
         <Button type="submit" className="w-full">
-          Login
+          Iniciar Sesión
         </Button>
         <p className="text-center text-sm text-muted-foreground">
-          Don&apos;t have an account?{" "}
+          ¿No tienes una cuenta?{" "}
           <Button variant="link" asChild className="p-0 h-auto">
             <Link href="/register">
-             Register here
+             Regístrate aquí
             </Link>
           </Button>
         </p>

@@ -19,9 +19,9 @@ import { useAuth } from "@/hooks/useAuth";
 import { User, KeyRound, Mail } from "lucide-react";
 
 const formSchema = z.object({
-  name: z.string().min(2, { message: "Name must be at least 2 characters." }),
-  email: z.string().email({ message: "Invalid email address." }),
-  password: z.string().min(6, { message: "Password must be at least 6 characters." }),
+  name: z.string().min(2, { message: "El nombre debe tener al menos 2 caracteres." }),
+  email: z.string().email({ message: "Dirección de correo electrónico inválida." }),
+  password: z.string().min(6, { message: "La contraseña debe tener al menos 6 caracteres." }),
 });
 
 export function RegisterForm() {
@@ -39,10 +39,10 @@ export function RegisterForm() {
 
   function onSubmit(values: z.infer<typeof formSchema>) {
     // Simulate API call
-    console.log("Registration attempt:", values);
+    console.log("Intento de registro:", values);
     toast({
-      title: "Registration Successful",
-      description: "Welcome to Sereno AI! Please login.",
+      title: "Registro Exitoso",
+      description: "¡Bienvenido/a a Sereno AI! Por favor, inicia sesión.",
     });
     register(); // Navigate to app dashboard after mock registration
   }
@@ -55,11 +55,11 @@ export function RegisterForm() {
           name="name"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Full Name</FormLabel>
+              <FormLabel>Nombre Completo</FormLabel>
               <div className="relative">
                 <User className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
                 <FormControl>
-                  <Input placeholder="Your Name" {...field} className="pl-10" />
+                  <Input placeholder="Tu Nombre" {...field} className="pl-10" />
                 </FormControl>
               </div>
               <FormMessage />
@@ -71,11 +71,11 @@ export function RegisterForm() {
           name="email"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Email</FormLabel>
+              <FormLabel>Correo Electrónico</FormLabel>
               <div className="relative">
                 <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
                 <FormControl>
-                  <Input placeholder="your@email.com" {...field} className="pl-10" />
+                  <Input placeholder="tu@email.com" {...field} className="pl-10" />
                 </FormControl>
               </div>
               <FormMessage />
@@ -87,7 +87,7 @@ export function RegisterForm() {
           name="password"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Password</FormLabel>
+              <FormLabel>Contraseña</FormLabel>
               <div className="relative">
                 <KeyRound className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
                 <FormControl>
@@ -99,13 +99,13 @@ export function RegisterForm() {
           )}
         />
         <Button type="submit" className="w-full">
-          Create Account
+          Crear Cuenta
         </Button>
         <p className="text-center text-sm text-muted-foreground">
-          Already have an account?{" "}
+          ¿Ya tienes una cuenta?{" "}
           <Button variant="link" asChild className="p-0 h-auto">
             <Link href="/login">
-              Login here
+              Inicia sesión aquí
             </Link>
           </Button>
         </p>

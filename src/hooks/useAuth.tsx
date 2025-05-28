@@ -60,7 +60,7 @@ export function ProtectRoute({ children }: { children: React.ReactNode }) {
   if (isLoading || !isAuthenticated) {
     return (
       <div className="flex items-center justify-center min-h-screen">
-        <p>Loading...</p>
+        <p>Cargando...</p>
       </div>
     );
   }

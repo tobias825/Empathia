@@ -21,8 +21,8 @@ import { MessageSquare, BarChart3, LifeBuoy, LogOut, Settings, UserCircle } from
 
 const navItems = [
   { href: '/app/chat', label: 'Chat', icon: MessageSquare },
-  { href: '/app/sentiment', label: 'Sentiment Analysis', icon: BarChart3 },
-  { href: '/app/resources', label: 'Resources', icon: LifeBuoy },
+  { href: '/app/sentiment', label: 'Análisis de Sentimiento', icon: BarChart3 },
+  { href: '/app/resources', label: 'Recursos', icon: LifeBuoy },
 ];
 
 export function AppSidebar() {
@@ -60,33 +60,33 @@ export function AppSidebar() {
       <SidebarFooter className="p-2">
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton tooltip="Profile (Coming Soon)" disabled>
+            <SidebarMenuButton tooltip="Perfil (Próximamente)" disabled>
               <UserCircle />
-              <span>Profile</span>
+              <span>Perfil</span>
             </SidebarMenuButton>
           </SidebarMenuItem>
            <SidebarMenuItem>
-            <SidebarMenuButton tooltip="Settings (Coming Soon)" disabled>
+            <SidebarMenuButton tooltip="Configuración (Próximamente)" disabled>
               <Settings />
-              <span>Settings</span>
+              <span>Configuración</span>
             </SidebarMenuButton>
           </SidebarMenuItem>
           <SidebarMenuItem>
-            <SidebarMenuButton onClick={logout} tooltip="Logout">
+            <SidebarMenuButton onClick={logout} tooltip="Cerrar Sesión">
               <LogOut />
-              <span>Logout</span>
+              <span>Cerrar Sesión</span>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
         {state === 'expanded' && (
           <div className="mt-4 p-2 flex items-center gap-3 border-t border-sidebar-border pt-4">
             <Avatar>
-              <AvatarImage src="https://placehold.co/40x40.png" alt="User" data-ai-hint="profile avatar" />
+              <AvatarImage src="https://placehold.co/40x40.png" alt="Usuario" data-ai-hint="profile avatar" />
               <AvatarFallback>U</AvatarFallback>
             </Avatar>
             <div>
-              <p className="text-sm font-medium text-sidebar-foreground">User Name</p>
-              <p className="text-xs text-sidebar-foreground/70">user@example.com</p>
+              <p className="text-sm font-medium text-sidebar-foreground">Nombre de Usuario</p>
+              <p className="text-xs text-sidebar-foreground/70">usuario@ejemplo.com</p>
             </div>
           </div>
         )}

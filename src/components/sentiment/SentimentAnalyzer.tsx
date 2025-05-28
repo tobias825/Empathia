@@ -50,8 +50,8 @@ export function SentimentAnalyzer() {
     const storedChatHistory = localStorage.getItem(CHAT_HISTORY_KEY);
     if (!storedChatHistory) {
       toast({
-        title: 'No Chat History',
-        description: 'Please chat with Sereno AI first to analyze sentiment.',
+        title: 'No Hay Historial de Chat',
+        description: 'Por favor, chatea con Sereno AI primero para analizar el sentimiento.',
         variant: 'destructive',
       });
       setIsLoading(false);
@@ -61,8 +61,8 @@ export function SentimentAnalyzer() {
     const chatMessages: ChatMessage[] = JSON.parse(storedChatHistory);
     if (chatMessages.length === 0) {
         toast({
-            title: 'Empty Chat History',
-            description: 'Your chat history is empty. Please chat with Sereno AI first.',
+            title: 'Historial de Chat Vacío',
+            description: 'Tu historial de chat está vacío. Por favor, chatea con Sereno AI primero.',
             variant: 'destructive',
         });
         setIsLoading(false);
@@ -72,7 +72,7 @@ export function SentimentAnalyzer() {
     const fullChatText = chatMessages.map(msg => `${msg.role}: ${msg.content}`).join('\n');
     // Create a summary of chat for display (e.g. first and last message)
     const summary = chatMessages.length > 1 
-        ? `From: "${chatMessages[0].content.substring(0,50)}..." to "${chatMessages[chatMessages.length - 1].content.substring(0,50)}..."`
+        ? `De: "${chatMessages[0].content.substring(0,50)}..." a "${chatMessages[chatMessages.length - 1].content.substring(0,50)}..."`
         : `"${chatMessages[0].content.substring(0,100)}..."`;
     setChatSummaryForDisplay(summary);
 
@@ -88,14 +88,14 @@ export function SentimentAnalyzer() {
       setAnalysisResult(newAnalysis);
       saveAnalysisToHistory(newAnalysis);
       toast({
-        title: 'Sentiment Analyzed',
-        description: 'Successfully analyzed chat sentiment.',
+        title: 'Sentimiento Analizado',
+        description: 'Se analizó con éxito el sentimiento del chat.',
       });
     } catch (error) {
-      console.error('Error analyzing sentiment:', error);
+      console.error('Error al analizar sentimiento:', error);
       toast({
-        title: 'Analysis Error',
-        description: 'Could not analyze sentiment. Please try again.',
+        title: 'Error de Análisis',
+        description: 'No se pudo analizar el sentimiento. Por favor, inténtalo de nuevo.',
         variant: 'destructive',
       });
     } finally {
@@ -108,8 +108,8 @@ export function SentimentAnalyzer() {
     localStorage.removeItem(SENTIMENT_HISTORY_KEY);
     setAnalysisResult(null); // Also clear current display if it's from history
     toast({
-      title: "History Cleared",
-      description: "Your sentiment analysis history has been cleared.",
+      title: "Historial Borrado",
+      description: "Tu historial de análisis de sentimiento ha sido borrado.",
     });
   };
   
@@ -132,40 +132,40 @@ export function SentimentAnalyzer() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2 text-2xl">
             <BarChart3 className="text-primary" />
-            Current Sentiment Analysis
+            Análisis de Sentimiento Actual
           </CardTitle>
           <CardDescription>
-            Analyze the sentiment of your recent conversation with Sereno AI. Press the button below to start.
+            Analiza el sentimiento de tu conversación reciente con Sereno AI. Presiona el botón de abajo para comenzar.
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
           {isLoading && (
             <div className="flex items-center justify-center p-6">
               <Loader2 className="h-8 w-8 animate-spin text-primary" />
-              <p className="ml-2 text-muted-foreground">Analyzing...</p>
+              <p className="ml-2 text-muted-foreground">Analizando...</p>
             </div>
           )}
           {!isLoading && analysisResult && (
             <div className="space-y-3 p-4 bg-secondary/30 rounded-lg">
               <p className="text-sm text-muted-foreground">
-                Analysis of chat ({new Date(analysisResult.timestamp).toLocaleString()}): <span className="italic">{chatSummaryForDisplay}</span>
+                Análisis de chat ({new Date(analysisResult.timestamp).toLocaleString('es')}): <span className="italic">{chatSummaryForDisplay}</span>
               </p>
               <h3 className="text-xl font-semibold">
-                Overall Sentiment: <span className={getSentimentColor(analysisResult.sentimentScore)}>{analysisResult.sentimentLabel} ({analysisResult.sentimentScore.toFixed(2)})</span>
+                Sentimiento General: <span className={getSentimentColor(analysisResult.sentimentScore)}>{analysisResult.sentimentLabel} ({analysisResult.sentimentScore.toFixed(2)})</span>
               </h3>
               <div>
-                <h4 className="font-medium">Key Topics:</h4>
+                <h4 className="font-medium">Temas Clave:</h4>
                 <p className="text-muted-foreground">{analysisResult.keyTopics}</p>
               </div>
               <div>
-                <h4 className="font-medium">Summary of Emotional State:</h4>
+                <h4 className="font-medium">Resumen del Estado Emocional:</h4>
                 <p className="text-muted-foreground">{analysisResult.summary}</p>
               </div>
             </div>
           )}
           {!isLoading && !analysisResult && (
             <p className="text-center text-muted-foreground py-4">
-              No analysis performed yet for the current session, or no history item selected. Click "Analyze Current Chat" to begin.
+              Aún no se ha realizado ningún análisis para la sesión actual o no se ha seleccionado ningún elemento del historial. Haz clic en "Analizar Chat Actual" para comenzar.
             </p>
           )}
         </CardContent>
@@ -173,11 +173,11 @@ export function SentimentAnalyzer() {
           <Button onClick={handleAnalyzeSentiment} disabled={isLoading} className="w-full">
             {isLoading ? (
               <>
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Analyzing...
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Analizando...
               </>
             ) : (
               <>
-                <RefreshCw className="mr-2 h-4 w-4" /> Analyze Current Chat
+                <RefreshCw className="mr-2 h-4 w-4" /> Analizar Chat Actual
               </>
             )}
           </Button>
@@ -188,30 +188,30 @@ export function SentimentAnalyzer() {
         <Card className="shadow-lg rounded-xl">
           <CardHeader>
             <div className="flex justify-between items-center">
-              <CardTitle className="text-xl">Analysis History</CardTitle>
+              <CardTitle className="text-xl">Historial de Análisis</CardTitle>
               <AlertDialog>
                 <AlertDialogTrigger asChild>
                   <Button variant="destructive" size="sm">
-                    <Trash2 className="mr-2 h-4 w-4" /> Clear History
+                    <Trash2 className="mr-2 h-4 w-4" /> Borrar Historial
                   </Button>
                 </AlertDialogTrigger>
                 <AlertDialogContent>
                   <AlertDialogHeader>
-                    <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+                    <AlertDialogTitle>¿Estás seguro/a?</AlertDialogTitle>
                     <AlertDialogDescription>
-                      This action cannot be undone. This will permanently delete your sentiment analysis history.
+                      Esta acción no se puede deshacer. Esto eliminará permanentemente tu historial de análisis de sentimiento.
                     </AlertDialogDescription>
                   </AlertDialogHeader>
                   <AlertDialogFooter>
-                    <AlertDialogCancel>Cancel</AlertDialogCancel>
+                    <AlertDialogCancel>Cancelar</AlertDialogCancel>
                     <AlertDialogAction onClick={clearAnalysisHistory}>
-                      Continue
+                      Continuar
                     </AlertDialogAction>
                   </AlertDialogFooter>
                 </AlertDialogContent>
               </AlertDialog>
             </div>
-            <CardDescription>View your past sentiment analyses. Click an item to see details.</CardDescription>
+            <CardDescription>Visualiza tus análisis de sentimiento pasados. Haz clic en un elemento para ver los detalles.</CardDescription>
           </CardHeader>
           <CardContent>
             <ScrollArea className="h-[300px] pr-3">
@@ -223,7 +223,7 @@ export function SentimentAnalyzer() {
                   >
                     <div className="flex justify-between items-center">
                         <span className={`font-semibold ${getSentimentColor(item.sentimentScore)}`}>{item.sentimentLabel} ({item.sentimentScore.toFixed(2)})</span>
-                        <span className="text-xs text-muted-foreground">{new Date(item.timestamp).toLocaleDateString()} {new Date(item.timestamp).toLocaleTimeString()}</span>
+                        <span className="text-xs text-muted-foreground">{new Date(item.timestamp).toLocaleDateString('es')} {new Date(item.timestamp).toLocaleTimeString('es')}</span>
                     </div>
                     <p className="text-xs text-muted-foreground mt-1 italic truncate" title={item.chatHistorySummary}>
                         Chat: {item.chatHistorySummary}

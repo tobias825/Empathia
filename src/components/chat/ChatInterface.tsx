@@ -30,7 +30,7 @@ export function ChatInterface() {
         {
           id: 'ai-welcome',
           role: 'assistant',
-          content: "Hello! I'm Sereno, your AI companion. How are you feeling today? Feel free to share anything that's on your mind.",
+          content: "¡Hola! Soy Sereno, tu compañero IA. ¿Cómo te sientes hoy? Siéntete libre de compartir cualquier cosa que tengas en mente.",
           timestamp: new Date(),
         },
       ]);
@@ -82,17 +82,17 @@ export function ChatInterface() {
       };
       setMessages((prevMessages) => [...prevMessages, newAiMessage]);
     } catch (error) {
-      console.error('Error getting AI response:', error);
+      console.error('Error al obtener respuesta de IA:', error);
       toast({
         title: 'Error',
-        description: 'Could not get a response from the AI. Please try again.',
+        description: 'No se pudo obtener una respuesta de la IA. Por favor, inténtalo de nuevo.',
         variant: 'destructive',
       });
       // Optionally add a message to chat indicating error
        const errorAiMessage: ChatMessageType = {
         id: `ai-error-${Date.now()}`,
         role: 'assistant',
-        content: "I'm having a little trouble connecting right now. Please try sending your message again in a moment.",
+        content: "Estoy teniendo un pequeño problema para conectarme en este momento. Por favor, intenta enviar tu mensaje de nuevo en un momento.",
         timestamp: new Date(),
       };
       setMessages((prevMessages) => [...prevMessages, errorAiMessage]);
@@ -121,13 +121,13 @@ export function ChatInterface() {
           <Input
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            placeholder="Type your message here..."
+            placeholder="Escribe tu mensaje aquí..."
             className="flex-1 rounded-full px-4 py-2 focus-visible:ring-primary"
             disabled={isLoading}
           />
           <Button type="submit" size="icon" className="rounded-full" disabled={isLoading}>
             {isLoading ? <Loader2 className="h-5 w-5 animate-spin" /> : <SendHorizonal className="h-5 w-5" />}
-            <span className="sr-only">Send message</span>
+            <span className="sr-only">Enviar mensaje</span>
           </Button>
         </form>
       </div>

@@ -5,9 +5,9 @@ export default function LoginPage() {
   return (
     <>
       <CardHeader className="text-center p-0 mb-6">
-        <CardTitle className="text-3xl font-bold text-foreground">Welcome Back</CardTitle>
+        <CardTitle className="text-3xl font-bold text-foreground">Bienvenido de Nuevo</CardTitle>
         <CardDescription className="text-muted-foreground">
-          Sign in to continue your journey with Sereno AI.
+          Inicia sesión para continuar tu viaje con Sereno AI.
         </CardDescription>
       </CardHeader>
       <LoginForm />
