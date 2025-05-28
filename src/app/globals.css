@@ -14,11 +14,66 @@
       transform: translateY(0);
     }
   }
+
+  @keyframes sun-burst-to-center {
+    0% {
+      left: var(--start-x);
+      top: var(--start-y);
+      transform: scale(1) translate(0,0); /* Ensure translate starts at 0,0 relative to left/top */
+      opacity: 0.8;
+    }
+    40% { /* Mid-point for theme change feel */
+      transform: scale(5) translate(calc(50vw - var(--start-x) - (var(--icon-size) * 5 / 2)), calc(50vh - var(--start-y) - (var(--icon-size) * 5 / 2)));
+      opacity: 1;
+    }
+    100% {
+      left: var(--start-x); /* Keep left/top same for transform calculation */
+      top: var(--start-y);
+      transform: scale(50) translate(calc(50vw - var(--start-x) - (var(--icon-size) * 50 / 2)), calc(50vh - var(--start-y) - (var(--icon-size) * 50 / 2)));
+      opacity: 0;
+    }
+  }
+
+  @keyframes moon-sweep-to-center {
+    0% {
+      left: var(--start-x);
+      top: var(--start-y);
+      transform: scale(1) translate(0,0);
+      opacity: 0.8;
+    }
+    40% {
+      transform: scale(5) translate(calc(50vw - var(--start-x) - (var(--icon-size) * 5 / 2)), calc(50vh - var(--start-y) - (var(--icon-size) * 5 / 2)));
+      opacity: 1;
+    }
+    100% {
+      left: var(--start-x);
+      top: var(--start-y);
+      transform: scale(50) translate(calc(50vw - var(--start-x) - (var(--icon-size) * 50 / 2)), calc(50vh - var(--start-y) - (var(--icon-size) * 50 / 2)));
+      opacity: 0;
+    }
+  }
 }
 
 @layer utilities {
   .animate-message-appear {
     animation: message-appear 0.5s ease-out forwards; /* Aumentado de 0.3s a 0.5s */
+  }
+
+  .theme-transition-icon {
+    position: absolute; /* Changed from fixed to absolute for parent div to handle positioning */
+    /* width and height are set via inline style from --icon-size */
+    animation-duration: 1s;
+    animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1); /* Smoother ease */
+    animation-fill-mode: forwards;
+    pointer-events: none; /* Critical for not blocking interactions */
+  }
+
+  .theme-transition-sun {
+    animation-name: sun-burst-to-center;
+  }
+
+  .theme-transition-moon {
+    animation-name: moon-sweep-to-center;
   }
 }
 
