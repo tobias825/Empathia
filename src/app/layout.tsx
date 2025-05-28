@@ -6,7 +6,6 @@ import { Toaster } from '@/components/ui/toaster';
 import { SidebarProvider } from '@/components/ui/sidebar';
 import { LanguageProvider } from '@/contexts/LanguageContext';
 import { ThemeProvider } from '@/contexts/ThemeContext';
-import ThemeAnimator from '@/components/ThemeAnimator'; // Import ThemeAnimator
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -35,7 +34,6 @@ export default function RootLayout({
           <LanguageProvider>
             <SidebarProvider>
               {children}
-              <ThemeAnimator /> {/* Add ThemeAnimator here */}
             </SidebarProvider>
           </LanguageProvider>
         </ThemeProvider>

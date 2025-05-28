@@ -28,7 +28,7 @@ export function AppSidebar() {
   const { user, logout } = useAuth();
   const { state } = useSidebar();
   const { language, setLanguage, t } = useLanguage();
-  const { theme, toggleTheme, animationDetails } = useTheme(); // Get animationDetails
+  const { theme, toggleTheme } = useTheme(); 
 
   const navItems = [
     { href: '/app/chat', translations: { es: 'Chat', en: 'Chat' }, icon: MessageSquare },
@@ -130,8 +130,7 @@ export function AppSidebar() {
               variant="ghost"
               size="sm"
               className="w-full justify-start gap-2"
-              onClick={(e) => toggleTheme(e)} // Pass event
-              disabled={animationDetails.isAnimating} // Disable button during animation
+              onClick={toggleTheme}
             >
               {theme === 'light' ? <Moon /> : <Sun />}
               <span>{theme === 'light' ? t(commonLabels.darkMode) : t(commonLabels.lightMode)}</span>
@@ -144,8 +143,7 @@ export function AppSidebar() {
                 variant="ghost"
                 size="icon"
                 className="w-full"
-                onClick={(e) => toggleTheme(e)} // Pass event
-                disabled={animationDetails.isAnimating} // Disable button during animation
+                onClick={toggleTheme}
                 aria-label={theme === 'light' ? t(commonLabels.activateDarkMode) : t(commonLabels.activateLightMode)}
               >
                 {theme === 'light' ? <Moon /> : <Sun />}
