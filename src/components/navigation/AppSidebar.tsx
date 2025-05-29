@@ -3,7 +3,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import React from 'react'; // Removed useState as it's no longer needed here
+import React from 'react';
 import {
   Sidebar,
   SidebarHeader,
@@ -20,14 +20,13 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import Logo from '@/components/Logo';
 import { useAuth } from '@/hooks/useAuth.tsx';
-import { MessageSquare, BarChart3, LifeBuoy, LogOut, Settings, UserCircle, Globe, Moon, Sun, User as UserProfileIcon } from 'lucide-react'; // Added UserProfileIcon
+import { MessageSquare, BarChart3, LifeBuoy, LogOut, Settings, UserCircle, Globe, Moon, Sun, User as UserProfileIcon } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useTheme } from '@/contexts/ThemeContext';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  // DropdownMenuLabel, // No longer explicitly used for 'Perfil'
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
@@ -38,8 +37,7 @@ export function AppSidebar() {
   const { user, logout } = useAuth();
   const { state } = useSidebar();
   const { language, setLanguage, t } = useLanguage();
-  const { theme, toggleTheme } = useTheme(); 
-  // Removed: const [showPassword, setShowPassword] = useState(false);
+  const { theme, toggleTheme } = useTheme();
 
   const navItems = [
     { href: '/app/chat', translations: { es: 'Chat', en: 'Chat' }, icon: MessageSquare },
@@ -48,7 +46,7 @@ export function AppSidebar() {
   ];
 
   const commonLabels = {
-    profile: { es: 'Mi Perfil', en: 'My Profile' }, // Changed from "Perfil" to "Mi Perfil"
+    profile: { es: 'Mi Perfil', en: 'My Profile' },
     settings: { es: 'Configuración (Próximamente)', en: 'Settings (Coming Soon)' },
     logout: { es: 'Cerrar Sesión', en: 'Log Out' },
     switchToEnglish: { es: 'Cambiar a Inglés', en: 'Switch to English' },
@@ -60,12 +58,8 @@ export function AppSidebar() {
     darkMode: { es: 'Modo Oscuro', en: 'Dark Mode' },
     lightMode: { es: 'Modo Claro', en: 'Light Mode' },
     userNamePlaceholder: { es: 'Usuario Empathia', en: 'Empathia User' },
-    // emailLabel: { es: 'Correo Electrónico', en: 'Email' }, // No longer needed here
-    // passwordLabel: { es: 'Contraseña', en: 'Password' }, // No longer needed here
     navigationHeader: { es: 'Navegación', en: 'Navigation'}
   };
-
-  // Removed: handlePasswordToggle function
 
   return (
     <Sidebar collapsible="icon" side="left">
@@ -145,7 +139,7 @@ export function AppSidebar() {
                   variant="ghost"
                   size="sm"
                   className="w-full justify-start gap-2"
-                  onClick={(e) => toggleTheme(e)}
+                  onClick={() => toggleTheme()}
                 >
                   {theme === 'light' ? <Moon className="h-4 w-4" /> : <Sun className="h-4 w-4" />}
                   <span>{theme === 'light' ? t(commonLabels.darkMode) : t(commonLabels.lightMode)}</span>
@@ -158,7 +152,7 @@ export function AppSidebar() {
                     variant="ghost"
                     size="icon"
                     className="w-full"
-                    onClick={(e) => toggleTheme(e)}
+                    onClick={() => toggleTheme()}
                     aria-label={theme === 'light' ? t(commonLabels.activateDarkMode) : t(commonLabels.activateLightMode)}
                   >
                     {theme === 'light' ? <Moon /> : <Sun />}
@@ -180,7 +174,7 @@ export function AppSidebar() {
             {state === 'expanded' ? (
               <div className="p-2 flex items-center gap-3 hover:bg-sidebar-accent rounded-md cursor-pointer transition-colors">
                 <Avatar>
-                  <AvatarImage src="https://placehold.co/40x40.png" alt={user?.name || t(commonLabels.userNamePlaceholder)} data-ai-hint="profile avatar" />
+                  <AvatarImage src="https://placehold.co/40x40/E0E0E0/BDBDBD.png" alt={user?.name || t(commonLabels.userNamePlaceholder)} data-ai-hint="anonymous user" />
                   <AvatarFallback>{user?.name?.charAt(0).toUpperCase() || 'U'}</AvatarFallback>
                 </Avatar>
                 <div>
