@@ -5,7 +5,6 @@ import React, { useState } from 'react';
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-// import Link from 'next/link'; // No longer needed for forgot-password
 
 import { useAuth } from '@/hooks/useAuth.tsx';
 import { useLanguage } from '@/contexts/LanguageContext';
@@ -151,6 +150,15 @@ export default function ProfilePage() {
                 {t(pageText.editProfile)}
             </h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
+                <Button 
+                  variant="outline" 
+                  className="w-full justify-start text-left" 
+                  onClick={() => { /* No action for now */ }}
+                >
+                    <LockKeyhole className="mr-2 h-4 w-4"/>
+                    {t(pageText.changePassword)}
+                </Button>
+
                 <AlertDialog open={isNameDialogOpen} onOpenChange={setIsNameDialogOpen}>
                     <AlertDialogTrigger asChild>
                         <Button variant="outline" className="w-full justify-start text-left">
@@ -187,15 +195,6 @@ export default function ProfilePage() {
                         </Form>
                     </AlertDialogContent>
                 </AlertDialog>
-
-                <Button 
-                  variant="outline" 
-                  className="w-full justify-start text-left" 
-                  onClick={() => { /* No action for now */ }}
-                >
-                    <LockKeyhole className="mr-2 h-4 w-4"/>
-                    {t(pageText.changePassword)}
-                </Button>
             </div>
         </CardFooter>
       </Card>
