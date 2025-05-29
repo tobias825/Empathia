@@ -2,16 +2,54 @@
 "use client";
 
 import React, { useState } from 'react';
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
+import Link from 'next/link';
+
 import { useAuth } from '@/hooks/useAuth.tsx';
 import { useLanguage } from '@/contexts/LanguageContext';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Mail, KeyRound, Eye, EyeOff, UserCircle as UserIcon } from 'lucide-react'; // Renamed UserCircle to UserIcon to avoid conflict
+import { Input } from '@/components/ui/input';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+import { useToast } from "@/hooks/use-toast";
+import { Mail, KeyRound, Eye, EyeOff, UserCircle as UserIcon, Edit3, UserSquare2, LockKeyhole } from 'lucide-react';
+
+const nameFormSchema = z.object({
+  newName: z.string().min(2, { message: "El nombre debe tener al menos 2 caracteres." }),
+});
 
 export default function ProfilePage() {
-  const { user } = useAuth();
-  const { t } = useLanguage();
+  const { user, updateName } = useAuth();
+  const { t, language } = useLanguage();
+  const { toast } = useToast();
   const [showPassword, setShowPassword] = useState(false);
+  const [isNameDialogOpen, setIsNameDialogOpen] = useState(false);
+
+  const nameForm = useForm<z.infer<typeof nameFormSchema>>({
+    resolver: zodResolver(nameFormSchema),
+    defaultValues: {
+      newName: user?.name || "",
+    },
+  });
+
+  React.useEffect(() => {
+    if (user) {
+      nameForm.reset({ newName: user.name });
+    }
+  }, [user, nameForm]);
 
   const pageText = {
     title: { es: "Mi Perfil", en: "My Profile" },
@@ -21,7 +59,27 @@ export default function ProfilePage() {
     showPasswordButton: { es: "Mostrar contraseña", en: "Show password" },
     hidePasswordButton: { es: "Ocultar contraseña", en: "Hide password" },
     nameLabel: { es: "Nombre", en: "Name"},
-    loadingUser: { es: "Cargando información del usuario...", en: "Loading user information..."}
+    loadingUser: { es: "Cargando información del usuario...", en: "Loading user information..."},
+    editProfile: { es: "Editar Perfil", en: "Edit Profile" },
+    changeUsername: { es: "Cambiar Nombre de Usuario", en: "Change Username" },
+    changePassword: { es: "Cambiar Contraseña", en: "Change Password" },
+    dialogChangeUsernameTitle: { es: "Cambiar Nombre de Usuario", en: "Change Username" },
+    dialogNewNameLabel: { es: "Nuevo Nombre", en: "New Name" },
+    dialogCancel: { es: "Cancelar", en: "Cancel" },
+    dialogSave: { es: "Guardar", en: "Save" },
+    nameUpdateSuccess: { es: "Nombre actualizado con éxito.", en: "Name updated successfully." },
+    nameUpdateError: { es: "Error al actualizar el nombre.", en: "Error updating name." },
+  };
+
+  const handleNameChange = (values: z.infer<typeof nameFormSchema>) => {
+    try {
+      updateName(values.newName);
+      toast({ title: t(pageText.nameUpdateSuccess) });
+      setIsNameDialogOpen(false);
+    } catch (error) {
+      toast({ title: t(pageText.nameUpdateError), variant: "destructive" });
+      console.error("Error updating name:", error);
+    }
   };
 
   if (!user) {
@@ -87,6 +145,57 @@ export default function ProfilePage() {
             </div>
           </div>
         </CardContent>
+        <CardFooter className="flex flex-col items-start p-6 border-t">
+            <h3 className="text-lg font-semibold mb-4 flex items-center text-foreground">
+                <Edit3 className="mr-2 h-5 w-5 text-primary"/>
+                {t(pageText.editProfile)}
+            </h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
+                <AlertDialog open={isNameDialogOpen} onOpenChange={setIsNameDialogOpen}>
+                    <AlertDialogTrigger asChild>
+                        <Button variant="outline" className="w-full justify-start text-left">
+                            <UserSquare2 className="mr-2 h-4 w-4"/>
+                            {t(pageText.changeUsername)}
+                        </Button>
+                    </AlertDialogTrigger>
+                    <AlertDialogContent>
+                        <AlertDialogHeader>
+                        <AlertDialogTitle>{t(pageText.dialogChangeUsernameTitle)}</AlertDialogTitle>
+                        </AlertDialogHeader>
+                        <Form {...nameForm}>
+                            <form onSubmit={nameForm.handleSubmit(handleNameChange)} className="space-y-4">
+                                <FormField
+                                control={nameForm.control}
+                                name="newName"
+                                render={({ field }) => (
+                                    <FormItem>
+                                    <FormLabel>{t(pageText.dialogNewNameLabel)}</FormLabel>
+                                    <FormControl>
+                                        <Input {...field} />
+                                    </FormControl>
+                                    <FormMessage />
+                                    </FormItem>
+                                )}
+                                />
+                                <AlertDialogFooter>
+                                    <AlertDialogCancel onClick={() => nameForm.reset({newName: user?.name || ""})}>
+                                        {t(pageText.dialogCancel)}
+                                    </AlertDialogCancel>
+                                    <AlertDialogAction type="submit">{t(pageText.dialogSave)}</AlertDialogAction>
+                                </AlertDialogFooter>
+                            </form>
+                        </Form>
+                    </AlertDialogContent>
+                </AlertDialog>
+
+                <Button variant="outline" className="w-full justify-start text-left" asChild>
+                    <Link href="/app/forgot-password">
+                        <LockKeyhole className="mr-2 h-4 w-4"/>
+                        {t(pageText.changePassword)}
+                    </Link>
+                </Button>
+            </div>
+        </CardFooter>
       </Card>
     </div>
   );
