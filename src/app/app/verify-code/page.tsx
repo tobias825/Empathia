@@ -20,7 +20,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { useAuth } from "@/hooks/useAuth.tsx";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useToast } from "@/hooks/use-toast";
-import { ShieldCheck, Keypad } from "lucide-react";
+import { ShieldCheck, KeyRound } from "lucide-react"; // Changed Keypad to KeyRound
 
 const codeSchema = z.object({
   verificationCode: z.string().length(6, { message: "El código debe tener 6 dígitos." }).regex(/^\d{6}$/, {message: "El código debe contener solo números."}),
@@ -87,7 +87,7 @@ export default function VerifyCodePage() {
                   <FormItem>
                     <FormLabel>{t(pageText.codeLabel)}</FormLabel>
                      <div className="relative">
-                        <Keypad className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+                        <KeyRound className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
                         <FormControl>
                         <Input type="text" placeholder={t(pageText.codePlaceholder)} {...field} className="pl-10 tracking-widest text-center" maxLength={6}/>
                         </FormControl>
