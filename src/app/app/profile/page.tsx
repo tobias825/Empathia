@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import Link from 'next/link';
+// import Link from 'next/link'; // No longer needed for forgot-password
 
 import { useAuth } from '@/hooks/useAuth.tsx';
 import { useLanguage } from '@/contexts/LanguageContext';
@@ -188,11 +188,13 @@ export default function ProfilePage() {
                     </AlertDialogContent>
                 </AlertDialog>
 
-                <Button variant="outline" className="w-full justify-start text-left" asChild>
-                    <Link href="/app/forgot-password">
-                        <LockKeyhole className="mr-2 h-4 w-4"/>
-                        {t(pageText.changePassword)}
-                    </Link>
+                <Button 
+                  variant="outline" 
+                  className="w-full justify-start text-left" 
+                  onClick={() => { /* No action for now */ }}
+                >
+                    <LockKeyhole className="mr-2 h-4 w-4"/>
+                    {t(pageText.changePassword)}
                 </Button>
             </div>
         </CardFooter>
