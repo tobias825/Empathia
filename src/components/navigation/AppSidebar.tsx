@@ -174,7 +174,10 @@ export function AppSidebar() {
             {state === 'expanded' ? (
               <div className="p-2 flex items-center gap-3 hover:bg-sidebar-accent rounded-md cursor-pointer transition-colors">
                 <Avatar>
-                  <AvatarImage src="https://placehold.co/40x40/E0E0E0/BDBDBD.png" alt={user?.name || t(commonLabels.userNamePlaceholder)} data-ai-hint="anonymous user" />
+                  <AvatarImage 
+                    src="https://placehold.co/40x40/CCCCCC/CCCCCC.png" 
+                    alt={user?.name || t(commonLabels.userNamePlaceholder)} 
+                    data-ai-hint="anonymous user" />
                   <AvatarFallback>{user?.name?.charAt(0).toUpperCase() || 'U'}</AvatarFallback>
                 </Avatar>
                 <div>
