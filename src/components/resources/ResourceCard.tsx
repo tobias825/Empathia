@@ -26,7 +26,7 @@ export function ResourceCard({ resource }: ResourceCardProps) {
         <div className="p-3 rounded-full bg-primary/20 text-primary">
           <IconComponent size={28} />
         </div>
-        <div>
+        <div className="min-w-0"> {/* Added min-w-0 to this div */}
           <CardTitle className="text-xl break-words">{t(resource.title)}</CardTitle>
         </div>
       </CardHeader>
