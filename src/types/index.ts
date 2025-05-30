@@ -24,3 +24,17 @@ export interface ResourceItem {
   phone?: string;
   icon: React.ElementType; // Lucide icon component
 }
+
+export interface MotivationalQuote {
+  id: string;
+  text: { es: string; en: string };
+  author?: { es: string; en: string };
+}
+
+export interface QuoteCategory {
+  id: string;
+  title: { es: string; en: string };
+  description?: { es: string; en: string }; // Optional description for the category
+  icon?: React.ElementType;
+  quotes: MotivationalQuote[];
+}
