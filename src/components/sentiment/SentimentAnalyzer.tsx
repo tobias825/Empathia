@@ -22,7 +22,7 @@ import {
 } from "@/components/ui/alert-dialog";
 import { useLanguage } from '@/contexts/LanguageContext';
 
-const CHAT_HISTORY_KEY = 'sereno_ai_chat_history'; // Keeping key for compatibility if users have old data
+const CHAT_HISTORY_KEY = 'empathia_ai_chat_history'; // Keeping key for compatibility if users have old data
 const SENTIMENT_HISTORY_KEY = 'empathia_ai_sentiment_history'; // New key for new name
 
 export function SentimentAnalyzer() {
@@ -31,7 +31,7 @@ export function SentimentAnalyzer() {
   const [isLoading, setIsLoading] = useState(false);
   const [chatSummaryForDisplay, setChatSummaryForDisplay] = useState<string>("");
   const { toast } = useToast();
-  const { t } = useLanguage();
+  const { language, t } = useLanguage(); // Destructure language here
 
   const translations = {
     noChatHistoryTitle: { es: 'No Hay Historial de Chat', en: 'No Chat History' },
