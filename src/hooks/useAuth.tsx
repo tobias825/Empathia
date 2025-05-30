@@ -8,7 +8,6 @@ import { useRouter } from 'next/navigation';
 
 const AUTH_KEY = 'empathia_auth_token';
 const USER_DETAILS_KEY = `${AUTH_KEY}_user`;
-// const PENDING_PASSWORD_KEY = `${AUTH_KEY}_pending_password`; // Key for storing pending password - REMOVED
 
 interface User {
   name: string;
@@ -24,8 +23,7 @@ interface AuthState {
   logout: () => void;
   register: (name?: string, email?: string, password?: string, redirectTo?: string) => void;
   updateName: (newName: string) => void;
-  // setPendingPassword: (newPassword: string) => void; // REMOVED
-  // confirmPasswordUpdate: (verificationCode: string) => boolean; // REMOVED
+  // Removed password reset flow methods
 }
 
 export function useAuth(): AuthState {
@@ -57,34 +55,69 @@ export function useAuth(): AuthState {
   };
 
   const login = useCallback((email?: string, password?: string, redirectTo: string = '/app/chat') => {
-    const mockUser: User = {
-      name: email?.split('@')[0] || 'Usuario Empathia', 
-      email: email || 'usuario@empathia.app',
-      password: password || 'mockPassword123',
-    };
-    localStorage.setItem(AUTH_KEY, 'mock_token');
-    saveUser(mockUser);
+    const loginEmail = email || 'usuario@empathia.app';
+    let userToSave: User;
+
+    const storedUserJSON = localStorage.getItem(USER_DETAILS_KEY);
+    if (storedUserJSON) {
+      try {
+        const storedUser: User = JSON.parse(storedUserJSON);
+        if (storedUser.email === loginEmail) {
+          // User with this email was previously logged in and had details saved.
+          // Preserve their name and other details.
+          userToSave = {
+            ...storedUser, // This includes their custom name
+            password: password || storedUser.password || 'mockPassword123', // Update pw if provided, else keep old or default
+          };
+        } else {
+          // Stored user is for a different email, so create new for this loginEmail
+          userToSave = {
+            name: loginEmail.split('@')[0] || 'Usuario Empathia',
+            email: loginEmail,
+            password: password || 'mockPassword123',
+          };
+        }
+      } catch (e) {
+        // Error parsing, fallback to creating a new user
+        console.error("Error parsing stored user during login:", e);
+        userToSave = {
+          name: loginEmail.split('@')[0] || 'Usuario Empathia',
+          email: loginEmail,
+          password: password || 'mockPassword123',
+        };
+      }
+    } else {
+      // No user details stored at all, create new
+      userToSave = {
+        name: loginEmail.split('@')[0] || 'Usuario Empathia',
+        email: loginEmail,
+        password: password || 'mockPassword123',
+      };
+    }
+
+    localStorage.setItem(AUTH_KEY, 'mock_token'); // Set the session token
+    saveUser(userToSave); // saveUser updates localStorage USER_DETAILS_KEY and user state
     setIsAuthenticated(true);
     router.push(redirectTo);
   }, [router]);
 
+
   const logout = useCallback(() => {
-    localStorage.removeItem(AUTH_KEY);
-    localStorage.removeItem(USER_DETAILS_KEY);
-    // localStorage.removeItem(PENDING_PASSWORD_KEY); // Clear pending password on logout - REMOVED
+    localStorage.removeItem(AUTH_KEY); // Clear session token
+    // DO NOT clear USER_DETAILS_KEY, so user's name and other details persist
     setIsAuthenticated(false);
-    setUser(null);
+    setUser(null); // Clear user from state
     router.push('/login');
   }, [router]);
 
   const register = useCallback((name?: string, email?: string, password?: string, redirectTo: string = '/app/chat') => {
-    const mockUser: User = {
+    const userToRegister: User = {
       name: name || 'Nuevo Usuario',
       email: email || 'nuevo@empathia.app',
       password: password || 'mockPassword123',
     };
     localStorage.setItem(AUTH_KEY, 'mock_token_registered'); 
-    saveUser(mockUser);
+    saveUser(userToRegister);
     setIsAuthenticated(true); 
     router.push(redirectTo);
   }, [router]);
@@ -96,7 +129,6 @@ export function useAuth(): AuthState {
     }
   }, [user]);
 
-  // Removed setPendingPassword and confirmPasswordUpdate functions
 
   return { isAuthenticated, isLoading, user, login, logout, register, updateName };
 }
