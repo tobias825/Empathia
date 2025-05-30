@@ -1,9 +1,11 @@
+
 "use client";
 
 import { AppSidebar } from '@/components/navigation/AppSidebar';
 import { ProtectRoute } from '@/hooks/useAuth';
 import { SidebarInset, SidebarTrigger } from '@/components/ui/sidebar';
 import { ScrollArea } from '@/components/ui/scroll-area';
+import { FloatingShapes } from '@/components/decorative/FloatingShapes';
 
 export default function AppLayout({
   children,
@@ -20,8 +22,11 @@ export default function AppLayout({
             {/* Potentially add breadcrumbs or page title here */}
           </header>
           <ScrollArea className="flex-1">
-            <main className="p-4 sm:px-6 sm:py-0 md:gap-8">
-              {children}
+            <main className="p-4 sm:px-6 sm:py-0 md:gap-8 relative">
+              <FloatingShapes variant="layout" className="z-0" />
+              <div className="relative z-10">
+                {children}
+              </div>
             </main>
           </ScrollArea>
         </SidebarInset>

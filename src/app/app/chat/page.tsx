@@ -2,6 +2,7 @@
 "use client";
 import { ChatInterface } from '@/components/chat/ChatInterface';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { FloatingShapes } from '@/components/decorative/FloatingShapes';
 
 export default function ChatPage() {
   const { t } = useLanguage();
@@ -18,14 +19,17 @@ export default function ChatPage() {
   };
 
   return (
-    <div className="container mx-auto max-w-3xl py-4">
+    <div className="container mx-auto max-w-3xl py-4 relative">
+      <FloatingShapes variant="chat" className="z-0" />
+      <div className="relative z-10">
         <h1 className="text-3xl font-bold mb-6 text-center text-foreground">
             {t(pageText.title)}
         </h1>
         <p className="text-muted-foreground text-center mb-8">
             {t(pageText.description)}
         </p>
-      <ChatInterface />
+        <ChatInterface />
+      </div>
     </div>
   );
 }
