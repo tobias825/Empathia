@@ -27,12 +27,11 @@ export function ResourceCard({ resource }: ResourceCardProps) {
           <IconComponent size={28} />
         </div>
         <div>
-          {/* Resource title and description are typically proper nouns or external content, so not translated here by default */}
-          <CardTitle className="text-xl">{resource.title}</CardTitle>
+          <CardTitle className="text-xl">{t(resource.title)}</CardTitle>
         </div>
       </CardHeader>
       <CardContent className="flex-grow">
-        <CardDescription>{resource.description}</CardDescription>
+        <CardDescription>{t(resource.description)}</CardDescription>
       </CardContent>
       {(resource.link || resource.phone) && (
         <CardFooter className="gap-2 flex-wrap">

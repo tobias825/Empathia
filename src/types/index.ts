@@ -1,3 +1,4 @@
+
 export interface ChatMessage {
   id: string;
   role: 'user' | 'assistant';
@@ -17,8 +18,8 @@ export interface SentimentResult {
 
 export interface ResourceItem {
   id: string;
-  title: string;
-  description: string;
+  title: { es: string; en: string };
+  description: { es: string; en: string };
   link?: string;
   phone?: string;
   icon: React.ElementType; // Lucide icon component

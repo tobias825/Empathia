@@ -8,45 +8,81 @@ import { useLanguage } from '@/contexts/LanguageContext';
 const resources: ResourceItem[] = [
   {
     id: 'crisis-hotline-1',
-    title: 'National Suicide Prevention Lifeline', 
-    description: 'Provides 24/7, free and confidential support for people in distress, prevention and crisis resources for you or your loved ones.', 
+    title: { 
+      en: 'National Suicide Prevention Lifeline', 
+      es: 'Línea Nacional de Prevención del Suicidio' 
+    },
+    description: { 
+      en: 'Provides 24/7, free and confidential support for people in distress, prevention and crisis resources for you or your loved ones.', 
+      es: 'Proporciona apoyo gratuito y confidencial las 24 horas del día, los 7 días de la semana, para personas en momentos de angustia, así como recursos de prevención y crisis para ti o tus seres queridos.' 
+    },
     phone: '988',
     link: 'https://988lifeline.org/',
     icon: PhoneCall,
   },
   {
     id: 'crisis-text-line',
-    title: 'Crisis Text Line', 
-    description: 'Text HOME to 741741 from anywhere in the US, anytime, about any type of crisis. A live, trained Crisis Counselor receives the text and responds.', 
+    title: { 
+      en: 'Crisis Text Line', 
+      es: 'Línea de Texto para Crisis' 
+    },
+    description: { 
+      en: 'Text HOME to 741741 from anywhere in the US, anytime, about any type of crisis. A live, trained Crisis Counselor receives the text and responds.', 
+      es: 'Envía un mensaje de texto con la palabra HOME al 741741 desde cualquier lugar de EE. UU., en cualquier momento y sobre cualquier tipo de crisis. Un consejero de crisis capacitado y en vivo recibe el mensaje y responde.' 
+    },
     link: 'https://www.crisistextline.org/',
     icon: MessageSquareHeart,
   },
   {
     id: 'mental-health-gov',
-    title: 'MentalHealth.gov', 
-    description: 'Provides one-stop access to U.S. government mental health and mental health problems information.', 
+    title: { 
+      en: 'MentalHealth.gov', 
+      es: 'MentalHealth.gov (Gobierno de EE. UU.)' 
+    },
+    description: { 
+      en: 'Provides one-stop access to U.S. government mental health and mental health problems information.', 
+      es: 'Proporciona acceso centralizado a información sobre salud mental y problemas de salud mental del gobierno de EE. UU.' 
+    },
     link: 'https://www.mentalhealth.gov/',
     icon: BookOpenText,
   },
   {
     id: 'nami',
-    title: 'National Alliance on Mental Illness (NAMI)', 
-    description: 'The nation’s largest grassroots mental health organization dedicated to building better lives for the millions of Americans affected by mental illness.', 
+    title: { 
+      en: 'National Alliance on Mental Illness (NAMI)', 
+      es: 'Alianza Nacional sobre Enfermedades Mentales (NAMI)' 
+    },
+    description: { 
+      en: 'The nation’s largest grassroots mental health organization dedicated to building better lives for the millions of Americans affected by mental illness.', 
+      es: 'La organización de base de salud mental más grande del país, dedicada a construir mejores vidas para los millones de estadounidenses afectados por enfermedades mentales.' 
+    },
     link: 'https://www.nami.org/',
     icon: Users,
   },
   {
     id: 'samhsa',
-    title: 'SAMHSA National Helpline', 
-    description: 'Confidential free help, from public health agencies, to find substance use treatment and information. 1-800-662-HELP (4357)', 
+    title: { 
+      en: 'SAMHSA National Helpline', 
+      es: 'Línea de Ayuda Nacional de SAMHSA' 
+    },
+    description: { 
+      en: 'Confidential free help, from public health agencies, to find substance use treatment and information. 1-800-662-HELP (4357)', 
+      es: 'Ayuda confidencial y gratuita de agencias de salud pública para encontrar tratamiento e información sobre el uso de sustancias. 1-800-662-HELP (4357)' 
+    },
     phone: '1-800-662-4357',
     link: 'https.www.samhsa.gov/find-help/national-helpline',
     icon: LifeBuoy,
   },
   {
     id: 'the-trevor-project',
-    title: 'The Trevor Project', 
-    description: 'The leading national organization providing crisis intervention and suicide prevention services to lesbian, gay, bisexual, transgender, queer & questioning (LGBTQ) young people under 25.', 
+    title: { 
+      en: 'The Trevor Project', 
+      es: 'The Trevor Project' 
+    },
+    description: { 
+      en: 'The leading national organization providing crisis intervention and suicide prevention services to lesbian, gay, bisexual, transgender, queer & questioning (LGBTQ) young people under 25.', 
+      es: 'La principal organización nacional que brinda servicios de intervención en crisis y prevención del suicidio a jóvenes lesbianas, gays, bisexuales, transgénero, queer e indecisos (LGBTQ) menores de 25 años.' 
+    },
     phone: '1-866-488-7386',
     link: 'https://www.thetrevorproject.org/',
     icon: HeartHandshake,
@@ -70,9 +106,6 @@ export default function ResourcesPage() {
       en: "This is not an exhaustive list. Many local resources may also be available in your area."
     }
   };
-  // Note: ResourceCard content itself is not translated here as it's external information.
-  // Only ResourceCard button texts like "Visitar Sitio Web" would need translation if they were part of this component.
-  // For now, assuming ResourceCard handles its internal text or it's okay for it to be in English as it points to English resources.
 
   return (
     <div className="container mx-auto py-4">
