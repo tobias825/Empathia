@@ -50,9 +50,8 @@ export function AppSidebar() {
 
   const commonLabels = {
     profile: { es: 'Mi Perfil', en: 'My Profile' },
-    settings: { es: 'Configuración', en: 'Settings' }, // Updated translation
+    settings: { es: 'Configuración', en: 'Settings' },
     logout: { es: 'Cerrar Sesión', en: 'Log Out' },
-    // Removed language specific labels from here as they are moved
     themeToggle: { es: 'Tema', en: 'Theme' },
     activateDarkMode: { es: 'Activar Modo Oscuro', en: 'Activate Dark Mode' },
     activateLightMode: { es: 'Activar Modo Claro', en: 'Activate Light Mode' },
@@ -90,10 +89,22 @@ export function AppSidebar() {
             ))}
           </SidebarMenu>
         </ScrollArea>
-      
-        <div className="mt-auto pt-4 flex flex-col gap-4"> 
-          {/* Language selection UI removed from here */}
 
+        {state === 'expanded' && (
+          <div className="px-3 pt-4 flex items-end justify-start gap-2.5 opacity-60 group-hover/sidebar-wrapper:opacity-90 transition-opacity duration-300 -mb-1">
+            {/* Eye-like Doodle */}
+            <svg width="24" height="16" viewBox="0 0 24 16" xmlns="http://www.w3.org/2000/svg" className="text-accent/80 dark:text-accent/70">
+              <path d="M2 8 Q 12 2, 22 8 Q 12 14, 2 8 Z" stroke="currentColor" strokeWidth="1.5" fill="none"/>
+              <circle cx="12" cy="8" r="2.5" fill="currentColor"/>
+            </svg>
+            {/* Heart-like Doodle */}
+            <svg width="20" height="18" viewBox="0 0 20 18" xmlns="http://www.w3.org/2000/svg" className="text-primary/80 dark:text-primary/70">
+              <path d="M10 16.5L4.828 11.328C3.657 10.157 3.657 8.207 4.828 7.036C5.999 5.864 7.95 5.864 9.121 7.036L10 7.914L10.879 7.036C12.05 5.864 13.999 5.864 15.172 7.036C16.343 8.207 16.343 10.157 15.172 11.328L10 16.5Z" stroke="currentColor" strokeWidth="1.5" fill="hsl(var(--sidebar-background))" strokeLinejoin="round" strokeLinecap="round"/>
+            </svg>
+          </div>
+        )}
+      
+        <div className="mt-auto pt-2 flex flex-col gap-4"> 
           <div className="group-data-[collapsible=icon]:p-0 group-data-[collapsible=icon]:flex group-data-[collapsible=icon]:justify-center">
             {state === 'expanded' ? (
               <div className="flex flex-col gap-1 w-full">
