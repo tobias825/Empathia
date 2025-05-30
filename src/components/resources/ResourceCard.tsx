@@ -27,7 +27,7 @@ export function ResourceCard({ resource }: ResourceCardProps) {
           <IconComponent size={28} />
         </div>
         <div>
-          <CardTitle className="text-xl">{t(resource.title)}</CardTitle>
+          <CardTitle className="text-xl break-words">{t(resource.title)}</CardTitle>
         </div>
       </CardHeader>
       <CardContent className="flex-grow">
