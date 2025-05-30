@@ -44,7 +44,7 @@
   }
 
   /* For Firefox */
-  /* Apply to html for the main document scrollbar. 
+  /* Apply to html for the main document scrollbar.
      Other elements will use browser defaults or need explicit overflow. */
   html {
     scrollbar-width: auto; /* 'thin' or 'auto' */
@@ -74,8 +74,8 @@ body {
     --border: 30 50% 85%; /* Apricot Border */
     --input: 30 60% 94%; /* Light Apricot Input Bg */
 
-    --primary: 20 85% 75%; /* Warm Coral Peach */
-    --primary-foreground: 20 30% 20%; /* Dark Brown for text on primary */
+    --primary: 25 90% 58%; /* Dark Orange */
+    --primary-foreground: 25 50% 98%; /* Off-white for text on dark orange */
 
     --secondary: 40 80% 88%; /* Light Sunny Yellow */
     --secondary-foreground: 40 30% 25%; /* Dark Brown for text on secondary */
@@ -86,28 +86,28 @@ body {
     --destructive: 0 72% 51%; /* Default destructive red - unchanged for clarity */
     --destructive-foreground: 0 0% 98%;
 
-    --ring: 20 85% 70%; /* Coral Peach for focus rings */
+    --ring: 25 90% 55%; /* Dark Orange for focus rings */
     --radius: 0.5rem;
 
-    --chart-1: 20 85% 75%; /* Primary - Warm Coral Peach */
+    --chart-1: 25 90% 58%; /* Primary - Dark Orange */
     --chart-2: 40 90% 70%; /* Accent - Sunny Yellow-Orange */
-    --chart-3: 20 70% 65%; /* Muted Primary */
+    --chart-3: 25 70% 50%; /* Muted Primary Orange */
     --chart-4: 40 80% 60%; /* Muted Accent */
     --chart-5: 30 80% 70%; /* Soft Orange */
-    
+
     /* Sidebar specific - Warm Theme */
     --sidebar-background: 30 60% 95%; /* Very Light Apricot, almost white */
     --sidebar-foreground: 25 30% 30%;
     --sidebar-border: 30 40% 88%;
-    --sidebar-primary: 20 85% 80%; /* Lighter Coral Peach for active sidebar items */
-    --sidebar-primary-foreground: 20 30% 15%;
+    --sidebar-primary: 25 85% 65%; /* Lighter Dark Orange for active sidebar items */
+    --sidebar-primary-foreground: 25 30% 15%;
     --sidebar-accent: 40 85% 85%; /* Lighter Sunny Yellow for sidebar hover/accent */
     --sidebar-accent-foreground: 40 30% 15%;
-    --sidebar-ring: 20 85% 70%;
+    --sidebar-ring: 25 85% 60%;
   }
 
   .dark {
-    /* Dark Blue/Celeste Palette for Empathy & Tranquility */
+    /* Dark Blue/Celeste Palette for Empathy & Tranquility, with Dark Orange primary */
     --background: 220 30% 12%; /* Deep Calming Blue */
     --foreground: 210 40% 88%; /* Soft Light Blue-Gray Text */
 
@@ -123,8 +123,8 @@ body {
     --border: 220 25% 28%; /* Dark Blue Border */
     --input: 220 25% 22%; /* Dark Blue Input Bg */
 
-    --primary: 200 80% 65%; /* Brighter, Empathic Blue */
-    --primary-foreground: 200 25% 95%; /* Light text for dark primary */
+    --primary: 25 85% 55%; /* Dark Orange (consistent with light mode, or slightly deeper) */
+    --primary-foreground: 25 50% 98%; /* Off-white for text on dark orange */
 
     --secondary: 190 70% 50%; /* Muted Teal/Celeste */
     --secondary-foreground: 190 25% 90%; /* Light text for dark secondary */
@@ -135,23 +135,23 @@ body {
     --destructive: 0 60% 50%; /* Standard destructive red */
     --destructive-foreground: 0 0% 98%;
 
-    --ring: 200 80% 60%; /* Primary blue for focus rings */
+    --ring: 25 85% 50%; /* Dark Orange for focus rings in dark mode */
 
-    --chart-1: 200 80% 65%; /* Primary Blue */
+    --chart-1: 25 85% 55%; /* Primary Orange */
     --chart-2: 180 75% 60%; /* Accent Teal */
-    --chart-3: 200 70% 55%; /* Muted Primary Blue */
+    --chart-3: 25 70% 45%; /* Muted Primary Orange */
     --chart-4: 180 65% 50%; /* Muted Accent Teal */
     --chart-5: 210 70% 60%; /* Another shade of blue */
-    
-    /* Sidebar specific - Dark Blue/Celeste Theme */
+
+    /* Sidebar specific - Dark Blue/Celeste Theme with Dark Orange primary accents */
     --sidebar-background: 220 28% 15%; /* Dark blue for sidebar */
     --sidebar-foreground: 210 35% 80%;
     --sidebar-border: 220 20% 25%;
-    --sidebar-primary: 200 75% 60%; /* Active sidebar item */
-    --sidebar-primary-foreground: 200 20% 92%; /* Light text for active sidebar */
-    --sidebar-accent: 180 70% 55%; /* Hover sidebar item */
+    --sidebar-primary: 25 80% 60%; /* Active sidebar item - Dark Orange variant */
+    --sidebar-primary-foreground: 25 20% 92%; /* Light text for active sidebar */
+    --sidebar-accent: 180 70% 55%; /* Hover sidebar item - Accent Teal */
     --sidebar-accent-foreground: 180 20% 92%; /* Light text for hover sidebar */
-    --sidebar-ring: 200 75% 60%;
+    --sidebar-ring: 25 80% 60%;
   }
 }
 
