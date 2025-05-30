@@ -29,6 +29,7 @@ import {
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
+  DropdownMenuLabel,
 } from "@/components/ui/dropdown-menu";
 import { ScrollArea } from '@/components/ui/scroll-area';
 
@@ -38,6 +39,7 @@ export function AppSidebar() {
   const { state } = useSidebar();
   const { language, setLanguage, t } = useLanguage();
   const { theme, toggleTheme } = useTheme();
+  const [showPassword, setShowPassword] = React.useState(false);
 
   const navItems = [
     { href: '/app/chat', translations: { es: 'Chat', en: 'Chat' }, icon: MessageSquare },
@@ -58,7 +60,17 @@ export function AppSidebar() {
     darkMode: { es: 'Modo Oscuro', en: 'Dark Mode' },
     lightMode: { es: 'Modo Claro', en: 'Light Mode' },
     userNamePlaceholder: { es: 'Usuario Empathia', en: 'Empathia User' },
-    navigationHeader: { es: 'Navegación', en: 'Navigation'}
+    userEmailPlaceholder: { es: 'usuario@empathia.app', en: 'user@empathia.app'},
+    navigationHeader: { es: 'Navegación', en: 'Navigation'},
+    emailLabel: { es: "Correo Electrónico", en: "Email" },
+    passwordLabel: { es: "Contraseña", en: "Password" },
+    showPasswordButton: { es: "Mostrar", en: "Show" },
+    hidePasswordButton: { es: "Ocultar", en: "Hide" },
+  };
+
+  const handlePasswordToggle = (event: React.MouseEvent) => {
+    event.stopPropagation(); // Prevent dropdown from closing
+    setShowPassword(!showPassword);
   };
 
   return (
@@ -89,7 +101,7 @@ export function AppSidebar() {
           </SidebarMenu>
         </ScrollArea>
       
-        <div className="mt-4 flex flex-col gap-4"> 
+        <div className="mt-auto pt-4 flex flex-col gap-4"> 
           <div className="group-data-[collapsible=icon]:p-0 group-data-[collapsible=icon]:flex group-data-[collapsible=icon]:justify-center">
             {state === 'expanded' ? (
               <div className="flex flex-col gap-1">
@@ -168,14 +180,14 @@ export function AppSidebar() {
       </SidebarContent>
       
       <SidebarSeparator />
-      <SidebarFooter className="p-2 mt-auto">
-        <DropdownMenu>
+      <SidebarFooter className="p-2">
+        <DropdownMenu onOpenChange={(open) => !open && setShowPassword(false)}>
           <DropdownMenuTrigger asChild>
             {state === 'expanded' ? (
               <div className="p-2 flex items-center gap-3 hover:bg-sidebar-accent rounded-md cursor-pointer transition-colors">
                 <Avatar>
                   <AvatarImage 
-                    src="https://placehold.co/40x40/CCCCCC/CCCCCC.png" 
+                    src="https://placehold.co/40x40/CCCCCC/CCCCCC.png"
                     alt={user?.name || t(commonLabels.userNamePlaceholder)} 
                     data-ai-hint="anonymous user" />
                   <AvatarFallback>{user?.name?.charAt(0).toUpperCase() || 'U'}</AvatarFallback>
@@ -195,15 +207,24 @@ export function AppSidebar() {
           <DropdownMenuContent 
             side={state === 'expanded' ? "top" : "right"} 
             align={state === 'expanded' ? "start" : "center"} 
-            className="w-56" 
+            className="w-64"
+            onCloseAutoFocus={(e) => e.preventDefault()} // Prevents focus on trigger after close if password was shown
           >
+            <DropdownMenuLabel className="font-normal">
+                <div className="flex flex-col space-y-1">
+                <p className="text-sm font-medium leading-none">{user?.name || t(commonLabels.userNamePlaceholder)}</p>
+                <p className="text-xs leading-none text-muted-foreground">
+                    {user?.email || t(commonLabels.userEmailPlaceholder)}
+                </p>
+                </div>
+            </DropdownMenuLabel>
+            <DropdownMenuSeparator />
             <DropdownMenuItem asChild>
               <Link href="/app/profile">
                 <UserProfileIcon className="mr-2 h-4 w-4" />
                 <span>{t(commonLabels.profile)}</span>
               </Link>
             </DropdownMenuItem>
-            <DropdownMenuSeparator />
             <DropdownMenuItem disabled>
               <Settings className="mr-2 h-4 w-4" />
               <span>{t(commonLabels.settings)}</span>
