@@ -1,13 +1,12 @@
 
 "use client";
 
-import React from 'react';
-import { useState, useEffect, useCallback }
-from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 
 const AUTH_KEY = 'empathia_auth_token';
 const USER_DETAILS_KEY = `${AUTH_KEY}_user`;
+// const PENDING_PASSWORD_KEY = `${AUTH_KEY}_pending_password`; // No longer needed
 
 interface User {
   name: string;
@@ -23,7 +22,6 @@ interface AuthState {
   logout: () => void;
   register: (name?: string, email?: string, password?: string, redirectTo?: string) => void;
   updateName: (newName: string) => void;
-  // Removed password reset flow methods
 }
 
 export function useAuth(): AuthState {
@@ -49,10 +47,10 @@ export function useAuth(): AuthState {
     setIsLoading(false);
   }, []);
 
-  const saveUser = (currentUser: User) => {
+  const saveUser = useCallback((currentUser: User) => {
     localStorage.setItem(USER_DETAILS_KEY, JSON.stringify(currentUser));
     setUser(currentUser);
-  };
+  }, [setUser]); // setUser from useState is stable
 
   const login = useCallback((email?: string, password?: string, redirectTo: string = '/app/chat') => {
     const loginEmail = email || 'usuario@empathia.app';
@@ -61,24 +59,21 @@ export function useAuth(): AuthState {
     const storedUserJSON = localStorage.getItem(USER_DETAILS_KEY);
     if (storedUserJSON) {
       try {
-        const storedUser: User = JSON.parse(storedUserJSON);
-        if (storedUser.email === loginEmail) {
-          // User with this email was previously logged in and had details saved.
-          // Preserve their name and other details.
+        const storedUserObject: User = JSON.parse(storedUserJSON);
+        // Case-insensitive email comparison
+        if (storedUserObject.email && loginEmail.toLowerCase() === storedUserObject.email.toLowerCase()) {
           userToSave = {
-            ...storedUser, // This includes their custom name
-            password: password || storedUser.password || 'mockPassword123', // Update pw if provided, else keep old or default
+            ...storedUserObject,
+            password: password || storedUserObject.password || 'mockPassword123',
           };
         } else {
-          // Stored user is for a different email, so create new for this loginEmail
           userToSave = {
             name: loginEmail.split('@')[0] || 'Usuario Empathia',
-            email: loginEmail,
+            email: loginEmail, // Store the loginEmail as is (preserving original case for display if needed elsewhere)
             password: password || 'mockPassword123',
           };
         }
       } catch (e) {
-        // Error parsing, fallback to creating a new user
         console.error("Error parsing stored user during login:", e);
         userToSave = {
           name: loginEmail.split('@')[0] || 'Usuario Empathia',
@@ -87,7 +82,6 @@ export function useAuth(): AuthState {
         };
       }
     } else {
-      // No user details stored at all, create new
       userToSave = {
         name: loginEmail.split('@')[0] || 'Usuario Empathia',
         email: loginEmail,
@@ -95,40 +89,40 @@ export function useAuth(): AuthState {
       };
     }
 
-    localStorage.setItem(AUTH_KEY, 'mock_token'); // Set the session token
-    saveUser(userToSave); // saveUser updates localStorage USER_DETAILS_KEY and user state
+    localStorage.setItem(AUTH_KEY, 'mock_token');
+    saveUser(userToSave);
     setIsAuthenticated(true);
     router.push(redirectTo);
-  }, [router]);
-
+  }, [router, saveUser, setIsAuthenticated]);
 
   const logout = useCallback(() => {
-    localStorage.removeItem(AUTH_KEY); // Clear session token
-    // DO NOT clear USER_DETAILS_KEY, so user's name and other details persist
+    localStorage.removeItem(AUTH_KEY);
+    // User details (USER_DETAILS_KEY) are intentionally not cleared to persist name
     setIsAuthenticated(false);
-    setUser(null); // Clear user from state
+    setUser(null);
     router.push('/login');
-  }, [router]);
+  }, [router, setIsAuthenticated, setUser]); // Added setIsAuthenticated and setUser for completeness
 
   const register = useCallback((name?: string, email?: string, password?: string, redirectTo: string = '/app/chat') => {
     const userToRegister: User = {
-      name: name || 'Nuevo Usuario',
+      name: name || (email ? email.split('@')[0] : 'Nuevo Usuario') || 'Nuevo Usuario',
       email: email || 'nuevo@empathia.app',
       password: password || 'mockPassword123',
     };
-    localStorage.setItem(AUTH_KEY, 'mock_token_registered'); 
+    // If there are existing user details, this new registration will overwrite them.
+    // This is acceptable for a mock system. In a real system, emails would be unique.
+    localStorage.setItem(AUTH_KEY, 'mock_token_registered');
     saveUser(userToRegister);
-    setIsAuthenticated(true); 
+    setIsAuthenticated(true);
     router.push(redirectTo);
-  }, [router]);
+  }, [router, saveUser, setIsAuthenticated]);
 
   const updateName = useCallback((newName: string) => {
     if (user) {
       const updatedUser = { ...user, name: newName };
       saveUser(updatedUser);
     }
-  }, [user]);
-
+  }, [user, saveUser]);
 
   return { isAuthenticated, isLoading, user, login, logout, register, updateName };
 }
@@ -146,7 +140,7 @@ export function ProtectRoute({ children }: { children: React.ReactNode }) {
   if (isLoading || !isAuthenticated) {
     return (
       <div className="flex items-center justify-center min-h-screen">
-        <p>Cargando...</p> 
+        <p>Cargando...</p>
       </div>
     );
   }
