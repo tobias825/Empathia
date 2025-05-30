@@ -7,85 +7,72 @@ import { useLanguage } from '@/contexts/LanguageContext';
 
 const resources: ResourceItem[] = [
   {
-    id: 'crisis-hotline-1',
-    title: { 
-      en: 'National Suicide Prevention Lifeline', 
-      es: 'Línea Nacional de Prevención del Suicidio' 
+    id: 'cas-argentina',
+    title: {
+      es: 'Centro de Asistencia al Suicida (CAS)',
+      en: 'Suicide Assistance Center (CAS)'
     },
-    description: { 
-      en: 'Provides 24/7, free and confidential support for people in distress, prevention and crisis resources for you or your loved ones.', 
-      es: 'Proporciona apoyo gratuito y confidencial las 24 horas del día, los 7 días de la semana, para personas en momentos de angustia, así como recursos de prevención y crisis para ti o tus seres queridos.' 
+    description: {
+      es: 'Ofrece asistencia telefónica gratuita y confidencial a personas en crisis o con riesgo de suicidio. Disponible en varias partes del país.',
+      en: 'Offers free and confidential telephone assistance to people in crisis or at risk of suicide. Available in various parts of the country.'
     },
-    phone: '988',
-    link: 'https://988lifeline.org/',
+    phone: '135 (CABA y GBA) / (011) 5275-1135 (Todo el país)',
+    link: 'https://www.asistenciaalsuicida.org.ar/',
     icon: PhoneCall,
   },
   {
-    id: 'crisis-text-line',
-    title: { 
-      en: 'Crisis Text Line', 
-      es: 'Línea de Texto para Crisis' 
+    id: 'salud-mental-gob-ar',
+    title: {
+      es: 'Salud Mental - Argentina.gob.ar',
+      en: 'Mental Health - Argentina.gob.ar'
     },
-    description: { 
-      en: 'Text HOME to 741741 from anywhere in the US, anytime, about any type of crisis. A live, trained Crisis Counselor receives the text and responds.', 
-      es: 'Envía un mensaje de texto con la palabra HOME al 741741 desde cualquier lugar de EE. UU., en cualquier momento y sobre cualquier tipo de crisis. Un consejero de crisis capacitado y en vivo recibe el mensaje y responde.' 
+    description: {
+      es: 'Portal oficial del gobierno argentino con información, recursos y programas sobre salud mental a nivel nacional.',
+      en: 'Official Argentine government portal with information, resources, and programs on mental health at the national level.'
     },
-    link: 'https://www.crisistextline.org/',
-    icon: MessageSquareHeart,
-  },
-  {
-    id: 'mental-health-gov',
-    title: { 
-      en: 'MentalHealth.gov', 
-      es: 'MentalHealth.gov (Gobierno de EE. UU.)' 
-    },
-    description: { 
-      en: 'Provides one-stop access to U.S. government mental health and mental health problems information.', 
-      es: 'Proporciona acceso centralizado a información sobre salud mental y problemas de salud mental del gobierno de EE. UU.' 
-    },
-    link: 'https://www.mentalhealth.gov/',
+    link: 'https://www.argentina.gob.ar/salud/mental',
     icon: BookOpenText,
   },
   {
-    id: 'nami',
-    title: { 
-      en: 'National Alliance on Mental Illness (NAMI)', 
-      es: 'Alianza Nacional sobre Enfermedades Mentales (NAMI)' 
+    id: 'hablemos-de-todo',
+    title: {
+      es: 'Hablemos de Todo',
+      en: 'Let\'s Talk About Everything'
     },
-    description: { 
-      en: 'The nation’s largest grassroots mental health organization dedicated to building better lives for the millions of Americans affected by mental illness.', 
-      es: 'La organización de base de salud mental más grande del país, dedicada a construir mejores vidas para los millones de estadounidenses afectados por enfermedades mentales.' 
+    description: {
+      es: 'Plataforma nacional para jóvenes que ofrece un espacio de chat para hablar sobre diversas temáticas, incluyendo salud mental, sexualidad, consumos problemáticos, y más.',
+      en: 'National platform for young people offering a chat space to talk about various topics, including mental health, sexuality, problematic substance use, and more.'
     },
-    link: 'https://www.nami.org/',
-    icon: Users,
+    link: 'https://www.hablemosdetodo.gob.ar/',
+    icon: MessageSquareHeart,
   },
   {
-    id: 'samhsa',
-    title: { 
-      en: 'SAMHSA National Helpline', 
-      es: 'Línea de Ayuda Nacional de SAMHSA' 
+    id: 'inadi',
+    title: {
+      es: 'INADI - Asistencia a Víctimas de Discriminación',
+      en: 'INADI - Assistance to Victims of Discrimination'
     },
-    description: { 
-      en: 'Confidential free help, from public health agencies, to find substance use treatment and information. 1-800-662-HELP (4357)', 
-      es: 'Ayuda confidencial y gratuita de agencias de salud pública para encontrar tratamiento e información sobre el uso de sustancias. 1-800-662-HELP (4357)' 
+    description: {
+      es: 'El Instituto Nacional contra la Discriminación, la Xenofobia y el Racismo ofrece orientación y asistencia. La discriminación puede afectar gravemente la salud mental.',
+      en: 'The National Institute against Discrimination, Xenophobia, and Racism offers guidance and assistance. Discrimination can severely affect mental health.'
     },
-    phone: '1-800-662-4357',
-    link: 'https.www.samhsa.gov/find-help/national-helpline',
-    icon: LifeBuoy,
-  },
-  {
-    id: 'the-trevor-project',
-    title: { 
-      en: 'The Trevor Project', 
-      es: 'The Trevor Project' 
-    },
-    description: { 
-      en: 'The leading national organization providing crisis intervention and suicide prevention services to lesbian, gay, bisexual, transgender, queer & questioning (LGBTQ) young people under 25.', 
-      es: 'La principal organización nacional que brinda servicios de intervención en crisis y prevención del suicidio a jóvenes lesbianas, gays, bisexuales, transgénero, queer e indecisos (LGBTQ) menores de 25 años.' 
-    },
-    phone: '1-866-488-7386',
-    link: 'https://www.thetrevorproject.org/',
+    phone: '168',
+    link: 'https://www.argentina.gob.ar/inadi',
     icon: HeartHandshake,
+  },
+  {
+    id: 'salud-responde-caba',
+    title: {
+      es: 'Salud Mental Responde (CABA)',
+      en: 'Mental Health Responds (Buenos Aires City)'
+    },
+    description: {
+      es: 'Línea telefónica de orientación y apoyo en salud mental para residentes de la Ciudad Autónoma de Buenos Aires.',
+      en: 'Telephone helpline for mental health guidance and support for residents of the Autonomous City of Buenos Aires.'
+    },
+    phone: '0800-333-1665',
+    link: 'https://www.buenosaires.gob.ar/salud/saludmental',
+    icon: LifeBuoy,
   }
 ];
 
@@ -94,16 +81,16 @@ export default function ResourcesPage() {
 
   const pageText = {
     title: {
-      es: "Recursos de Salud Mental",
-      en: "Mental Health Resources"
+      es: "Recursos de Salud Mental (Argentina)",
+      en: "Mental Health Resources (Argentina)"
     },
     description: {
-      es: "Si estás en peligro inmediato, por favor llama al 911. A continuación, algunos recursos que pueden proporcionar apoyo, información y alguien que escuche. No estás solo/a.",
-      en: "If you are in immediate danger, please call 911. Below are some resources that can provide support, information, and a listening ear. You are not alone."
+      es: "Si estás en peligro inmediato, por favor llama al 911 o al 107 (SAME en CABA). A continuación, algunos recursos que pueden proporcionar apoyo, información y alguien que escuche. No estás solo/a.",
+      en: "If you are in immediate danger, please call 911 or 107 (SAME in CABA). Below are some resources that can provide support, information, and a listening ear. You are not alone."
     },
     notExhaustive: {
-      es: "Esta no es una lista exhaustiva. Muchos recursos locales también pueden estar disponibles en tu área.",
-      en: "This is not an exhaustive list. Many local resources may also be available in your area."
+      es: "Esta no es una lista exhaustiva. Muchos recursos locales y provinciales también pueden estar disponibles en tu área.",
+      en: "This is not an exhaustive list. Many local and provincial resources may also be available in your area."
     }
   };
 
