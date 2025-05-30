@@ -24,7 +24,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { useToast } from "@/hooks/use-toast";
-import { Mail, KeyRound, Eye, EyeOff, UserCircle as UserIcon, Edit3, UserSquare2, LockKeyhole } from 'lucide-react';
+import { Mail, KeyRound, Eye, EyeOff, UserCircle as UserIcon, Edit3, UserSquare2, LockKeyhole, Globe } from 'lucide-react';
 
 const nameFormSchema = z.object({
   newName: z.string().min(2, { message: "El nombre debe tener al menos 2 caracteres." }),
@@ -32,7 +32,7 @@ const nameFormSchema = z.object({
 
 export default function ProfilePage() {
   const { user, updateName } = useAuth();
-  const { t, language } = useLanguage();
+  const { t, language, setLanguage } = useLanguage(); // Added setLanguage and language
   const { toast } = useToast();
   const [showPassword, setShowPassword] = useState(false);
   const [isNameDialogOpen, setIsNameDialogOpen] = useState(false);
@@ -51,8 +51,8 @@ export default function ProfilePage() {
   }, [user, nameForm]);
 
   const pageText = {
-    title: { es: "Mi Perfil", en: "My Profile" },
-    description: { es: "Revisa y gestiona la información de tu cuenta.", en: "Review and manage your account information." },
+    title: { es: "Mi Perfil y Configuración", en: "My Profile & Settings" },
+    description: { es: "Revisa y gestiona la información y preferencias de tu cuenta.", en: "Review and manage your account information and preferences." },
     emailLabel: { es: "Correo Electrónico", en: "Email" },
     passwordLabel: { es: "Contraseña (Simulada)", en: "Password (Simulated)" },
     showPasswordButton: { es: "Mostrar contraseña", en: "Show password" },
@@ -68,6 +68,10 @@ export default function ProfilePage() {
     dialogSave: { es: "Guardar", en: "Save" },
     nameUpdateSuccess: { es: "Nombre actualizado con éxito.", en: "Name updated successfully." },
     nameUpdateError: { es: "Error al actualizar el nombre.", en: "Error updating name." },
+    languageSettingsTitle: { es: "Configuración de Idioma", en: "Language Settings" },
+    currentLanguageLabel: { es: "Idioma Actual:", en: "Current Language:" },
+    languageSpanish: { es: "Español", en: "Spanish" },
+    languageEnglish: { es: "Inglés", en: "English" },
   };
 
   const handleNameChange = (values: z.infer<typeof nameFormSchema>) => {
@@ -143,8 +147,41 @@ export default function ProfilePage() {
               </Button>
             </div>
           </div>
+
+          {/* Language Settings Section */}
+          <div className="space-y-3 pt-6 border-t">
+            <label className="text-base font-semibold text-foreground flex items-center">
+              <Globe className="mr-2 h-5 w-5 text-primary" />
+              {t(pageText.languageSettingsTitle)}
+            </label>
+            <div className="flex gap-2 items-center">
+              <p className="text-sm text-muted-foreground">{t(pageText.currentLanguageLabel)}</p>
+              <p className="text-sm font-medium text-foreground">
+                {language === 'es' ? t(pageText.languageSpanish) : t(pageText.languageEnglish)}
+              </p>
+            </div>
+            <div className="flex gap-3 pt-1">
+              <Button 
+                  variant={language === 'es' ? 'default' : 'outline'} 
+                  onClick={() => setLanguage('es')}
+                  size="sm"
+                  className="flex-1 sm:flex-none"
+              >
+                  {t(pageText.languageSpanish)}
+              </Button>
+              <Button 
+                  variant={language === 'en' ? 'default' : 'outline'} 
+                  onClick={() => setLanguage('en')}
+                  size="sm"
+                  className="flex-1 sm:flex-none"
+              >
+                  {t(pageText.languageEnglish)}
+              </Button>
+            </div>
+          </div>
+
         </CardContent>
-        <CardFooter className="flex flex-col items-start p-6 border-t">
+        <CardFooter className="flex flex-col items-start p-6 border-t mt-2">
             <h3 className="text-lg font-semibold mb-4 flex items-center text-foreground">
                 <Edit3 className="mr-2 h-5 w-5 text-primary"/>
                 {t(pageText.editProfile)}
@@ -153,10 +190,11 @@ export default function ProfilePage() {
                 <Button 
                   variant="outline" 
                   className="w-full justify-start text-left" 
-                  onClick={() => { /* No action for now */ }}
+                   onClick={() => { /* Functionality to be added if needed */ }}
+                   disabled // Keeping password change disabled for now as it's more complex
                 >
                     <LockKeyhole className="mr-2 h-4 w-4"/>
-                    {t(pageText.changePassword)}
+                    {t(pageText.changePassword)} (Próximamente)
                 </Button>
 
                 <AlertDialog open={isNameDialogOpen} onOpenChange={setIsNameDialogOpen}>

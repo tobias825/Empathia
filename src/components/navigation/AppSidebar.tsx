@@ -39,7 +39,6 @@ export function AppSidebar() {
   const { state } = useSidebar();
   const { language, setLanguage, t } = useLanguage();
   const { theme, toggleTheme } = useTheme();
-  const [showPassword, setShowPassword] = React.useState(false);
 
   const navItems = [
     { href: '/app/chat', translations: { es: 'Chat', en: 'Chat' }, icon: MessageSquare },
@@ -51,11 +50,9 @@ export function AppSidebar() {
 
   const commonLabels = {
     profile: { es: 'Mi Perfil', en: 'My Profile' },
-    settings: { es: 'Configuración (Próximamente)', en: 'Settings (Coming Soon)' },
+    settings: { es: 'Configuración', en: 'Settings' }, // Updated translation
     logout: { es: 'Cerrar Sesión', en: 'Log Out' },
-    switchToEnglish: { es: 'Cambiar a Inglés', en: 'Switch to English' },
-    switchToSpanish: { es: 'Switch to Spanish', en: 'Cambiar a Español' },
-    language: { es: 'Idioma', en: 'Language' },
+    // Removed language specific labels from here as they are moved
     themeToggle: { es: 'Tema', en: 'Theme' },
     activateDarkMode: { es: 'Activar Modo Oscuro', en: 'Activate Dark Mode' },
     activateLightMode: { es: 'Activar Modo Claro', en: 'Activate Light Mode' },
@@ -64,15 +61,6 @@ export function AppSidebar() {
     userNamePlaceholder: { es: 'Usuario Empathia', en: 'Empathia User' },
     userEmailPlaceholder: { es: 'usuario@empathia.app', en: 'user@empathia.app'},
     navigationHeader: { es: 'Navegación', en: 'Navigation'},
-    emailLabel: { es: "Correo Electrónico", en: "Email" },
-    passwordLabel: { es: "Contraseña", en: "Password" },
-    showPasswordButton: { es: "Mostrar", en: "Show" },
-    hidePasswordButton: { es: "Ocultar", en: "Hide" },
-  };
-
-  const handlePasswordToggle = (event: React.MouseEvent) => {
-    event.stopPropagation(); // Prevent dropdown from closing
-    setShowPassword(!showPassword);
   };
 
   return (
@@ -104,46 +92,7 @@ export function AppSidebar() {
         </ScrollArea>
       
         <div className="mt-auto pt-4 flex flex-col gap-4"> 
-          <div className="group-data-[collapsible=icon]:p-0 group-data-[collapsible=icon]:flex group-data-[collapsible=icon]:justify-center">
-            {state === 'expanded' ? (
-              <div className="flex flex-col gap-1">
-                <p className="px-2 py-1.5 text-xs font-medium text-sidebar-foreground/70">{t(commonLabels.language)}</p>
-                <Button
-                  variant={language === 'es' ? 'secondary' : 'ghost'}
-                  size="sm"
-                  className="w-full justify-start gap-2"
-                  onClick={() => setLanguage('es')}
-                >
-                  <span className="opacity-80">🇪🇸</span> Español
-                </Button>
-                <Button
-                  variant={language === 'en' ? 'secondary' : 'ghost'}
-                  size="sm"
-                  className="w-full justify-start gap-2"
-                  onClick={() => setLanguage('en')}
-                >
-                  <span className="opacity-80">🇬🇧</span> English
-                </Button>
-              </div>
-            ) : (
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    className="w-full"
-                    onClick={() => setLanguage(language === 'es' ? 'en' : 'es')}
-                    aria-label={language === 'es' ? t(commonLabels.switchToEnglish) : t(commonLabels.switchToSpanish)}
-                  >
-                    <Globe />
-                  </Button>
-                </TooltipTrigger>
-                <TooltipContent side="right" align="center">
-                  {language === 'es' ? t(commonLabels.switchToEnglish) : t(commonLabels.switchToSpanish)}
-                </TooltipContent>
-              </Tooltip>
-            )}
-          </div>
+          {/* Language selection UI removed from here */}
 
           <div className="group-data-[collapsible=icon]:p-0 group-data-[collapsible=icon]:flex group-data-[collapsible=icon]:justify-center">
             {state === 'expanded' ? (
@@ -183,7 +132,7 @@ export function AppSidebar() {
       
       <SidebarSeparator />
       <SidebarFooter className="p-2">
-        <DropdownMenu onOpenChange={(open) => !open && setShowPassword(false)}>
+        <DropdownMenu>
           <DropdownMenuTrigger asChild>
             {state === 'expanded' ? (
               <div className="p-2 flex items-center gap-3 hover:bg-sidebar-accent rounded-md cursor-pointer transition-colors">
@@ -210,7 +159,6 @@ export function AppSidebar() {
             side={state === 'expanded' ? "top" : "right"} 
             align={state === 'expanded' ? "start" : "center"} 
             className="w-64"
-            onCloseAutoFocus={(e) => e.preventDefault()} // Prevents focus on trigger after close if password was shown
           >
             <DropdownMenuLabel className="font-normal">
                 <div className="flex flex-col space-y-1">
@@ -227,9 +175,11 @@ export function AppSidebar() {
                 <span>{t(commonLabels.profile)}</span>
               </Link>
             </DropdownMenuItem>
-            <DropdownMenuItem disabled>
-              <Settings className="mr-2 h-4 w-4" />
-              <span>{t(commonLabels.settings)}</span>
+            <DropdownMenuItem asChild>
+              <Link href="/app/profile"> {}
+                <Settings className="mr-2 h-4 w-4" />
+                <span>{t(commonLabels.settings)}</span>
+              </Link>
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem onClick={logout}>
