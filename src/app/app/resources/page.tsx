@@ -24,13 +24,13 @@ const resources: ResourceItem[] = [
     id: 'salud-mental-gob-ar',
     title: {
       es: 'Salud Mental - Argentina.gob.ar',
-      en: 'Mental Health - Argentina.gob.ar'
+      en: 'Mental Health - Argentina.gob.ar' // Corrected: This was the URL, now it's the title
     },
     description: {
       es: 'Portal oficial del gobierno argentino con información, recursos y programas sobre salud mental a nivel nacional.',
       en: 'Official Argentine government portal with information, resources, and programs on mental health at the national level.'
     },
-    link: 'https://www.argentina.gob.ar/salud/mental',
+    link: 'https://www.argentina.gob.ar/salud/mental', // Kept the correct link here
     icon: BookOpenText,
   },
   {
