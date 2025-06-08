@@ -107,51 +107,51 @@ body {
   }
 
   .dark {
-    /* Dark Blue/Celeste Palette for Empathy & Tranquility, with Dark Orange primary */
-    --background: 220 30% 12%; /* Deep Calming Blue */
-    --foreground: 210 40% 88%; /* Soft Light Blue-Gray Text */
+    /* Dark Mode: Deep Warm Browns & Light Oranges, with Dark Orange primary */
+    --background: 30 10% 12%; /* Deep Warm Brown/Almost Black */
+    --foreground: 35 30% 90%; /* Very Light Warm Gray/Off-White Text */
 
-    --muted: 220 25% 25%; /* Darker Muted Blue */
-    --muted-foreground: 210 30% 65%; /* Medium Light Blue-Gray */
+    --muted: 30 15% 25%; /* Dark Warm Gray-Brown */
+    --muted-foreground: 35 20% 70%; /* Light Warm Gray */
 
-    --popover: 220 30% 18%; /* Slightly Lighter Deep Blue for Popovers */
-    --popover-foreground: 210 40% 88%;
+    --popover: 30 15% 18%; /* Dark Warm Brown for Popovers */
+    --popover-foreground: 35 30% 90%; /* Matching general foreground */
 
-    --card: 220 30% 18%; /* Slightly Lighter Deep Blue for Cards */
-    --card-foreground: 210 40% 88%;
+    --card: 30 15% 18%; /* Dark Warm Brown for Cards */
+    --card-foreground: 35 30% 90%; /* Matching general foreground */
 
-    --border: 220 25% 28%; /* Dark Blue Border */
-    --input: 220 25% 22%; /* Dark Blue Input Bg */
+    --border: 30 15% 30%; /* Dark Warm Brown Border */
+    --input: 30 15% 22%; /* Dark Warm Brown Input Bg */
 
-    --primary: 25 85% 55%; /* Dark Orange (consistent with light mode, or slightly deeper) */
-    --primary-foreground: 25 50% 98%; /* Off-white for text on dark orange */
+    --primary: 25 85% 55%; /* Dark Orange (Consistent) */
+    --primary-foreground: 25 50% 98%; /* Off-white for text on dark orange (Consistent) */
 
-    --secondary: 190 70% 50%; /* Muted Teal/Celeste */
-    --secondary-foreground: 190 25% 90%; /* Light text for dark secondary */
+    --secondary: 30 80% 60%; /* Light-Medium Orange */
+    --secondary-foreground: 30 30% 15%; /* Dark Brownish-Orange text for Secondary */
 
-    --accent: 180 75% 60%; /* Calming Teal/Light Blue for accents */
-    --accent-foreground: 180 25% 95%; /* Light text for dark accent */
+    --accent: 35 90% 65%; /* Brighter Light Orange */
+    --accent-foreground: 35 30% 15%; /* Dark Brownish-Orange text for Accent */
 
     --destructive: 0 60% 50%; /* Standard destructive red */
     --destructive-foreground: 0 0% 98%;
 
-    --ring: 25 85% 50%; /* Dark Orange for focus rings in dark mode */
+    --ring: 25 85% 50%; /* Dark Orange for focus rings (Consistent) */
 
     --chart-1: 25 85% 55%; /* Primary Orange */
-    --chart-2: 180 75% 60%; /* Accent Teal */
+    --chart-2: 35 90% 65%; /* New Accent Light Orange */
     --chart-3: 25 70% 45%; /* Muted Primary Orange */
-    --chart-4: 180 65% 50%; /* Muted Accent Teal */
-    --chart-5: 210 70% 60%; /* Another shade of blue */
+    --chart-4: 35 80% 55%; /* Muted New Accent Light Orange */
+    --chart-5: 40 85% 68%; /* Light Sunny Yellow-Orange */
 
-    /* Sidebar specific - Dark Blue/Celeste Theme with Dark Orange primary accents */
-    --sidebar-background: 220 28% 15%; /* Dark blue for sidebar */
-    --sidebar-foreground: 210 35% 80%;
-    --sidebar-border: 220 20% 25%;
-    --sidebar-primary: 25 80% 60%; /* Active sidebar item - Dark Orange variant */
-    --sidebar-primary-foreground: 25 20% 92%; /* Light text for active sidebar */
-    --sidebar-accent: 180 70% 55%; /* Hover sidebar item - Accent Teal */
-    --sidebar-accent-foreground: 180 20% 92%; /* Light text for hover sidebar */
-    --sidebar-ring: 25 80% 60%;
+    /* Sidebar specific - Dark Warm Theme with Light Orange accents */
+    --sidebar-background: 30 15% 15%; /* Very Dark Warm Brown for sidebar */
+    --sidebar-foreground: 35 25% 85%; /* Light Warm Gray text */
+    --sidebar-border: 30 15% 25%; /* Dark Warm Brown border */
+    --sidebar-primary: 25 80% 60%; /* Active sidebar item - Dark Orange variant (Consistent) */
+    --sidebar-primary-foreground: 25 20% 92%; /* Light text for active sidebar (Consistent) */
+    --sidebar-accent: 35 85% 68%; /* Hover sidebar item - Light Orange */
+    --sidebar-accent-foreground: 35 30% 20%; /* Dark Brownish-Orange text for hover */
+    --sidebar-ring: 25 80% 60%; /* Dark Orange ring (Consistent) */
   }
 }
 
