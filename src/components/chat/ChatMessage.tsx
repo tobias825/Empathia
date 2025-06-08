@@ -35,7 +35,7 @@ export function ChatMessage({ message, isAnimating }: ChatMessageProps) {
             : 'bg-card text-card-foreground rounded-bl-none border'
         )}
       >
-        <p className="text-sm leading-relaxed whitespace-pre-wrap">{message.content}</p>
+        <p className="text-sm leading-relaxed whitespace-pre-wrap font-bold">{message.content}</p>
         <p
           className={cn(
             'mt-1 text-xs',
