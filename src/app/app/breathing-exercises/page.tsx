@@ -4,7 +4,7 @@
 import React from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Wind, Square, Repeat, Dot, Waves, Lung } from 'lucide-react'; // Added Waves and Lung
+import { Wind, Square, Repeat, Dot, Activity } from 'lucide-react'; // Changed Lung to Activity, removed Waves
 
 interface BreathingExercise {
   id: string;
@@ -93,7 +93,7 @@ const exercises: BreathingExercise[] = [
         'Practice for 5-10 minutes.',
       ],
     },
-    icon: Lung, 
+    icon: Activity, 
     iconColor: 'text-teal-500',
   },
 ];
