@@ -4,7 +4,7 @@
 import React from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Wind, Square, Repeat, Dot } from 'lucide-react'; // Added Dot
+import { Wind, Square, Repeat, Dot, Waves, Lung } from 'lucide-react'; // Added Waves and Lung
 
 interface BreathingExercise {
   id: string;
@@ -67,6 +67,34 @@ const exercises: BreathingExercise[] = [
     },
     icon: Repeat,
     iconColor: 'text-green-500',
+  },
+  {
+    id: 'diaphragmatic-breathing',
+    title: { es: 'Respiración Diafragmática (Abdominal)', en: 'Diaphragmatic Breathing (Belly Breathing)' },
+    description: {
+      es: 'Fomenta la respiración profunda y completa, ayudando a oxigenar mejor el cuerpo y a relajar el sistema nervioso.',
+      en: 'Encourages full, deep breaths, helping to better oxygenate the body and relax the nervous system.',
+    },
+    steps: {
+      es: [
+        'Siéntate cómodamente o acuéstate boca arriba.',
+        'Coloca una mano sobre tu pecho y la otra sobre tu abdomen, justo debajo de las costillas.',
+        'Inhala lentamente por la nariz, sintiendo cómo tu abdomen se expande mientras tu pecho permanece relativamente quieto.',
+        'Exhala lentamente a través de los labios fruncidos (como si soplaras una vela), sintiendo cómo tu abdomen desciende.',
+        'Concéntrate en este movimiento abdominal durante varias respiraciones.',
+        'Practica durante 5-10 minutos.',
+      ],
+      en: [
+        'Sit comfortably or lie on your back.',
+        'Place one hand on your chest and the other on your belly, just below your ribs.',
+        'Inhale slowly through your nose, feeling your belly expand while your chest remains relatively still.',
+        'Exhale slowly through pursed lips (as if blowing out a candle), feeling your belly fall.',
+        'Focus on this abdominal movement for several breaths.',
+        'Practice for 5-10 minutes.',
+      ],
+    },
+    icon: Lung, 
+    iconColor: 'text-teal-500',
   },
 ];
 

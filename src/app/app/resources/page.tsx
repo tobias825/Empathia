@@ -30,7 +30,7 @@ const resources: ResourceItem[] = [
       es: 'Portal oficial del gobierno argentino con información, recursos y programas sobre salud mental a nivel nacional.',
       en: 'Official Argentine government portal with information, resources, and programs on mental health at the national level.'
     },
-    link: 'https://www.argentina.gob.ar/salud/mental', // Kept the correct link here
+    link: 'https://www.argentina.gob.ar/salud/mental-y-adicciones/que-es', // Kept the correct link here
     icon: BookOpenText,
   },
   {
@@ -43,8 +43,8 @@ const resources: ResourceItem[] = [
       es: 'Plataforma nacional para jóvenes que ofrece un espacio de chat para hablar sobre diversas temáticas, incluyendo salud mental, sexualidad, consumos problemáticos, y más.',
       en: 'National platform for young people offering a chat space to talk about various topics, including mental health, sexuality, problematic substance use, and more.'
     },
-    link: 'https://www.hablemosdetodo.gob.ar/',
-    icon: MessageSquareHeart,
+    link: 'https://hablemosdetodo.injuv.gob.cl/',
+    icon: MessageSquareHeart
   },
   {
     id: 'inadi',
