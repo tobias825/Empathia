@@ -1,16 +1,16 @@
 
 import type { Metadata } from 'next';
-import { Quicksand } from 'next/font/google'; // Changed from Geist
+import { Comfortaa } from 'next/font/google'; // Changed from Quicksand
 import './globals.css';
 import { Toaster } from '@/components/ui/toaster';
 import { SidebarProvider } from '@/components/ui/sidebar';
 import { LanguageProvider } from '@/contexts/LanguageContext';
 import { ThemeProvider } from '@/contexts/ThemeContext';
 
-const quicksand = Quicksand({ // Changed from geistSans and geistMono
-  variable: '--font-quicksand',
+const comfortaa = Comfortaa({ // Changed from quicksand
+  variable: '--font-comfortaa', // Changed variable name
   subsets: ['latin'],
-  weight: ['700'], // For Bold
+  weight: ['400', '700'], // Loading regular and bold weights
 });
 
 export const metadata: Metadata = {
@@ -24,8 +24,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es" className="light"> 
-      <body className={`${quicksand.variable} antialiased`}> {/* Use Quicksand variable */}
+    <html lang="es" className="light">
+      <body className={`${comfortaa.variable} antialiased`}> {/* Use Comfortaa variable */}
         <ThemeProvider>
           <LanguageProvider>
             <SidebarProvider>

@@ -53,7 +53,7 @@
 }
 
 body {
-  font-family: var(--font-quicksand), sans-serif; /* Changed from Geist Sans to Quicksand */
+  font-family: var(--font-comfortaa), sans-serif; /* Changed from Quicksand to Comfortaa */
 }
 
 @layer base {
