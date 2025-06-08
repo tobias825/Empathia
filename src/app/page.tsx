@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import Logo from '@/components/Logo';
 import { MessageCircle, TrendingUp, HeartHandshake, Smile } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
+import EightBitPanda from '@/components/decorative/EightBitPanda'; // Import the panda
 
 
 const StickFiguresHoldingHands = () => (
@@ -129,22 +130,26 @@ export default function HomePage() {
       </header>
 
       <main className="flex-1">
-        <section className="container grid items-center gap-6 pb-8 pt-6 md:py-10">
-          <div className="mx-auto flex max-w-[980px] flex-col items-center gap-4 text-center">
-            <h1 className="text-3xl font-extrabold leading-tight tracking-tighter sm:text-3xl md:text-5xl lg:text-6xl text-foreground">
+        <section className="container grid md:grid-cols-2 items-center gap-8 pb-8 pt-6 md:py-10">
+          <div className="flex flex-col items-start gap-4 text-left">
+            <h1 className="text-3xl font-extrabold leading-tight tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl text-foreground">
               {t(pageText.mainHeading1)}<span className="text-primary">{t(pageText.mainHeading2)}</span>
             </h1>
             <p className="max-w-[700px] text-lg text-muted-foreground sm:text-xl">
               {t(pageText.subheading)}
             </p>
+            <div className="mt-6 flex gap-4">
+                <Button size="lg" asChild>
+                <Link href="/register">{t(pageText.startButton)}</Link>
+                </Button>
+                <Button size="lg" variant="outline" asChild>
+                <Link href="/login">{t(pageText.haveAccountButton)}</Link>
+                </Button>
+            </div>
           </div>
-          <div className="mx-auto mt-6 flex gap-4">
-            <Button size="lg" asChild>
-              <Link href="/register">{t(pageText.startButton)}</Link>
-            </Button>
-            <Button size="lg" variant="outline" asChild>
-              <Link href="/login">{t(pageText.haveAccountButton)}</Link>
-            </Button>
+          <div className="flex items-center justify-center md:justify-end row-start-1 md:col-start-2 md:row-start-auto">
+            {/* Panda will use theme colors for black/white */}
+            <EightBitPanda className="w-[160px] h-[180px] md:w-[200px] md:h-[225px] lg:w-[240px] lg:h-[270px] text-foreground dark:text-foreground" />
           </div>
         </section>
 
