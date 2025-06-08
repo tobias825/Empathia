@@ -1,20 +1,16 @@
 
 import type { Metadata } from 'next';
-import { Geist, Geist_Mono } from 'next/font/google';
+import { Quicksand } from 'next/font/google'; // Changed from Geist
 import './globals.css';
 import { Toaster } from '@/components/ui/toaster';
 import { SidebarProvider } from '@/components/ui/sidebar';
 import { LanguageProvider } from '@/contexts/LanguageContext';
 import { ThemeProvider } from '@/contexts/ThemeContext';
 
-const geistSans = Geist({
-  variable: '--font-geist-sans',
+const quicksand = Quicksand({ // Changed from geistSans and geistMono
+  variable: '--font-quicksand',
   subsets: ['latin'],
-});
-
-const geistMono = Geist_Mono({
-  variable: '--font-geist-mono',
-  subsets: ['latin'],
+  weight: ['700'], // For Bold
 });
 
 export const metadata: Metadata = {
@@ -29,7 +25,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es" className="light"> 
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+      <body className={`${quicksand.variable} antialiased`}> {/* Use Quicksand variable */}
         <ThemeProvider>
           <LanguageProvider>
             <SidebarProvider>
