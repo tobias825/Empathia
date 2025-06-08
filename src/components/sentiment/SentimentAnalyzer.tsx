@@ -22,8 +22,8 @@ import {
 } from "@/components/ui/alert-dialog";
 import { useLanguage } from '@/contexts/LanguageContext';
 
-const CHAT_HISTORY_KEY = 'empathia_ai_chat_history'; // Keeping key for compatibility if users have old data
-const SENTIMENT_HISTORY_KEY = 'empathia_ai_sentiment_history'; // New key for new name
+const CHAT_HISTORY_KEY = 'empathia_ai_chat_history'; 
+const SENTIMENT_HISTORY_KEY = 'empathia_ai_sentiment_history'; 
 
 export function SentimentAnalyzer() {
   const [analysisResult, setAnalysisResult] = useState<SentimentResult | null>(null);
@@ -31,7 +31,7 @@ export function SentimentAnalyzer() {
   const [isLoading, setIsLoading] = useState(false);
   const [chatSummaryForDisplay, setChatSummaryForDisplay] = useState<string>("");
   const { toast } = useToast();
-  const { language, t } = useLanguage(); // Destructure language here
+  const { language, t } = useLanguage(); 
 
   const translations = {
     noChatHistoryTitle: { es: 'No Hay Historial de Chat', en: 'No Chat History' },
@@ -104,12 +104,15 @@ export function SentimentAnalyzer() {
 
     const fullChatText = chatMessages.map(msg => `${msg.role}: ${msg.content}`).join('\n');
     const summary = chatMessages.length > 1 
-        ? `${t({es: 'De', en: 'From'})}: "${chatMessages[0].content.substring(0,50)}..." ${t({es: 'a', en: 'to'})} "${chatMessages[chatMessages.length - 1].content.substring(0,50)}..."`
+        ? `${t({es: 'De', en: 'From'})}: "${chatMessages[0].content.substring(0,50)}..." ${t({es: 'a', en: 'to'})}: "${chatMessages[chatMessages.length - 1].content.substring(0,50)}..."`
         : `"${chatMessages[0].content.substring(0,100)}..."`;
     setChatSummaryForDisplay(summary);
 
     try {
-      const result = await analyzeSentiment({ chatHistory: fullChatText });
+      const result = await analyzeSentiment({ 
+        chatHistory: fullChatText,
+        language: language // Pass the current language
+      });
       const newAnalysis: SentimentResult = {
         id: `sentiment-${Date.now()}`,
         timestamp: new Date(),
@@ -150,9 +153,9 @@ export function SentimentAnalyzer() {
   };
 
   const getSentimentColor = (score: number) => {
-    if (score > 0.3) return 'text-green-600';
-    if (score < -0.3) return 'text-red-600';
-    return 'text-yellow-600';
+    if (score > 0.3) return 'text-green-600 dark:text-green-400';
+    if (score < -0.3) return 'text-red-600 dark:text-red-400';
+    return 'text-yellow-600 dark:text-yellow-400';
   };
 
   return (
@@ -175,7 +178,7 @@ export function SentimentAnalyzer() {
             </div>
           )}
           {!isLoading && analysisResult && (
-            <div className="space-y-3 p-4 bg-secondary/30 rounded-lg">
+            <div className="space-y-3 p-4 bg-muted/30 dark:bg-muted/20 rounded-lg">
               <p className="text-sm text-muted-foreground">
                 {t(translations.analysisOfChat)} ({new Date(analysisResult.timestamp).toLocaleString(language)}): <span className="italic">{chatSummaryForDisplay}</span>
               </p>
@@ -248,7 +251,7 @@ export function SentimentAnalyzer() {
                 {analysisHistory.map((item) => (
                   <li key={item.id}
                       onClick={() => loadAnalysisFromHistory(item)}
-                      className="p-3 border rounded-lg hover:bg-accent/50 cursor-pointer transition-colors"
+                      className="p-3 border rounded-lg hover:bg-accent/20 dark:hover:bg-accent/10 cursor-pointer transition-colors"
                   >
                     <div className="flex justify-between items-center">
                         <span className={`font-semibold ${getSentimentColor(item.sentimentScore)}`}>{item.sentimentLabel} ({item.sentimentScore.toFixed(2)})</span>
@@ -267,3 +270,4 @@ export function SentimentAnalyzer() {
     </div>
   );
 }
+
