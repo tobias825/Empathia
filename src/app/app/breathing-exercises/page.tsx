@@ -4,7 +4,7 @@
 import React from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Wind, Square, Repeat, Dot, Activity } from 'lucide-react'; // Changed Lung to Activity, removed Waves
+import { Wind, Square, Repeat, Dot, Activity, Anchor } from 'lucide-react'; 
 
 interface BreathingExercise {
   id: string;
@@ -12,7 +12,7 @@ interface BreathingExercise {
   description: { es: string; en: string };
   steps: { es: string[]; en: string[] };
   icon: React.ElementType;
-  iconColor?: string; // Optional: for specific icon styling if needed
+  iconColor?: string; 
 }
 
 const exercises: BreathingExercise[] = [
@@ -95,6 +95,38 @@ const exercises: BreathingExercise[] = [
     },
     icon: Activity, 
     iconColor: 'text-teal-500',
+  },
+  {
+    id: 'grounding-breath-527',
+    title: { es: 'Respiración de Anclaje (5-2-7)', en: 'Grounding Breath (5-2-7)' },
+    description: {
+      es: 'Especialmente útil durante ataques de ansiedad. La exhalación prolongada ayuda a calmar el sistema nervioso.',
+      en: 'Especially helpful during anxiety attacks. The prolonged exhale helps calm the nervous system.',
+    },
+    steps: {
+      es: [
+        'Encuentra una posición cómoda, sentado o de pie.',
+        'Si es posible, cierra los ojos o baja la mirada.',
+        'Inhala lentamente por la nariz contando hasta 5, sintiendo cómo el aire llena tus pulmones.',
+        'Mantén la respiración suavemente contando hasta 2.',
+        'Exhala muy lentamente por la boca (como si soplaras a través de una pajita) contando hasta 7, dejando que toda la tensión salga con el aire.',
+        'Haz una pausa breve antes de la siguiente inhalación.',
+        'Repite este ciclo de 5 a 10 veces, o hasta que sientas más calma.',
+        'Concéntrate en la sensación del aire y el conteo para anclarte en el presente.',
+      ],
+      en: [
+        'Find a comfortable position, sitting or standing.',
+        'If possible, close your eyes or lower your gaze.',
+        'Inhale slowly through your nose for a count of 5, feeling the air fill your lungs.',
+        'Hold your breath gently for a count of 2.',
+        'Exhale very slowly through your mouth (as if blowing through a straw) for a count of 7, letting all tension release with the air.',
+        'Pause briefly before the next inhalation.',
+        'Repeat this cycle 5 to 10 times, or until you feel calmer.',
+        'Focus on the sensation of the air and the count to ground yourself in the present.',
+      ],
+    },
+    icon: Anchor, 
+    iconColor: 'text-purple-500',
   },
 ];
 
