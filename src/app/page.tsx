@@ -5,8 +5,7 @@ import { Button } from '@/components/ui/button';
 import Logo from '@/components/Logo';
 import { MessageCircle, TrendingUp, HeartHandshake, Smile } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
-import EightBitPanda from '@/components/decorative/EightBitPanda'; // Import the panda
-
+import Image from 'next/image'; // Restored Image import
 
 const StickFiguresHoldingHands = () => (
   <svg width="180" height="70" viewBox="0 0 180 70" xmlns="http://www.w3.org/2000/svg" className="text-primary/70 dark:text-primary/60 group-hover:text-primary transition-colors duration-300">
@@ -106,7 +105,8 @@ export default function HomePage() {
       es: "Construido con cuidado. Tu bienestar emocional es nuestra prioridad.",
       en: "Built with care. Your emotional well-being is our priority."
     },
-    footerCopyright: { es: "© {year} Empathia", en: "© {year} Empathia" }
+    footerCopyright: { es: "© {year} Empathia", en: "© {year} Empathia" },
+    pandaAlt: { es: "Imagen de un adorable panda", en: "Image of an adorable panda" }
   };
 
   return (
@@ -147,9 +147,16 @@ export default function HomePage() {
                 </Button>
             </div>
           </div>
-          <div className="flex items-center justify-center md:justify-end row-start-1 md:col-start-2 md:row-start-auto">
-            {/* Panda will use theme colors for black/white */}
-            <EightBitPanda className="w-[160px] h-[180px] md:w-[200px] md:h-[225px] lg:w-[240px] lg:h-[270px] text-foreground dark:text-foreground" />
+          <div className="flex items-center justify-center md:justify-end row-start-1 md:col-start-2 md:row-start-auto p-4 md:p-0">
+            <Image
+              src="https://placehold.co/240x270.png" 
+              alt={t(pageText.pandaAlt)}
+              width={240}
+              height={270}
+              className="rounded-lg shadow-lg object-cover w-[160px] h-[180px] md:w-[200px] md:h-[225px] lg:w-[240px] lg:h-[270px]"
+              data-ai-hint="panda illustration" 
+              priority 
+            />
           </div>
         </section>
 
@@ -225,3 +232,5 @@ export default function HomePage() {
     </div>
   );
 }
+
+    
