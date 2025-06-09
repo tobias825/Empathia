@@ -11,11 +11,16 @@ import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Separator } from "@/components/ui/separator"
-import { Sheet, SheetContent as SheetContentPrimitive } from "@/components/ui/sheet" // Renamed to avoid conflict
+import { 
+  Sheet, 
+  SheetContent as SheetContentPrimitive, 
+  SheetHeader, // Added import
+  SheetTitle   // Added import
+} from "@/components/ui/sheet" 
 import { Skeleton } from "@/components/ui/skeleton"
 import {
   Tooltip,
-  TooltipContent as TooltipContentPrimitive, // Renamed to avoid conflict
+  TooltipContent as TooltipContentPrimitive, 
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip"
@@ -207,6 +212,9 @@ const Sidebar = React.forwardRef<
             }
             side={side}
           >
+            <SheetHeader className="sr-only">
+              <SheetTitle>Main Navigation</SheetTitle>
+            </SheetHeader>
             <div className="flex h-full w-full flex-col">{children}</div>
           </SheetContentPrimitive>
         </Sheet>
