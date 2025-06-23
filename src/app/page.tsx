@@ -1,4 +1,3 @@
-
 "use client";
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
@@ -111,11 +110,11 @@ export default function HomePage() {
   return (
     <div className="flex flex-col min-h-screen bg-background">
       <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <div className="container flex h-14 max-w-screen-2xl items-center">
+        <div className="container mx-auto flex h-14 max-w-screen-2xl items-center">
           <div className="flex-1">
             <Logo />
           </div>
-          <nav className="flex items-center gap-4">
+          <nav className="flex items-center justify-center gap-4">
             <Button variant="ghost" asChild>
               <Link href="/login">{t(pageText.headerLogin)}</Link>
             </Button>
@@ -128,27 +127,29 @@ export default function HomePage() {
       </header>
 
       <main className="flex-1">
-        <section className="container flex flex-col items-center justify-center text-center py-16 md:py-24">
-          <div className="flex flex-col items-center gap-4">
-            <h1 className="text-4xl font-extrabold leading-tight tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl text-foreground">
-              {t(pageText.mainHeading1)}<span className="text-primary">{t(pageText.mainHeading2)}</span>
-            </h1>
-            <p className="max-w-[700px] text-lg text-muted-foreground sm:text-xl">
-              {t(pageText.subheading)}
-            </p>
-            <div className="mt-6 flex flex-col sm:flex-row gap-4">
-                <Button size="lg" asChild>
-                <Link href="/register">{t(pageText.startButton)}</Link>
-                </Button>
-                <Button size="lg" variant="outline" asChild>
-                <Link href="/login">{t(pageText.haveAccountButton)}</Link>
-                </Button>
+        <section className="w-full py-16 md:py-24">
+           <div className="container mx-auto px-4 md:px-6">
+            <div className="flex flex-col items-center gap-4 text-center">
+                <h1 className="text-4xl font-extrabold leading-tight tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl text-foreground">
+                {t(pageText.mainHeading1)}<span className="text-primary">{t(pageText.mainHeading2)}</span>
+                </h1>
+                <p className="max-w-[700px] text-lg text-muted-foreground sm:text-xl">
+                {t(pageText.subheading)}
+                </p>
+                <div className="mt-6 flex flex-col sm:flex-row gap-4">
+                    <Button size="lg" asChild>
+                    <Link href="/register">{t(pageText.startButton)}</Link>
+                    </Button>
+                    <Button size="lg" variant="outline" asChild>
+                    <Link href="/login">{t(pageText.haveAccountButton)}</Link>
+                    </Button>
+                </div>
             </div>
-          </div>
+           </div>
         </section>
 
         <section className="py-12 bg-secondary/30">
-          <div className="container">
+          <div className="container mx-auto">
             <h2 className="mb-10 text-center text-3xl font-bold text-foreground">{t(pageText.featuresHeading)}</h2>
             <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
               <div className="flex flex-col items-center text-center p-6 bg-card rounded-lg shadow-md hover:shadow-xl transition-shadow">
@@ -177,7 +178,7 @@ export default function HomePage() {
         </section>
 
         <section className="py-16 bg-background">
-          <div className="container text-center">
+          <div className="container mx-auto text-center">
             <h2 className="mb-6 text-3xl font-bold text-foreground">
               {t(pageText.comfortSectionHeading1)}<span className="text-primary">{t(pageText.comfortSectionHeading2)}</span>
             </h2>
@@ -207,7 +208,7 @@ export default function HomePage() {
       </main>
 
       <footer className="py-6 md:px-8 md:py-0 bg-background border-t">
-        <div className="container flex flex-col items-center justify-between gap-4 md:h-20 md:flex-row">
+        <div className="container mx-auto flex flex-col items-center justify-between gap-4 md:h-20 md:flex-row">
           <p className="text-balance text-center text-sm leading-loose text-muted-foreground md:text-left">
             {t(pageText.footerBuiltWithCare)}
           </p>
