@@ -20,6 +20,7 @@ const ChatMessageSchema = z.object({
 const EmotionalSupportChatInputSchema = z.object({
   message: z.string().describe('The message from the user.'),
   chatHistory: z.array(ChatMessageSchema).optional().describe('The chat history between the user and the AI.'),
+  language: z.enum(['es', 'en']).describe('The language for the AI response.'),
 });
 export type EmotionalSupportChatInput = z.infer<typeof EmotionalSupportChatInputSchema>;
 
@@ -32,9 +33,17 @@ export async function emotionalSupportChat(input: EmotionalSupportChatInput): Pr
   return emotionalSupportChatFlow(input);
 }
 
+// Internal schema to include the full language name for the prompt
+const InternalPromptInputSchema = z.object({
+    message: z.string(),
+    chatHistory: z.array(ChatMessageSchema).optional(),
+    outputLanguageName: z.string().describe('The full name of the language for the AI response, e.g., "Spanish".'),
+});
+
+
 const prompt = ai.definePrompt({
   name: 'emotionalSupportChatPrompt',
-  input: {schema: EmotionalSupportChatInputSchema},
+  input: {schema: InternalPromptInputSchema},
   output: {schema: EmotionalSupportChatOutputSchema},
   prompt: `You are Empathia, an AI assistant for mental well-being. Your primary role is to provide a professional, objective, and supportive space for the user to explore their thoughts and emotions.
 As an AI, you do not experience emotions. Your responses are based on an analytical understanding of human psychology and designed to offer constructive support.
@@ -42,6 +51,8 @@ Listen attentively to the user. Validate their expressed feelings from a neutral
 Your tone must be strictly professional and clinical. Avoid any language that could be interpreted as personal affection, warmth, or sharing of simulated emotions. Do not use terms of endearment or overly sentimental expressions.
 Maintain your identity as an AI assistant.
 Your goal is to help the user gain clarity regarding their emotional state and to offer potential coping strategies or perspectives for consideration, always within the bounds of a supportive, non-judgmental AI.
+
+IMPORTANT: You must provide your response in {{{outputLanguageName}}}.
 
 Here's the chat history so far:
 {{#each chatHistory}}
@@ -61,16 +72,20 @@ const emotionalSupportChatFlow = ai.defineFlow(
     outputSchema: EmotionalSupportChatOutputSchema,
   },
   async (input) => {
+    const outputLanguageName = input.language === 'es' ? 'Spanish' : 'English';
+
     const processedChatHistory = input.chatHistory?.map(msg => ({
       ...msg,
       isUser: msg.role === 'user',
     }));
 
-    const {output} = await prompt({
+    const promptPayload = {
       message: input.message,
       chatHistory: processedChatHistory,
-    });
+      outputLanguageName: outputLanguageName,
+    };
+
+    const {output} = await prompt(promptPayload);
     return output!;
   }
 );
-

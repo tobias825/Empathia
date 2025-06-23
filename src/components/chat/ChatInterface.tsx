@@ -144,6 +144,7 @@ export function ChatInterface() {
       const aiResponse = await emotionalSupportChat({
         message: newUserMessage.content,
         chatHistory: chatHistoryForAI,
+        language: language,
       });
 
       const newAiMessage: ChatMessageType = {
