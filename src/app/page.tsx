@@ -111,11 +111,11 @@ export default function HomePage() {
   return (
     <div className="flex flex-col min-h-screen bg-background">
       <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <div className="container grid grid-cols-3 h-14 max-w-screen-2xl items-center">
-          <div className="justify-self-start">
+        <div className="container flex h-14 max-w-screen-2xl items-center">
+          <div className="flex-1">
             <Logo />
           </div>
-          <nav className="flex justify-center items-center gap-4">
+          <nav className="flex items-center gap-4">
             <Button variant="ghost" asChild>
               <Link href="/login">{t(pageText.headerLogin)}</Link>
             </Button>
@@ -123,8 +123,7 @@ export default function HomePage() {
               <Link href="/register">{t(pageText.headerRegister)}</Link>
             </Button>
           </nav>
-          <div className="justify-self-end"> {/* Empty div for spacing, or could hold other items if needed */}
-          </div>
+          <div className="flex-1" />
         </div>
       </header>
 
