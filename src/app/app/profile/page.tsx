@@ -187,16 +187,6 @@ export default function ProfilePage() {
                 {t(pageText.editProfile)}
             </h3>
             <div className="flex flex-col gap-4 w-full">
-                <Button 
-                  variant="outline" 
-                  className="w-full justify-start text-left" 
-                   onClick={() => { /* Functionality to be added if needed */ }}
-                   disabled // Keeping password change disabled for now as it's more complex
-                >
-                    <LockKeyhole className="mr-2 h-4 w-4"/>
-                    {t(pageText.changePassword)} (Próximamente)
-                </Button>
-
                 <AlertDialog open={isNameDialogOpen} onOpenChange={setIsNameDialogOpen}>
                     <AlertDialogTrigger asChild>
                         <Button variant="outline" className="w-full justify-start text-left">
