@@ -21,7 +21,6 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { useLanguage } from '@/contexts/LanguageContext';
-import { FlowRunner } from '@genkit-ai/next/client';
 
 const CHAT_HISTORY_KEY = 'empathia_ai_chat_history'; 
 const SENTIMENT_HISTORY_KEY = 'empathia_ai_sentiment_history'; 
@@ -33,11 +32,6 @@ export function SentimentAnalyzer() {
   const [chatSummaryForDisplay, setChatSummaryForDisplay] = useState<string>("");
   const { toast } = useToast();
   const { language, t } = useLanguage(); 
-
-  const analyzeSentimentFlow = useRef(new FlowRunner<typeof AnalyzeSentimentInput>({
-    name: 'analyzeSentimentFlow',
-    baseUrl: '/api/genkit'
-  })).current;
 
   const translations = {
     noChatHistoryTitle: { es: 'No Hay Historial de Chat', en: 'No Chat History' },
@@ -115,10 +109,26 @@ export function SentimentAnalyzer() {
     setChatSummaryForDisplay(summary);
 
     try {
-      const result = await analyzeSentimentFlow.run({ 
-        chatHistory: fullChatText,
-        language: language // Pass the current language
+      const requestBody = {
+        input: {
+          chatHistory: fullChatText,
+          language: language,
+        }
+      };
+
+      const response = await fetch('/api/genkit/analyzeSentimentFlow', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(requestBody),
       });
+
+      if (!response.ok) {
+        throw new Error(`API request failed with status ${response.status}`);
+      }
+
+      const result = await response.json();
       const newAnalysis: SentimentResult = {
         id: `sentiment-${Date.now()}`,
         timestamp: new Date(),

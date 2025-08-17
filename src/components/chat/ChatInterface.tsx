@@ -11,7 +11,6 @@ import { SendHorizonal, Loader2, Mic, Square } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { useLanguage } from '@/contexts/LanguageContext';
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { FlowRunner } from '@genkit-ai/next/client';
 
 const CHAT_HISTORY_KEY = 'empathia_ai_chat_history';
 
@@ -44,12 +43,6 @@ export function ChatInterface() {
 
   const [animatingMessageId, setAnimatingMessageId] = useState<string | null>(null);
   
-  const emotionalSupportChatFlow = useRef(new FlowRunner<typeof EmotionalSupportChatInput>({
-    name: 'emotionalSupportChatFlow',
-    baseUrl: '/api/genkit'
-  })).current;
-
-
   const translations = {
     welcomeMessage: {
       es: "¡Hola! Soy Empathia, tu compañero IA. ¿Cómo te sientes hoy? Siéntete libre de compartir cualquier cosa que tengas en mente.",
@@ -147,11 +140,27 @@ export function ChatInterface() {
           isUser: msg.role === 'user'
         }));
 
-      const aiResponse = await emotionalSupportChatFlow.run({
-        message: newUserMessage.content,
-        chatHistory: chatHistoryForAI,
-        language: language,
+      const requestBody = {
+        input: {
+          message: newUserMessage.content,
+          chatHistory: chatHistoryForAI,
+          language: language,
+        }
+      };
+
+      const response = await fetch('/api/genkit/emotionalSupportChatFlow', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(requestBody),
       });
+
+      if (!response.ok) {
+        throw new Error(`API request failed with status ${response.status}`);
+      }
+
+      const aiResponse = await response.json();
 
       const newAiMessage: ChatMessageType = {
         id: `ai-${Date.now()}`,
@@ -357,7 +366,7 @@ export function ChatInterface() {
       mediaStreamRef.current = null;
       audioContextRef.current = null;
     }
-  }, [isRecording, speechApiSupported, language, t, toast, input, emotionalSupportChatFlow]);
+  }, [isRecording, speechApiSupported, language, t, toast, input]);
 
 
   return (
