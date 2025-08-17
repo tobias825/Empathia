@@ -1,5 +1,3 @@
-
-'use server';
 /**
  * @fileOverview A emotional support AI agent.
  *
@@ -28,10 +26,6 @@ const EmotionalSupportChatOutputSchema = z.object({
   response: z.string().describe('The professional and objective response from the AI.'),
 });
 export type EmotionalSupportChatOutput = z.infer<typeof EmotionalSupportChatOutputSchema>;
-
-export async function emotionalSupportChat(input: EmotionalSupportChatInput): Promise<EmotionalSupportChatOutput> {
-  return emotionalSupportChatFlow(input);
-}
 
 // Internal schema to include the full language name for the prompt
 const InternalPromptInputSchema = z.object({
@@ -65,7 +59,7 @@ User message: {{{message}}}
 Respond as Empathia, the AI mental well-being assistant, offering professional and objective support while strictly maintaining your AI identity and clinical tone.`,
 });
 
-const emotionalSupportChatFlow = ai.defineFlow(
+export const emotionalSupportChatFlow = ai.defineFlow(
   {
     name: 'emotionalSupportChatFlow',
     inputSchema: EmotionalSupportChatInputSchema,

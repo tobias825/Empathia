@@ -1,5 +1,3 @@
-
-'use server';
 /**
  * @fileOverview A sentiment analysis AI agent.
  *
@@ -39,10 +37,6 @@ const AnalyzeSentimentOutputSchema = z.object({
 });
 export type AnalyzeSentimentOutput = z.infer<typeof AnalyzeSentimentOutputSchema>;
 
-export async function analyzeSentiment(input: AnalyzeSentimentInput): Promise<AnalyzeSentimentOutput> {
-  return analyzeSentimentFlow(input);
-}
-
 // Schema for the prompt's direct input, including the resolved language name
 const InternalPromptInputSchema = z.object({
   chatHistory: z.string(),
@@ -67,7 +61,7 @@ const prompt = ai.definePrompt({
 `,
 });
 
-const analyzeSentimentFlow = ai.defineFlow(
+export const analyzeSentimentFlow = ai.defineFlow(
   {
     name: 'analyzeSentimentFlow',
     inputSchema: AnalyzeSentimentInputSchema, // Flow input remains the same
@@ -85,4 +79,3 @@ const analyzeSentimentFlow = ai.defineFlow(
     return output!;
   }
 );
-

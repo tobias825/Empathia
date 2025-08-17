@@ -1,9 +1,9 @@
 
 "use client";
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import type { SentimentResult, ChatMessage } from '@/types';
-import { analyzeSentiment } from '@/ai/flows/sentiment-analysis';
+import type { AnalyzeSentimentInput } from '@/ai/flows/sentiment-analysis';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { ScrollArea } from '@/components/ui/scroll-area';
@@ -21,6 +21,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { useLanguage } from '@/contexts/LanguageContext';
+import { FlowRunner } from '@genkit-ai/next/client';
 
 const CHAT_HISTORY_KEY = 'empathia_ai_chat_history'; 
 const SENTIMENT_HISTORY_KEY = 'empathia_ai_sentiment_history'; 
@@ -32,6 +33,11 @@ export function SentimentAnalyzer() {
   const [chatSummaryForDisplay, setChatSummaryForDisplay] = useState<string>("");
   const { toast } = useToast();
   const { language, t } = useLanguage(); 
+
+  const analyzeSentimentFlow = useRef(new FlowRunner<typeof AnalyzeSentimentInput>({
+    name: 'analyzeSentimentFlow',
+    baseUrl: '/api/genkit'
+  })).current;
 
   const translations = {
     noChatHistoryTitle: { es: 'No Hay Historial de Chat', en: 'No Chat History' },
@@ -109,7 +115,7 @@ export function SentimentAnalyzer() {
     setChatSummaryForDisplay(summary);
 
     try {
-      const result = await analyzeSentiment({ 
+      const result = await analyzeSentimentFlow.run({ 
         chatHistory: fullChatText,
         language: language // Pass the current language
       });
@@ -270,4 +276,3 @@ export function SentimentAnalyzer() {
     </div>
   );
 }
-

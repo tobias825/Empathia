@@ -2,7 +2,7 @@
 "use client";
 
 import type { ChatMessage as ChatMessageType } from '@/types';
-import { emotionalSupportChat, type EmotionalSupportChatInput } from '@/ai/flows/emotional-support-chat';
+import type { EmotionalSupportChatInput } from '@/ai/flows/emotional-support-chat';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
@@ -11,6 +11,7 @@ import { SendHorizonal, Loader2, Mic, Square } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { useLanguage } from '@/contexts/LanguageContext';
 import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { FlowRunner } from '@genkit-ai/next/client';
 
 const CHAT_HISTORY_KEY = 'empathia_ai_chat_history';
 
@@ -42,6 +43,11 @@ export function ChatInterface() {
   const mediaStreamRef = useRef<MediaStream | null>(null);
 
   const [animatingMessageId, setAnimatingMessageId] = useState<string | null>(null);
+  
+  const emotionalSupportChatFlow = useRef(new FlowRunner<typeof EmotionalSupportChatInput>({
+    name: 'emotionalSupportChatFlow',
+    baseUrl: '/api/genkit'
+  })).current;
 
 
   const translations = {
@@ -141,7 +147,7 @@ export function ChatInterface() {
           isUser: msg.role === 'user'
         }));
 
-      const aiResponse = await emotionalSupportChat({
+      const aiResponse = await emotionalSupportChatFlow.run({
         message: newUserMessage.content,
         chatHistory: chatHistoryForAI,
         language: language,
@@ -351,7 +357,7 @@ export function ChatInterface() {
       mediaStreamRef.current = null;
       audioContextRef.current = null;
     }
-  }, [isRecording, speechApiSupported, language, t, toast, input]);
+  }, [isRecording, speechApiSupported, language, t, toast, input, emotionalSupportChatFlow]);
 
 
   return (
