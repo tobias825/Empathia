@@ -24,9 +24,7 @@
     ];
     workspace = {
       onCreate = {
-        default.openFiles = [
-          "src/app/page.tsx"
-        ];
+        default.openFiles = [        ];
       };
     };
     # Enable previews and customize configuration
