@@ -11,6 +11,7 @@ import { SendHorizonal, Loader2, Mic, Square } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { useLanguage } from '@/contexts/LanguageContext';
 import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { emotionalSupportChatFlow } from '@/ai/flows/emotional-support-chat';
 
 const CHAT_HISTORY_KEY = 'empathia_ai_chat_history';
 
@@ -140,27 +141,13 @@ export function ChatInterface() {
           isUser: msg.role === 'user'
         }));
 
-      const requestBody = {
-        input: {
-          message: newUserMessage.content,
-          chatHistory: chatHistoryForAI,
-          language: language,
-        }
+      const requestBody: EmotionalSupportChatInput = {
+        message: newUserMessage.content,
+        chatHistory: chatHistoryForAI,
+        language: language,
       };
 
-      const response = await fetch('/api/genkit/emotionalSupportChatFlow', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(requestBody),
-      });
-
-      if (!response.ok) {
-        throw new Error(`API request failed with status ${response.status}`);
-      }
-
-      const aiResponse = await response.json();
+      const aiResponse = await emotionalSupportChatFlow(requestBody);
 
       const newAiMessage: ChatMessageType = {
         id: `ai-${Date.now()}`,

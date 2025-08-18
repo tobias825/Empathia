@@ -21,6 +21,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { useLanguage } from '@/contexts/LanguageContext';
+import { analyzeSentimentFlow } from '@/ai/flows/sentiment-analysis';
 
 const CHAT_HISTORY_KEY = 'empathia_ai_chat_history'; 
 const SENTIMENT_HISTORY_KEY = 'empathia_ai_sentiment_history'; 
@@ -109,26 +110,13 @@ export function SentimentAnalyzer() {
     setChatSummaryForDisplay(summary);
 
     try {
-      const requestBody = {
-        input: {
-          chatHistory: fullChatText,
-          language: language,
-        }
+      const requestBody: AnalyzeSentimentInput = {
+        chatHistory: fullChatText,
+        language: language,
       };
 
-      const response = await fetch('/api/genkit/analyzeSentimentFlow', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(requestBody),
-      });
+      const result = await analyzeSentimentFlow(requestBody);
 
-      if (!response.ok) {
-        throw new Error(`API request failed with status ${response.status}`);
-      }
-
-      const result = await response.json();
       const newAnalysis: SentimentResult = {
         id: `sentiment-${Date.now()}`,
         timestamp: new Date(),
