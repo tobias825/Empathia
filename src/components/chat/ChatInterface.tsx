@@ -3,6 +3,7 @@
 
 import type { ChatMessage as ChatMessageType } from '@/types';
 import type { EmotionalSupportChatInput, EmotionalSupportChatOutput } from '@/ai/flows/emotional-support-chat';
+import { emotionalSupportChatFlow } from '@/ai/flows/emotional-support-chat';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
@@ -146,17 +147,7 @@ export function ChatInterface() {
         language: language,
       };
 
-      const response = await fetch('/api/genkit/emotionalSupportChatFlow', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({input: requestBody}),
-      });
-
-      if (!response.ok) {
-        throw new Error(`API request failed with status ${response.status}`);
-      }
-
-      const aiResponse: EmotionalSupportChatOutput = await response.json();
+      const aiResponse = await emotionalSupportChatFlow(requestBody);
 
       const newAiMessage: ChatMessageType = {
         id: `ai-${Date.now()}`,

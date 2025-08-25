@@ -4,6 +4,7 @@
 import { useState, useEffect, useRef } from 'react';
 import type { SentimentResult, ChatMessage } from '@/types';
 import type { AnalyzeSentimentInput, AnalyzeSentimentOutput } from '@/ai/flows/sentiment-analysis';
+import { analyzeSentimentFlow } from '@/ai/flows/sentiment-analysis';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { ScrollArea } from '@/components/ui/scroll-area';
@@ -114,17 +115,7 @@ export function SentimentAnalyzer() {
         language: language,
       };
 
-      const response = await fetch('/api/genkit/analyzeSentimentFlow', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({input: requestBody}),
-      });
-
-      if (!response.ok) {
-        throw new Error(`API request failed with status ${response.status}`);
-      }
-
-      const result: AnalyzeSentimentOutput = await response.json();
+      const result = await analyzeSentimentFlow(requestBody);
 
       const newAnalysis: SentimentResult = {
         id: `sentiment-${Date.now()}`,
