@@ -146,12 +146,12 @@ export function ChatInterface() {
         language: language,
       };
 
-      const response = await fetch('/api/genkit/emotionalSupportChatFlow', {
+      const response = await fetch('/api/chat', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ data: requestBody }),
+        body: JSON.stringify(requestBody),
       });
 
       if (!response.ok) {
@@ -423,3 +423,5 @@ export function ChatInterface() {
     </div>
   );
 }
+
+    

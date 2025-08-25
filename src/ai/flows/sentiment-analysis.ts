@@ -1,3 +1,4 @@
+'use server';
 /**
  * @fileOverview A sentiment analysis AI agent.
  *

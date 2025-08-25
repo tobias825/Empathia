@@ -114,12 +114,12 @@ export function SentimentAnalyzer() {
         language: language,
       };
 
-      const response = await fetch('/api/genkit/analyzeSentimentFlow', {
+      const response = await fetch('/api/sentiment', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ data: requestBody }),
+        body: JSON.stringify(requestBody),
       });
 
       if (!response.ok) {
@@ -285,3 +285,5 @@ export function SentimentAnalyzer() {
     </div>
   );
 }
+
+    

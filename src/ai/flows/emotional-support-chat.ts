@@ -1,3 +1,4 @@
+'use server';
 /**
  * @fileOverview A emotional support AI agent.
  *
