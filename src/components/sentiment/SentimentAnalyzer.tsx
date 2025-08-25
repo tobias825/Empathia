@@ -3,7 +3,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import type { SentimentResult, ChatMessage } from '@/types';
-import type { AnalyzeSentimentInput } from '@/ai/flows/sentiment-analysis';
+import type { AnalyzeSentimentInput, AnalyzeSentimentOutput } from '@/ai/flows/sentiment-analysis';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { ScrollArea } from '@/components/ui/scroll-area';
@@ -21,7 +21,6 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { useLanguage } from '@/contexts/LanguageContext';
-import { analyzeSentimentFlow } from '@/ai/flows/sentiment-analysis';
 
 const CHAT_HISTORY_KEY = 'empathia_ai_chat_history'; 
 const SENTIMENT_HISTORY_KEY = 'empathia_ai_sentiment_history'; 
@@ -115,7 +114,17 @@ export function SentimentAnalyzer() {
         language: language,
       };
 
-      const result = await analyzeSentimentFlow(requestBody);
+      const response = await fetch('/api/genkit/analyzeSentimentFlow', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({input: requestBody}),
+      });
+
+      if (!response.ok) {
+        throw new Error(`API request failed with status ${response.status}`);
+      }
+
+      const result: AnalyzeSentimentOutput = await response.json();
 
       const newAnalysis: SentimentResult = {
         id: `sentiment-${Date.now()}`,
