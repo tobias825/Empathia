@@ -38,3 +38,12 @@ export interface QuoteCategory {
   icon?: React.ElementType;
   quotes: MotivationalQuote[];
 }
+
+export interface StudyTechnique {
+  id: string;
+  name: { es: string; en: string };
+  description: { es: string; en: string };
+  example: { es: string; en: string };
+  animation_url?: string;
+  image_hint?: string;
+}

@@ -20,7 +20,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import Logo from '@/components/Logo';
 import { useAuth } from '@/hooks/useAuth.tsx';
-import { MessageSquare, BarChart3, LifeBuoy, LogOut, Settings, UserCircle, Globe, Moon, Sun, User as UserProfileIcon, Quote, Wind } from 'lucide-react';
+import { MessageSquare, BarChart3, LifeBuoy, LogOut, Settings, UserCircle, Globe, Moon, Sun, User as UserProfileIcon, Quote, Wind, BookOpen } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useTheme } from '@/contexts/ThemeContext';
 import {
@@ -44,6 +44,7 @@ export function AppSidebar() {
     { href: '/app/chat', translations: { es: 'Chat', en: 'Chat' }, icon: MessageSquare },
     { href: '/app/quotes', translations: { es: 'Citas Motivacionales', en: 'Motivational Quotes' }, icon: Quote },
     { href: '/app/breathing-exercises', translations: { es: 'Ejercicios de Respiración', en: 'Breathing Exercises' }, icon: Wind },
+    { href: '/app/study-guide', translations: { es: 'Guía de Estudio', en: 'Study Guide' }, icon: BookOpen },
     { href: '/app/sentiment', translations: { es: 'Análisis de Sentimiento', en: 'Sentiment Analysis' }, icon: BarChart3 },
     { href: '/app/resources', translations: { es: 'Recursos', en: 'Resources' }, icon: LifeBuoy },
   ];
