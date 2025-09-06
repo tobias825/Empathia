@@ -15,8 +15,8 @@ export const studyTechniquesData: StudyTechnique[] = [
       es: 'Estudias intensamente por 25 minutos, tomas un descanso de 5 minutos, y repites. Después de cuatro ciclos, tomas un descanso más largo de 15-30 minutos.',
       en: 'You study intensely for 25 minutes, take a 5-minute break, and repeat. After four cycles, you take a longer 15-30 minute break.',
     },
-    animation_url: 'https://placehold.co/600x400/FFF0E6/7D5B4F?text=Pomodoro',
-    image_hint: 'timer clock',
+    animation_url: 'https://picsum.photos/seed/pomodoro/600/400',
+    image_hint: 'hourglass timer',
   },
   {
     id: 'feynman',
@@ -29,7 +29,7 @@ export const studyTechniquesData: StudyTechnique[] = [
       es: 'Después de leer sobre la fotosíntesis, intentas escribir o decir una explicación simple del proceso sin usar jerga técnica. Si te atascas, vuelves a estudiar esa parte.',
       en: 'After reading about photosynthesis, you try to write or say a simple explanation of the process without using technical jargon. If you get stuck, you go back to study that part.',
     },
-    animation_url: 'https://placehold.co/600x400/E6F2FF/4A6E8A?text=Feynman',
+    animation_url: 'https://picsum.photos/seed/feynman/600/400',
     image_hint: 'blackboard equation',
   },
   {
@@ -43,7 +43,7 @@ export const studyTechniquesData: StudyTechnique[] = [
       es: 'Usas tarjetas de memoria (flashcards). Después de aprender una palabra nueva, la revisas al día siguiente, luego en 3 días, luego en una semana, y así sucesivamente.',
       en: 'You use flashcards. After learning a new word, you review it the next day, then in 3 days, then in a week, and so on.',
     },
-    animation_url: 'https://placehold.co/600x400/E6F9F0/4A7C67?text=Repetition',
+    animation_url: 'https://picsum.photos/seed/repetition/600/400',
     image_hint: 'flashcards calendar',
   },
   {
@@ -57,8 +57,8 @@ export const studyTechniquesData: StudyTechnique[] = [
       es: 'Antes de leer un capítulo, hojeas los títulos (Inspeccionar). Conviertes los títulos en preguntas (Preguntar). Lees buscando respuestas (Leer). Resumes en tus propias palabras (Recitar). Repasas tus notas (Revisar).',
       en: 'Before reading a chapter, you skim the headings (Survey). You turn headings into questions (Question). You read looking for answers (Read). You summarize in your own words (Recite). You go over your notes (Review).',
     },
-    animation_url: 'https://placehold.co/600x400/FEF7E0/8C7A4A?text=Reading',
-    image_hint: 'reading book',
+    animation_url: 'https://picsum.photos/seed/reading/600/400',
+    image_hint: 'glowing book',
   },
   {
     id: 'mind-mapping',
@@ -71,7 +71,7 @@ export const studyTechniquesData: StudyTechnique[] = [
       es: 'Pones el tema principal, como "Sistema Solar", en el centro. Luego, dibujas ramas para cada planeta, y de cada planeta salen más ramas con datos clave (lunas, tamaño, etc.).',
       en: 'You put the main topic, like "Solar System," in the center. Then, you draw branches for each planet, and from each planet, more branches with key facts (moons, size, etc.) emerge.',
     },
-    animation_url: 'https://placehold.co/600x400/F0E8FF/7C6E9A?text=Mind+Map',
+    animation_url: 'https://picsum.photos/seed/mindmap/600/400',
     image_hint: 'mind map',
   },
 ];
