@@ -15,8 +15,8 @@ export const studyTechniquesData: StudyTechnique[] = [
       es: 'Estudias intensamente por 25 minutos, tomas un descanso de 5 minutos, y repites. Después de cuatro ciclos, tomas un descanso más largo de 15-30 minutos.',
       en: 'You study intensely for 25 minutes, take a 5-minute break, and repeat. After four cycles, you take a longer 15-30 minute break.',
     },
-    animation_url: 'https://picsum.photos/seed/pomodoro/600/400',
-    image_hint: 'hourglass timer',
+    animation_url: 'https://picsum.photos/seed/glowingbook/600/400',
+    image_hint: 'glowing book',
   },
   {
     id: 'feynman',
@@ -58,7 +58,7 @@ export const studyTechniquesData: StudyTechnique[] = [
       en: 'Before reading a chapter, you skim the headings (Survey). You turn headings into questions (Question). You read looking for answers (Read). You summarize in your own words (Recite). You go over your notes (Review).',
     },
     animation_url: 'https://picsum.photos/seed/reading/600/400',
-    image_hint: 'glowing book',
+    image_hint: 'open book',
   },
   {
     id: 'mind-mapping',
