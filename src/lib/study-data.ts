@@ -29,7 +29,7 @@ export const studyTechniquesData: StudyTechnique[] = [
       es: 'Después de leer sobre la fotosíntesis, intentas escribir o decir una explicación simple del proceso sin usar jerga técnica. Si te atascas, vuelves a estudiar esa parte.',
       en: 'After reading about photosynthesis, you try to write or say a simple explanation of the process without using technical jargon. If you get stuck, you go back to study that part.',
     },
-    animation_url: 'https://picsum.photos/seed/feynman/600/400',
+    animation_url: 'https://media.istockphoto.com/id/647171454/es/foto/estudiando-en-la-noche.jpg?s=612x612&w=0&k=20&c=rteycgpgtDl5N6gmeTX0-MonwSLrma8n6SmeJxpCHKQ=',
     image_hint: 'blackboard equation',
   },
   {
