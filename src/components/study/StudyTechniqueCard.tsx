@@ -2,11 +2,9 @@
 "use client";
 
 import type { StudyTechnique } from '@/types';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { useLanguage } from '@/contexts/LanguageContext';
-import { Lightbulb, BookCopy, ArrowRight } from 'lucide-react';
-import { useToast } from "@/hooks/use-toast";
+import { Lightbulb, BookCopy } from 'lucide-react';
 import Image from 'next/image';
 
 interface StudyTechniqueCardProps {
@@ -15,21 +13,9 @@ interface StudyTechniqueCardProps {
 
 export function StudyTechniqueCard({ technique }: StudyTechniqueCardProps) {
   const { t } = useLanguage();
-  const { toast } = useToast();
 
   const cardText = {
     exampleLabel: { es: "Ejemplo Práctico", en: "Practical Example" },
-    tryTechnique: { es: "Probar Técnica", en: "Try Technique" },
-    comingSoonTitle: { es: "Próximamente", en: "Coming Soon" },
-    comingSoonDesc: { es: "La vista detallada para esta técnica aún no está disponible.", en: "The detailed view for this technique is not yet available." }
-  };
-
-  const handleTryTechnique = () => {
-    // For now, this will show a toast. In the future, it could navigate to a detailed view.
-    toast({
-      title: t(cardText.comingSoonTitle),
-      description: t(cardText.comingSoonDesc),
-    });
   };
 
   return (
@@ -63,12 +49,6 @@ export function StudyTechniqueCard({ technique }: StudyTechniqueCardProps) {
             </p>
         </div>
       </CardContent>
-      <CardFooter>
-        <Button onClick={handleTryTechnique} className="w-full">
-            {t(cardText.tryTechnique)}
-            <ArrowRight className="ml-2 h-4 w-4" />
-        </Button>
-      </CardFooter>
     </Card>
   );
 }
